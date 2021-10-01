@@ -11,25 +11,28 @@
 
 body {
   width: 100%;
+  min-width: 400px;
   background-color: var(--backgroud-color-primary);
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-.wrapper {
-  min-width: 400px;
-  max-width: 1200px;
-  display: flex;
-  justify-content: center;
+.container {
+  max-width: 1000px;
 }
 
-.card {
-  width: 60% !important;
+.card__p {
   background-color: var(--form-color);
+  border: 1px solid black;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .75);
 }
 
-.card {
-  width: 80%;
+.card__c {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  width: 72% !important;
+  height: 500px;
 }
 
 .card-header {
@@ -37,8 +40,7 @@ body {
 }
 
 .card-header img {
-  width: 100%;
-  height: auto;
+  width: 55% !important;
   padding: 10px;
 }
 
@@ -52,11 +54,13 @@ body {
 
 .card form .label__p {
   color: #666666;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 300;
 }
 
 .card form .input__p {
   width: 100%;
+  height: 30px;
 }
 
 .card form .btn__p {
@@ -77,6 +81,30 @@ body {
   font-weight: bold;
 }
 
+.card .card-footer {
+  margin-top: 75px;
+}
+
+/* ************************* NAVBAR ********************************* */
+
+.navbar{
+  width: 100%;
+}
+
+/* .navbar__p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+} */
+
+.navbar-brand img {
+  height: 80px;
+}
+
+.navbar-nav .nav__p {
+  font-size: .82rem;
+}
+
 @media screen and (min-width: 996px) {
   .card{
     width: 100% !important;
@@ -85,11 +113,11 @@ body {
 
 @media screen and (min-width: 768px) {
   form .input__p{
-    width: 30% !important;
+    width: 40% !important;
   }
 
   form .btn__p{
-    width: 30% !important;
+    width: 40% !important;
   }
 
   .card-header img {
