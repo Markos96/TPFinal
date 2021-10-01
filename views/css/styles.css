@@ -1,0 +1,104 @@
+:root {
+  --backgroud-color-primary: #005482;
+  --form-color: #EAEAEA;
+  --text-primary-color: #3E3E3E;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  width: 100%;
+  background-color: var(--backgroud-color-primary);
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  min-width: 400px;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  width: 60% !important;
+  background-color: var(--form-color);
+}
+
+.card {
+  width: 80%;
+}
+
+.card-header {
+  background-color: var(--form-color);
+}
+
+.card-header img {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+
+.card .card-title {
+  color: var(--text-primary-color)!important;
+}
+
+.card .card-body form {
+  margin-top: 1.5rem;
+}
+
+.card form .label__p {
+  color: #666666;
+  font-weight: 700;
+}
+
+.card form .input__p {
+  width: 100%;
+}
+
+.card form .btn__p {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.card .card-footer {
+  background-color: var(--form-color);
+}
+
+.card .card-footer p {
+  font-size: .7rem;
+}
+
+.card .card-footer p span {
+  color: black;
+  font-weight: bold;
+}
+
+@media screen and (min-width: 996px) {
+  .card{
+    width: 100% !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  form .input__p{
+    width: 30% !important;
+  }
+
+  form .btn__p{
+    width: 30% !important;
+  }
+
+  .card-header img {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .card {
+    width: 85% !important;
+  }
+}

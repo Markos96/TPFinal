@@ -8,7 +8,8 @@
 
   <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>all.min.css">
+  <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>styles.css">
 </head>
 
 <body>
-  <div style="min-width: 350px;">
+  <div class="wrapper">
