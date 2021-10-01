@@ -13,7 +13,7 @@
 		private $email;
 		private $phoneNumber;
 		private $active;
-
+		private $rol;
 
 		public function setId($studentId) 
 		{ 
@@ -126,9 +126,13 @@
 		} 
 
 
+		public function setRol($rol){
+			$this->rol = $rol;
+		}
 
-
-
+		public function getRol(){
+			return $this->rol;
+		}
 
 
 }
