@@ -2,7 +2,7 @@
 
   define('ROOT', dirname(__DIR__) . '/');
 
-  define('FRONT_ROOT', '/proyecto_final/');
+  define('FRONT_ROOT', '/TPFinal/');
   define('VIEWS_PATH', 'views/');
 
   define('CSS_PATH', FRONT_ROOT.VIEWS_PATH.'css/');
