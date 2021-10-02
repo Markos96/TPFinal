@@ -14,8 +14,6 @@
 		private $phoneNumber;
 		private $active;
 		private $rol;
-<<<<<<< HEAD
-=======
 
 		public function __construct($careerId,$firstName,$lastName,$dni,$fileNumber,$gender,$birthDate,$email,$phoneNumber,$active,$rol){
 
@@ -32,9 +30,6 @@
 			$this->rol = $rol;
 
 		}
-
-
->>>>>>> main
 
 		public function setId($studentId) 
 		{ 
@@ -151,16 +146,16 @@
 		$this->rol = $rol; 
 		} 
 
-<<<<<<< HEAD
+
 		public function setRol($rol){
 			$this->rol = $rol;
 		}
-=======
+
 		public function getRol() 
 		{ 
 		return $this->rol; 
 		} 
->>>>>>> main
+
 
 		public function getRol(){
 			return $this->rol;

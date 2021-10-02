@@ -1,11 +1,15 @@
 <?php namespace DAO;
+	
 
-	class StudentDAO{
+	class IStudent{
 
+		
 
 
 		
 	}
+
+
 
 
 ?>
