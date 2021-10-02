@@ -26,7 +26,9 @@
 
 
 		public function GetAll(){
-			$this->getDataJson();
+
+			ConnectionAPI::getDataJson();
+			
 			return $this->enterpriseList;
 		}
 

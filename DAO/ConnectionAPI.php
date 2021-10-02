@@ -23,7 +23,7 @@
 			}
 
 
-			public static getDataJson(){
+			public static function getDataJson(){
 				
 				$this->enterpriseList = array();
 
