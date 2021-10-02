@@ -13,6 +13,24 @@
 		private $email;
 		private $phoneNumber;
 		private $active;
+		private $rol;
+
+		public function __construct($careerId,$firstName,$lastName,$dni,$fileNumber,$gender,$birthDate,$email,$phoneNumber,$active,$rol){
+
+			$this->careerId = $careerId;
+			$this->firstName = $firstName;
+			$this->lastName = $lastName;
+			$this->dni = $dni;
+			$this->fileNumber = $fileNumber;
+			$this->gender = $gender;
+			$this->birthDate = $birthDate;
+			$this->email = $email;
+			$this->phoneNumber = $phoneNumber;
+			$this->active = $active;
+			$this->rol = $rol;
+
+		}
+
 
 
 		public function setId($studentId) 
@@ -125,7 +143,15 @@
 		return $this->active; 
 		} 
 
+		public function setRol($rol) 
+		{ 
+		$this->rol = $rol; 
+		} 
 
+		public function getRol() 
+		{ 
+		return $this->rol; 
+		} 
 
 
 
