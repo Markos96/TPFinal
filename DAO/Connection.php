@@ -3,7 +3,7 @@
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
 
-	class ConnectionAPI{
+	class Connection{
 
 			//public static $fileName = dirname(__DIR__)."/Data/enterprise.json";
 
@@ -13,7 +13,7 @@
 
 				curl_setopt($curl,CURLOPT_URL,'https://utn-students-api.herokuapp.com/api/',$url);
 				curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
-				curl_setopt($curl,HTTPHEADER,array('x-api-key: 4f3bceed-50ba-4461-a910-518598664c08'));
+				curl_setopt($curl,CURLOPT_HTTPHEADER,array('x-api-key: 4f3bceed-50ba-4461-a910-518598664c08'));
 
 				$data = curl_exec($curl);
 

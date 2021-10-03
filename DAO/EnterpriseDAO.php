@@ -3,7 +3,7 @@
 
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
-	use DAO\ConnectionAPI as ConnectionAPI;
+	use DAO\Connection as Connection;
 
 	class EnterpriseDAO implements IEnterprise{
 
@@ -11,7 +11,7 @@
 
 		public function add(Enterprise $enterprise){
 
-			$this->enterpriseList = ConnectionAPI::getDataJson(); 
+			$this->enterpriseList = Connection::getDataJson(); 
 
 			array_push($this->enterpriseList,$enterprise);
 
@@ -22,7 +22,7 @@
 
 		public function GetAll(){
 
-			return ConnectionAPI::getDataJson();
+			return Connection::getDataJson();
 			
 		}
 
