@@ -2,8 +2,8 @@
 
   class Request {
 
-    private $controller = 'home';
-    private $method = 'home';
+    private $controller = 'student';
+    private $method = 'index';
     private $parameters = array();
 
     public function __construct() {
