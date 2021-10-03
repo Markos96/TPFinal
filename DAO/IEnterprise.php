@@ -2,9 +2,9 @@
 	
 	use Models\Enterprise as Enterprise;
 
-	class IEnterprise{
+	interface IEnterprise{
 
-		public function Add(Enterprise $enterprise);
+		public function add(Enterprise $enterprise);
 
 		public function GetAll();
 

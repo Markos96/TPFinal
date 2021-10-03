@@ -2,6 +2,8 @@
 
   define('ROOT', dirname(__DIR__) . '/');
 
+  define('fileName', dirname(__DIR__)."/Data/enterprise.json");
+
   define('FRONT_ROOT', '/TPFinal/');
   define('VIEWS_PATH', 'views/');
 

@@ -5,6 +5,7 @@
 
 	class ConnectionAPI{
 
+			//public static $fileName = dirname(__DIR__)."/Data/enterprise.json";
 
 			public static function getDataApi($url){
 
@@ -25,28 +26,30 @@
 
 			public static function getDataJson(){
 				
-				$this->enterpriseList = array();
+				$enterpriseList = array();
 
-				if(file_exists($this->fileName))
+
+
+				if(file_exists(fileName))
 				{
 
-					$jsonContent = file_get_contents($this->fileName);
+					$jsonContent = file_get_contents(fileName);
 
 					$arrayToDecode = ($jsonContent) ? json_decode($jsonContent, true) : array();
 
 					foreach($arrayToDecode as $newArray)
                 {
                     $enterprise = new Enterprise();
-                    $enterprise->setRecordId($newArray["id"]);
+                    $enterprise->setId($newArray["id"]);
                     $enterprise->setFirstName($newArray["firstName"]);
-                    $enterprise->setLastName($newArray["description"]);
+                  
 
-                    array_push($this->enterpriseList, $enterprise);
+                    array_push($enterpriseList, $enterprise);
                 }					
 
 				}
 
-
+				return $enterpriseList;
 
 
 			}

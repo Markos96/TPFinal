@@ -8,15 +8,10 @@
 	class EnterpriseDAO implements IEnterprise{
 
 		private $enterpriseList = array();
-		private $fileName;
 
-		public function __construct(){
-			$this->fileName = dirname(__DIR__)."Data/enterprise.json";
-		}
+		public function add(Enterprise $enterprise){
 
-		public function Add(Enterprise $enterprise){
-
-			$this->getDataJson();
+			$this->enterpriseList = ConnectionAPI::getDataJson(); 
 
 			array_push($this->enterpriseList,$enterprise);
 
@@ -27,15 +22,14 @@
 
 		public function GetAll(){
 
-			ConnectionAPI::getDataJson();
+			return ConnectionAPI::getDataJson();
 			
-			return $this->enterpriseList;
 		}
 
 
 		public function Save(){
-			$arrayToEncode = array();
 
+			$arrayToEncode = array();
 
 			foreach($this->enterpriseList as $enterprise)
 			{
@@ -47,9 +41,8 @@
 
 				$jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
             
-            file_put_contents($this->fileName, $jsonContent);
+            file_put_contents(fileName, $jsonContent);
 			}
-
 
 		}
 
