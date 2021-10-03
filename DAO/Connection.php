@@ -11,7 +11,7 @@
 
 				$curl = curl_init();
 
-				curl_setopt($curl,CURLOPT_URL,'https://utn-students-api.herokuapp.com/api/',$url);
+				curl_setopt($curl,CURLOPT_URL,'https://utn-students-api.herokuapp.com/api/'.$url);
 				curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
 				curl_setopt($curl,CURLOPT_HTTPHEADER,array('x-api-key: 4f3bceed-50ba-4461-a910-518598664c08'));
 

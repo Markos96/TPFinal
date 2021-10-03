@@ -146,24 +146,9 @@
 		$this->rol = $rol; 
 		} 
 
-
-		public function setRol($rol){
-			$this->rol = $rol;
-		}
-
-		public function getRol() 
-		{ 
-		return $this->rol; 
-		} 
-
-
 		public function getRol(){
 			return $this->rol;
 		}
 
 
 }
-
-
-
-?>
