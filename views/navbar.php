@@ -16,10 +16,10 @@ if (isset($_SESSION['loggedUser'])) {
         <div class="collapse navbar-collapse d-flex align-items-end flex-column" id="navbarSupportedContent">
           <ul class="navbar-nav text-center">
             <li class="nav-item">
-              <a class="nav-link active text-dark" aria-current="page" href="<?php echo FRONT_ROOT ?>student/showPrincipalPage">Home</a>
+              <a class="nav-link active text-dark" aria-current="page" href="<?php echo FRONT_ROOT ?>student/index">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-dark" href="<?php echo FRONT_ROOT ?>student/perfil">Perfil</a>
+              <a class="nav-link text-dark" href="<?php echo FRONT_ROOT ?>student/cuenta">Perfil</a>
             </li>
           </ul>
           <ul class="navbar-nav">

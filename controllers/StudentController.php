@@ -29,7 +29,8 @@ class StudentController
 
       if($student) {
         $_SESSION['loggedUser'] = $student;
-        header('Location:/tpfinal/student/index');
+        //header('Location:/tpfinal/student/index');
+        header('Location:' . FRONT_ROOT);
       } else {
         $this->errors = 'Usuario incorrecto, verifique su email';
         $this->index();
@@ -52,6 +53,10 @@ class StudentController
   public function showLogin()
   {
     require_once VIEWS_PATH . 'home.php';
+  }
+
+  public function cuenta() {
+    require_once VIEWS_PATH . 'perfil.php';
   }
 
   private function emailIsValid($email)
