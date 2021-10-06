@@ -25,7 +25,7 @@
       <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
         <h3 class="card-title text-center fs-6 my-3 fw-bolder">Empresas</h3>
         <div class="align-self-center card-body mb-3 card-body__pr">
-          This is some text within a card body.
+          <a href="" class="nav-link text-center text-dark fs-6">Listar Empresas</a>
         </div>
       </div>
     </div>

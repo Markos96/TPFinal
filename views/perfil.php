@@ -1,10 +1,11 @@
 <?php require_once VIEWS_PATH . 'navbar.php'; ?>
 
 <div class="container">
-  <div class="row">
-    <div class="col-12 fs-6 fw-bolder mt-5 p-2 ps-4 text-dark rounded title__pr" style="background-color: #f1f2f6;
+  <div class="row mx-3">
+    <div class="col-12 fs-6 fw-bolder mt-5 p-2 ps-4 text-dark rounded title__pr " style="background-color: #f1f2f6;
 background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0 5px 5px rgba(182, 182, 182, 0.75);
-">Perfil personal</div>
+">Perfil personal
+    </div>
   </div>
   <div class="row">
     <div class="col-2"></div>
