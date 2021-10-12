@@ -141,6 +141,10 @@ background-color: #5b6467;
 background-image: linear-gradient(315deg, #5b6467 0%, #8b939a 74%);
 }
 
+.search__icon {
+  background-color: red;
+}
+
 @media screen and (min-width: 996px) {
   .card{
     width: 100% !important;

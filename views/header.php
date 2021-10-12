@@ -8,6 +8,8 @@
 
   <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>all.min.css">
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" type="text/css" href="<?php echo CSS_PATH ?>styles.css">
 </head>
 

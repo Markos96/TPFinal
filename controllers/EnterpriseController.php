@@ -1,47 +1,88 @@
-<?php namespace Controllers;
+<?php
 
-	use Models\Enterprise as Enterprise;
-	use DAO\EnterpriseDAO as EnterpriseDAO;
+namespace Controllers;
 
-	class EnterpriseController{
+use Models\Enterprise as Enterprise;
+use DAO\EnterpriseDAO as EnterpriseDAO;
+use Models\Student as Student;
 
-		private $EnterpriseDAO;
-		private $listEnterprises = array();
+class EnterpriseController
+{
 
-		public function __construct()
-		{
-			$this->EnterpriseDAO = new EnterpriseDAO;
-		}
+  private $EnterpriseDAO;
+  private $listEnterprises = array();
+  private $pagination = array();
 
-		public function add($id,$firstName,$description){
+  public $eId = "";
+  public $eName = "";
+  public $eDescription = "";
 
-			$empresa = new Enterprise();
-			$empresa->setId($id);
-			$empresa->setFirstName($firstName);
-			$empresa->setDescription($description);
-			$this->EnterpriseDAO->add($empresa);
+  public function __construct()
+  {
+    $this->EnterpriseDAO = new EnterpriseDAO;
+  }
 
-			$this->getAll();
+  public function add($id, $firstName, $description)
+  {
+    $empresa = new Enterprise();
+    $empresa->setFirstName($firstName);
+    $empresa->setDescription($description);
+    $empresa->setIsActive(true);
 
-		}
+    if ($id == null) {
+      $id = strval(time());
+      $empresa->setId($id);
+      $this->EnterpriseDAO->add($empresa);
+    } else {
+      $empresa->setId($id); 
+      $this->EnterpriseDAO->update($empresa);
+    }
+    //$this->index();
+    header("Location:" . FRONT_ROOT . "enterprise");
+  }
 
-		public function getAll(){
+  public function create($id = "", $name = "", $description = "")
+  {
+    $this->eId = $id;
+    $this->eName = $name;
+    $this->eDescription = $description;
 
-			$this->listEnterprises = $this->EnterpriseDAO->GetAll();
-			
-			$this->showEnterprises();
-		}
+    $this->showCreateEnterprise();
+  }
 
-		public function showEnterprises(){
-			require_once VIEWS_PATH . 'enterprises.php';
-		}
+  public function index($page = 0, $name = "")
+  {
 
-		public function showAddEnterprise(){
-			require_once VIEWS_PATH . 'add-enterprises.php';
-		}
+    if ($page != 0) $page -= 1;
 
-	}
+    //if($this->listEnterprises == null) 
+    $this->listEnterprises = $this->EnterpriseDAO->pagination($name);
 
+    if ($this->listEnterprises != null)
+      $this->pagination = $this->listEnterprises[$page];
 
+    $this->showEnterprises();
+  }
 
-?>
+  public function showEnterprises()
+  {
+    require_once VIEWS_PATH . 'navbar.php';
+    require_once VIEWS_PATH . 'enterprises.php';
+  }
+
+  public function showAddEnterprise()
+  {
+    require_once VIEWS_PATH . 'add-enterprises.php';
+  }
+
+  public function showCreateEnterprise()
+  {
+    require_once VIEWS_PATH . 'navbar.php';
+    require_once VIEWS_PATH . 'create-enterprise.php';
+  }
+
+  public function getDAO()
+  {
+    return $this->EnterpriseDAO;
+  }
+}

@@ -8,34 +8,36 @@ class StudentController
 {
 
   private $studentDao;
-  private $errors = '';
 
   public function __construct()
   {
     $this->studentDao = new StudentDAO();
   }
 
-  public function index() {
-    if(isset($_SESSION['loggedUser']))
+  public function index($error = "") {
+    if(isset($_SESSION['loggedUser'])){
+      require_once VIEWS_PATH . 'navbar.php';
       $this->showPrincipalPage();
+    }
     else
-      $this->showLogin();
+      $this->showLogin($error);
   }
 
   public function login($email)
   {
-    if ($this->emailIsValid($email)) {
+    $error = $this->emailIsValid($email);
+    if (!isset($error)) {
       $student = $this->studentDao->getByEmail($email);
 
       if($student) {
         $_SESSION['loggedUser'] = $student;
-        //header('Location:/tpfinal/student/index');
+        $_SESSION["last_login_timestamp"] = time();
         header('Location:' . FRONT_ROOT);
       } else {
-        $this->errors = 'Usuario incorrecto, verifique su email';
-        $this->index();
+        $error = 'Usuario incorrecto, verifique su email';
+        $this->index($error);
       }
-    } else $this->index();
+    } else $this->index($error);
   }
 
   public function logout()
@@ -50,7 +52,7 @@ class StudentController
     require_once VIEWS_PATH . 'principalPage.php';
   }
 
-  public function showLogin()
+  public function showLogin($error = "")
   {
     require_once VIEWS_PATH . 'home.php';
   }
@@ -61,14 +63,12 @@ class StudentController
 
   private function emailIsValid($email)
   {
-    if (trim($email) === '') {
-      $this->errors = 'El campo no puede quedar vacio';
-      return false;
-    } else if (!filter_var($email, FILTER_SANITIZE_EMAIL)) {
-      $this->errors = 'Ingrese un email valido';
-      return false;
+
+    if (trim($email) === "") {
+      return 'El campo no puede quedar vacio';
+    } else if(!preg_match("/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/", $email)) {
+      return "Ingrese un email valido";
     }
 
-    return true;
   }
 }

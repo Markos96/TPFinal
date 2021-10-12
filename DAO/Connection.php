@@ -42,7 +42,8 @@
                     $enterprise = new Enterprise();
                     $enterprise->setId($newArray["id"]);
                     $enterprise->setFirstName($newArray["firstName"]);
-                  
+                    $enterprise->setDescription($newArray["description"]);
+                    $enterprise->setIsActive($newArray["isActive"]);
 
                     array_push($enterpriseList, $enterprise);
                 }					
@@ -56,7 +57,3 @@
 
 
 	}
-
-
-
-?>

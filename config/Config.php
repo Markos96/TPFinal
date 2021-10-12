@@ -4,7 +4,7 @@
 
   define('fileName', dirname(__DIR__)."/Data/enterprise.json");
 
-  define('FRONT_ROOT', '/TPFinal/');
+  define('FRONT_ROOT', "/TPFinal/");
   define('VIEWS_PATH', 'views/');
 
   define('CSS_PATH', FRONT_ROOT.VIEWS_PATH.'css/');

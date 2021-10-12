@@ -1,8 +1,15 @@
 <?php
-if (isset($_SESSION['loggedUser'])) {
+  $student;
+if ((isset($_SESSION['loggedUser']))) {
   $student = $_SESSION['loggedUser'];
-} else header('location:' . FRONT_ROOT . 'student/index');
+
+  if(!((time() - $_SESSION["last_login_timestamp"]) < 900))
+    header("Location:" . FRONT_ROOT . 'student/logout');
+  else $_SESSION["last_login_timestamp"] = time();
+
+} else header('location:' . FRONT_ROOT . 'student/logout');
 ?>
+
 <nav class="navbar navbar-expand-lg navbar__p navbar-light">
   <div class="container-fluid">
     <div class="row d-flex align-items-center">
