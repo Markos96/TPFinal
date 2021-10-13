@@ -7,9 +7,50 @@
     },
     {
         "id": "1634078058",
-        "firstName": "Globant 2",
-        "description": "Empresa donde se realizan muchos proyectos.",
+        "firstName": "Globant",
+        "description": "empresa de ingenier\u00eda de software y tecnolog\u00eda de la informaci\u00f3n originaria de Argentina con sede en Luxemburgo.",
+        "isActive": true
+    },
+    {
+        "id": "1634084818",
+        "firstName": "Infosis",
+        "description": "Somos un gran equipo de j\u00f3venes profesionales trabajando con pasi\u00f3n y persiguiendo los mismos objetivos.",
+        "isActive": true
+    },
+    {
+        "id": "1634084870",
+        "firstName": "Accenture",
+        "description": "Accenture adopta el poder del cambio para crear valor de 360\u00b0 y \u00e9xito compartido para nuestros clientes, personas, accionistas, socios y comunidades.",
+        "isActive": true
+    },
+    {
+        "id": "1634084906",
+        "firstName": "Microsoft",
+        "description": "Compa\u00f1\u00eda tecnol\u00f3gica multinacional con sede en Redmond, Washington, Estados Unidos.",
+        "isActive": true
+    },
+    {
+        "id": "1634084942",
+        "firstName": "Apple",
+        "description": "Empresa estadounidense que dise\u00f1a y produce equipos electr\u00f3nicos, software y servicios en l\u00ednea. Tiene su sede central en el Apple Park.",
+        "isActive": true
+    },
+    {
+        "id": "1634084990",
+        "firstName": "UTN",
+        "description": "Formando profesionales",
+        "isActive": true
+    },
+    {
+        "id": "1634085048",
+        "firstName": "Google",
+        "description": "Organiza la informaci\u00f3n del mundo y hacerla accesible y \u00fatil para todos los usuarios. ",
+        "isActive": true
+    },
+    {
+        "id": "1634085079",
+        "firstName": "LinkedIn",
+        "description": "Es una red social orientada al uso empresarial, a los negocios y al empleo.",
         "isActive": true
     }
-    
 ]
