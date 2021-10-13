@@ -78,17 +78,34 @@
         if($value->getId() == $empresa->getId()) {
           $this->enterpriseList[$enterprise] = $empresa;
           $this->Save();
-          break;
+          return;
+        }
+      }
+      return false;
+    }
+
+    public function deleteEnterprise($id) {
+      $this->enterpriseList = $this->GetAll();
+
+      foreach ($this->enterpriseList as $enterprise => $value) {
+        if($value->getId() == $id){
+          $value->setIsActive(!$value->getIsActive());
+          return $this->update($value);
         }
       }
     }
 
-    public function delete($empresa) {
-
-    }
-
-		public function GetByID(){
-			echo "Aca buscaremos la empresa por ID";
+		public function getById($id){
+      $this->enterpriseList = $this->GetAll();
+      foreach ($this->enterpriseList as $enterprise => $value) {
+        //var_dump($value);
+        echo $value->getId() . '  ';
+        echo $id;
+        echo '<br>';
+        if($value->getId() == $id) {
+          return $value;
+        }
+      }
 		}
 
 

@@ -64,6 +64,17 @@ class EnterpriseController
     $this->showEnterprises();
   }
 
+  public function delete($id) {
+    $this->EnterpriseDAO->deleteEnterprise($id);
+    header("Location:" . FRONT_ROOT . "enterprise");
+  }
+
+  public function getEnterprise ($id = "") {
+    $e = $this->EnterpriseDAO->getById(strval($id));
+    var_dump($e);
+    $this->showOnlyEnterprise($e);
+  }
+
   public function showEnterprises()
   {
     require_once VIEWS_PATH . 'navbar.php';
@@ -79,6 +90,10 @@ class EnterpriseController
   {
     require_once VIEWS_PATH . 'navbar.php';
     require_once VIEWS_PATH . 'create-enterprise.php';
+  }
+
+  public function showOnlyEnterprise($empresa = "") {
+    require_once VIEWS_PATH . 'only-enterprise.php';
   }
 
   public function getDAO()

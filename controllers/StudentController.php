@@ -26,6 +26,7 @@ class StudentController
   public function login($email)
   {
     $error = $this->emailIsValid($email);
+
     if (!isset($error)) {
       $student = $this->studentDao->getByEmail($email);
 

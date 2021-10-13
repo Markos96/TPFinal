@@ -3,6 +3,13 @@
         "id": "1633999089",
         "firstName": "IBM",
         "description": "Crea nuevos puestos de trabajo para todos.",
+        "isActive": false
+    },
+    {
+        "id": "1634078058",
+        "firstName": "Globant 2",
+        "description": "Empresa donde se realizan muchos proyectos.",
         "isActive": true
     }
+    
 ]

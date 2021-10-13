@@ -10,7 +10,7 @@
 
 		public function Save();
 
-		public function GetByID();
+		public function getById($id);
 
 
 
