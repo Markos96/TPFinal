@@ -71,7 +71,6 @@ class EnterpriseController
 
   public function getEnterprise ($id = "") {
     $e = $this->EnterpriseDAO->getById(strval($id));
-    var_dump($e);
     $this->showOnlyEnterprise($e);
   }
 
