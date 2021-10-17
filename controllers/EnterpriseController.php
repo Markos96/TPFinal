@@ -2,16 +2,14 @@
 
 namespace Controllers;
 
-use Models\Enterprise as Enterprise;
 use DAO\EnterpriseDAO as EnterpriseDAO;
-use Models\Student as Student;
+use Models\Enterprise as Enterprise;
+use Models\Session as Session;
 
 class EnterpriseController
 {
 
   private $EnterpriseDAO;
-  private $listEnterprises = array();
-  private $pagination = array();
 
   public $eId = "";
   public $eName = "";
@@ -19,84 +17,125 @@ class EnterpriseController
 
   public function __construct()
   {
-    $this->EnterpriseDAO = new EnterpriseDAO;
+    $this->EnterpriseDAO = new EnterpriseDAO();
   }
 
-  public function add($id, $firstName, $description)
-  {
-    $empresa = new Enterprise();
-    $empresa->setFirstName($firstName);
-    $empresa->setDescription($description);
-    $empresa->setIsActive(true);
+  public function index() {
 
-    if ($id == null) {
-      $id = strval(time());
-      $empresa->setId($id);
-      $this->EnterpriseDAO->add($empresa);
+    if ( Session::isActive() ) {
+      $this->showIndex();
     } else {
-      $empresa->setId($id); 
-      $this->EnterpriseDAO->update($empresa);
+      $this->relocationHome();
     }
-    //$this->index();
-    header("Location:" . FRONT_ROOT . "enterprise");
   }
 
-  public function create($id = "", $name = "", $description = "")
-  {
-    $this->eId = $id;
-    $this->eName = $name;
-    $this->eDescription = $description;
-
-    $this->showCreateEnterprise();
+  public function description( $id = "" ) {
+    if ( Session::isActive() ) {
+      $this->showOnlyEnterprise( $id );
+    } else {
+      $this->relocationHome();
+    }
   }
 
-  public function index($page = 0, $name = "")
-  {
+  public function add( $id, $firstName, $description ) {
 
-    if ($page != 0) $page -= 1;
+    // falta validacion de datos.....
 
-    //if($this->listEnterprises == null) 
-    $this->listEnterprises = $this->EnterpriseDAO->pagination($name);
+    $enterprise = new Enterprise();
+    $enterprise->setFirstName( $firstName );
+    $enterprise->setDescription( $description );
+    $enterprise->setIsActive( true );
 
-    if ($this->listEnterprises != null)
-      $this->pagination = $this->listEnterprises[$page];
+    if ( $id == null ) {
+      $enterprise->setId( strval( time() ) );
+      $this->EnterpriseDAO->add( $enterprise );
+    } else {
+      $enterprise->setId( $id );
+      $this->EnterpriseDAO->update( $enterprise );
+    }
 
-    $this->showEnterprises();
+    $this->relocationEnterprise();
+    //header( "Location:" . FRONT_ROOT . "enterprise" );
   }
 
-  public function delete($id) {
-    $this->EnterpriseDAO->deleteEnterprise($id);
-    header("Location:" . FRONT_ROOT . "enterprise");
+  public function create() {
+    if ( Session::isActive() ) {
+      $this->showCreateEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+
   }
 
-  public function getEnterprise ($id = "") {
-    $e = $this->EnterpriseDAO->getById(strval($id));
-    $this->showOnlyEnterprise($e);
+  public function update( $id = "" ) {
+    if ( Session::isActive() ) {
+      $this->showUpdateEnterprise( $this->EnterpriseDAO->getById( $id ) );
+    } else {
+      $this->relocationHome();
+    }
+
   }
 
-  public function showEnterprises()
-  {
+  public function delete( $id = "" ) {
+    if ( Session::isActive() ) {
+      $this->EnterpriseDAO->deleteEnterprise( $id );
+      $this->relocationEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+
+  }
+
+  public function showNavbar( $student = "" ) {
     require_once VIEWS_PATH . 'navbar.php';
+  }
+
+  public function showEnterprises( $student = "", $enterprises = "" ) {
     require_once VIEWS_PATH . 'enterprises.php';
   }
 
-  public function showAddEnterprise()
-  {
+  public function showFormEnterprise( $enterprise = "" ) {
+    require_once VIEWS_PATH . 'form-enterprise.php';
+  }
+
+  public function showAddEnterprise() {
     require_once VIEWS_PATH . 'add-enterprises.php';
   }
 
-  public function showCreateEnterprise()
-  {
-    require_once VIEWS_PATH . 'navbar.php';
-    require_once VIEWS_PATH . 'create-enterprise.php';
+  public function showMoreInfo( $enterprise = "" ) {
+    require_once VIEWS_PATH . 'only-enterprise.php';
   }
 
-  public function showOnlyEnterprise($empresa = "") {
-    require_once VIEWS_PATH . 'only-enterprise.php';
+  public function showIndex() {
+    $this->showNavbar( Session::getCurrentUser() );
+    $this->showEnterprises( Session::getCurrentUser(), $this->EnterpriseDAO->GetAll() );
+  }
+
+  public function showOnlyEnterprise( $id = "" ) {
+    $this->showNavbar( Session::getCurrentUser() );
+    $this->showMoreInfo( $this->EnterpriseDAO->getById( $id ) );
+  }
+
+  public function showCreateEnterprise() {
+    $this->showNavbar( Session::getCurrentUser() );
+    $this->showFormEnterprise( null );
+  }
+
+  public function showUpdateEnterprise( $enterprise = "" ) {
+    $this->showNavbar( Session::getCurrentUser() );
+    $this->showFormEnterprise( $enterprise );
   }
 
   public function getDAO()
   {
     return $this->EnterpriseDAO;
+  }
+
+  private function relocationHome() {
+    header( "Location:" . FRONT_ROOT );
+  }
+
+  private function relocationEnterprise() {
+    header( "Location: " . FRONT_ROOT . "enterprise" );
   }
 }

@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use DAO\StudentDAO as StudentDAO;
+use Models\Session as Session;
 
 class StudentController
 {
@@ -14,13 +15,12 @@ class StudentController
     $this->studentDao = new StudentDAO();
   }
 
-  public function index($error = "") {
-    if(isset($_SESSION['loggedUser'])){
-      require_once VIEWS_PATH . 'navbar.php';
-      $this->showPrincipalPage();
+  public function index( $error = "" ) {
+    if ( Session::isActive() ) {
+      $this->home();
+    } else {
+      $this->showLogin( $error );
     }
-    else
-      $this->showLogin($error);
   }
 
   public function login($email)
@@ -30,10 +30,9 @@ class StudentController
     if (!isset($error)) {
       $student = $this->studentDao->getByEmail($email);
 
-      if($student) {
-        $_SESSION['loggedUser'] = $student;
-        $_SESSION["last_login_timestamp"] = time();
-        header('Location:' . FRONT_ROOT);
+      if ( $student ) {
+        Session::setCurrentUser( $student );
+        header( 'Location:' . FRONT_ROOT . 'student/home' );
       } else {
         $error = 'Usuario incorrecto, verifique su email';
         $this->index($error);
@@ -41,11 +40,13 @@ class StudentController
     } else $this->index($error);
   }
 
-  public function logout()
-  {
-    session_unset();
-    session_destroy();
-    header('Location:' . FRONT_ROOT);
+  public function logout() {
+    Session::closeSession();
+    $this->relocationHome();
+  }
+
+  public function showNavbar( $student ) {
+    require_once VIEWS_PATH . 'navbar.php';
   }
 
   public function showPrincipalPage()
@@ -58,12 +59,25 @@ class StudentController
     require_once VIEWS_PATH . 'home.php';
   }
 
-  public function cuenta() {
+  public function showPersonalProfile( $student ) {
     require_once VIEWS_PATH . 'perfil.php';
   }
 
-  private function emailIsValid($email)
-  {
+  public function home() {
+    $this->showNavbar( Session::getCurrentUser() );
+    $this->showPrincipalPage();
+  }
+
+  public function perfil() {
+    $this->showNavbar( Session::getCurrentUser() );
+    $this->showPersonalProfile( Session::getCurrentUser() );
+  }
+
+  private function relocationHome () {
+    header("Location: " . FRONT_ROOT);
+  }
+
+  private function emailIsValid( $email ) {
 
     if (trim($email) === "") {
       return 'El campo no puede quedar vacio';

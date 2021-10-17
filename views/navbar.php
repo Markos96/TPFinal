@@ -1,13 +1,18 @@
 <?php
-  $student;
-if ((isset($_SESSION['loggedUser']))) {
+/* $student;
+if (  ( isset( $_SESSION['loggedUser'] ) ) ) {
   $student = $_SESSION['loggedUser'];
 
-  if(!((time() - $_SESSION["last_login_timestamp"]) < 900))
-    header("Location:" . FRONT_ROOT . 'student/logout');
-  else $_SESSION["last_login_timestamp"] = time();
+  if ( !(  ( time() - $_SESSION["last_login_timestamp"] ) < 900 ) ) {
+    header( "Location:" . FRONT_ROOT . 'student/logout' );
+  } else {
+    $_SESSION["last_login_timestamp"] = time();
+  }
 
-} else header('location:' . FRONT_ROOT . 'student/logout');
+} else {
+  header( 'location:' . FRONT_ROOT . 'student/logout' );
+} */
+
 ?>
 
 <nav class="navbar navbar-expand-lg navbar__p navbar-light">
@@ -24,7 +29,7 @@ if ((isset($_SESSION['loggedUser']))) {
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href="<?php echo FRONT_ROOT ?>student/index">Home</a></li>
-              <li><a class="dropdown-item" href="<?php echo FRONT_ROOT ?>student/cuenta">Perfil</a></li>
+              <li><a class="dropdown-item" href="<?php echo FRONT_ROOT ?>student/perfil">Perfil</a></li>
             </ul>
           </div>
         <div class="row">
