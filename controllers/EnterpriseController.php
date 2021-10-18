@@ -40,6 +40,10 @@ class EnterpriseController
   public function add( $id, $firstName, $description ) {
 
     // falta validacion de datos.....
+    $enterprise = new Enterprise();
+    $enterprise->setFirstName( $firstName );
+    $enterprise->setDescription( $description );
+    $enterprise->setIsActive( true );
 
     $enterprise = new Enterprise();
     $enterprise->setFirstName( $firstName );
