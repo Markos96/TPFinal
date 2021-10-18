@@ -5,6 +5,8 @@ namespace Controllers;
 use DAO\StudentDAO as StudentDAO;
 use Models\Session as Session;
 use Models\Alert as Alert;
+use Exception;
+
 
 class StudentController
 {
@@ -20,7 +22,7 @@ class StudentController
       
       {
 
-    $alert = new Alert("", "");
+   // $alert = new Alert("", "");
 
     try{
 
@@ -59,14 +61,9 @@ class StudentController
       }
     }
   }catch(Exception $ex){
-      $alert->setType("danger");
-      $alert->setMessage($ex->getMessage());
-  
-  }finally{
-     $this->index($alert);
+     // $this->index($ex);
   }
-
-
+     
     } 
   
 
@@ -107,12 +104,27 @@ class StudentController
     header("Location: " . FRONT_ROOT);
   }
 
-  private function emailIsValid( $email ) {
+  private function emailIsValid($email) {
 
+    $alert = new Alert("","");
+
+    try{
     if (trim($email) === "") {
-      return 'El campo no puede quedar vacio';
+     // $alert = new Alert("danger","Hola");
+      //$alert->setType();
+      //$alert->setMessage();
+
+      throw new Exception("El campo no puede quedar vacio");
+     // return 'El campo no puede quedar vacio';
     } else if(!preg_match("/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/", $email)) {
-      return "Ingrese un email valido";
+      //throw new Exception("Chau");
+      throw new Exception("Ingrese un email valido"); 
+     // return "Ingrese un email valido";
+    }
+    }catch(Exception $ex){
+      $alert->setType("danger");
+      $alert->setMessage($ex->getMessage());
+       $this->index($alert);
     }
 
   }

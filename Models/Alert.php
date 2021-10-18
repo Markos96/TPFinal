@@ -1,5 +1,6 @@
 <?php namespace Models; 
 
+
 class Alert{
 
 	private $type;
@@ -24,7 +25,7 @@ class Alert{
 		return $this->message;
 	}
 
-	public function setMeggase($message){
+	public function setMessage($message){
 		$this->message = $message;
 		return $this;
 	}
