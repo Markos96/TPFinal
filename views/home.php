@@ -5,7 +5,7 @@
         <img src="<?php echo IMG_PATH ?>utn.png" class="card-img-top" alt="logo utn" style="height: 80% !important; width: 100% !important; min-width: 250px; max-width: 550px;">
       </div>
       <div class="card-body h-25">
-        <div class="text-warning text-center fw-bold fs-6"><?php echo (isset($error) ? $error : '')?></div>
+        <div class="text-warning text-center fw-bold fs-6"><?php echo $alert->getMessage();?></div>
         <form action="<?php echo FRONT_ROOT ?>student/login" method="POST" class="d-flex justify-content-center flex-column" autocomplete="off">
           <div class="mb-3 w-100 d-flex flex-column justify-content-center">
             <label for="email" class="form-label text-center label__p">Email</label>

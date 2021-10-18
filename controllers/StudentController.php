@@ -16,7 +16,7 @@ class StudentController
     $this->studentDao = new StudentDAO();
   }
 
-  public function index()
+  public function index(Alert $alert=null)
       
       {
 
@@ -41,7 +41,12 @@ class StudentController
   public function login($email)
   {
 
+    $alert = new Alert("", "");
+
+    try{
+
     $validarEmail = $this->emailIsValid($email);
+
 
 
     if (!isset($validarEmail)) {
@@ -51,12 +56,19 @@ class StudentController
         Session::setCurrentUser( $student );
         header( 'Location:' . FRONT_ROOT . 'student/home' );
 
-      } else {
-        $validarEmail = 'Usuario incorrecto, verifique su email';
-        $this->index($validarEmail);
       }
-    } else $this->index($validarEmail);
+    }
+  }catch(Exception $ex){
+      $alert->setType("danger");
+      $alert->setMessage($ex->getMessage());
+  
+  }finally{
+     $this->index($alert);
   }
+
+
+    } 
+  
 
   public function logout() {
     Session::closeSession();
