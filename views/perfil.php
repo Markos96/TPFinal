@@ -9,8 +9,8 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
   </div>
   <div class="row">
     <div class="col-2"></div>
-    <div class="col-8">
-      <div class="d-flex flex-column justify-content-center rounded mt-4" style="background-color: #DDDDDD;">
+    <div class="col-8 ">
+      <div class="d-flex flex-column justify-content-center rounded my-4" style="background-color: #DDDDDD;">
         <h3 class="card-title text-center fs-6 my-3 fw-bolder">Datos del Estudiante</h3>
         <div class="align-self-center card-body mb-3 card-body__pr">
           <table class="table table-borderless">

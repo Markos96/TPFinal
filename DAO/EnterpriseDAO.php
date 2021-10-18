@@ -98,10 +98,6 @@
 		public function getById($id){
       $this->enterpriseList = $this->GetAll();
       foreach ($this->enterpriseList as $enterprise => $value) {
-        //var_dump($value);
-        echo $value->getId() . '  ';
-        echo $id;
-        echo '<br>';
         if($value->getId() == $id) {
           return $value;
         }

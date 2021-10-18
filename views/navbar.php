@@ -1,43 +1,32 @@
-<?php
-  $student;
-if ((isset($_SESSION['loggedUser']))) {
-  $student = $_SESSION['loggedUser'];
-
-  if(!((time() - $_SESSION["last_login_timestamp"]) < 900))
-    header("Location:" . FRONT_ROOT . 'student/logout');
-  else $_SESSION["last_login_timestamp"] = time();
-
-} else header('location:' . FRONT_ROOT . 'student/logout');
-?>
-
 <nav class="navbar navbar-expand-lg navbar__p navbar-light">
   <div class="container-fluid">
-    <div class="row d-flex align-items-center">
-      <div class="col-6">
-        <img class="img__pr" src="<?php echo IMG_PATH ?>utn.png" alt="">
-      </div>
-      <div class="col-6 ">
+    <div class="col-6">
+      <a href="<?php echo FRONT_ROOT ?>" class="navbar-brand"><img src="<?php echo IMG_PATH ?>utn.png" class="img__pr" style="height: 80px; width: 50%"></a>
+    </div>
+    <div class="col-6">
+      <div class="d-flex justify-content-center">
 
-          <div class="row dropstart w-25 ms-auto me-2">
-            <button class="btn btn-secondary dropdown" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <span class="navbar-toggler-icon text-white"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="<?php echo FRONT_ROOT ?>student/index">Home</a></li>
-              <li><a class="dropdown-item" href="<?php echo FRONT_ROOT ?>student/cuenta">Perfil</a></li>
-            </ul>
-          </div>
-        <div class="row">
-          <ul class="navbar-nav d-flex flex-row justify-content-end">
-            <li class="nav-item">
-              <p class="nav-link text-dark fw-bolder" style="font-size: .8rem;"><?php echo $student->getFirstName() . ' ' . $student->getLastName(); ?></p>
+        <button class="navbar-toggler text-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="row collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 1px;">
+        <ul class="navbar-nav d-flex justify-content-end align-items-center">
+          <li class="nav-item"><a href="<?php echo FRONT_ROOT ?>student/index" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="<?php echo FRONT_ROOT ?>student/perfil" class="nav-link">Perfil</a></li>
+        </ul>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <ul class="navbar-nav" >
+          <div class="w-100 d-flex justify-content-center align-items-center d-lg-flex justify-content-lg-end">
+            <li class="nav-item me-2">
+              <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;"><?php echo $student->getFirstName() . ' ' . $student->getLastName() ?></a>
             </li>
-            <p class="nav-link text-dark fw-bolder mx-3" style="font-size: .8rem;">|</p>
             <li class="nav-item">
               <a href="<?php echo FRONT_ROOT ?>student/logout" class="nav-link text-dark fw-bolder me-2" style="font-size: .8rem;">salir</a>
             </li>
-          </ul>
-        </div>
+          </div>
+        </ul>
       </div>
     </div>
   </div>

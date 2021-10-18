@@ -1,12 +1,17 @@
+
 function search(name) {
   fetchSearchData(name);
 }
 
 function fetchSearchData(name){
-  fetch("search.php", {
-    method : 'POST',
-    body : new URLSearchParams('name=' + name)
-  })
-  .then(res => res.text())
-  .then(res => console.log(res))
+  console.log(list);  
+  console.log(name); 
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const list = document.getElementById('info');
+
+  console.log(list.childNodes)
+  //console.log(includes(list.children));
+  
+})

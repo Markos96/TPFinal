@@ -9,10 +9,12 @@
   use Config\Autoload as Autoload;
   use Config\Router as Router;
   use Config\Request as Request;
+  use Models\Session as Session;
 
   Autoload::Start();
 
-  session_start();
+  //session_start();
+  Session::start();
 
   require_once(VIEWS_PATH . 'header.php');
 
