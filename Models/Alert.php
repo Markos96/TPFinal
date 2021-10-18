@@ -1,6 +1,6 @@
 <?php namespace Models; 
 
-class Alert(){
+class Alert{
 
 	private $type;
 	private $message;

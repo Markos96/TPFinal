@@ -4,6 +4,7 @@ namespace Controllers;
 
 use DAO\StudentDAO as StudentDAO;
 use Models\Session as Session;
+use Models\Alert as Alert;
 
 class StudentController
 {
@@ -15,29 +16,46 @@ class StudentController
     $this->studentDao = new StudentDAO();
   }
 
-  public function index( $error = "" ) {
+  public function index()
+      
+      {
+
+    $alert = new Alert("", "");
+
+    try{
+
     if ( Session::isActive() ) {
       $this->home();
-    } else {
-      $this->showLogin( $error );
     }
+    }catch(Exception $ex){ 
+      
+      $alert->setType("danger");
+      $alert->setMessage($ex->getMessage());
+        
+    }finally{
+      $this->showLogin($alert);
+    }
+
   }
 
   public function login($email)
   {
-    $error = $this->emailIsValid($email);
 
-    if (!isset($error)) {
+    $validarEmail = $this->emailIsValid($email);
+
+
+    if (!isset($validarEmail)) {
       $student = $this->studentDao->getByEmail($email);
 
       if ( $student ) {
         Session::setCurrentUser( $student );
         header( 'Location:' . FRONT_ROOT . 'student/home' );
+
       } else {
-        $error = 'Usuario incorrecto, verifique su email';
-        $this->index($error);
+        $validarEmail = 'Usuario incorrecto, verifique su email';
+        $this->index($validarEmail);
       }
-    } else $this->index($error);
+    } else $this->index($validarEmail);
   }
 
   public function logout() {
@@ -54,7 +72,7 @@ class StudentController
     require_once VIEWS_PATH . 'principalPage.php';
   }
 
-  public function showLogin($error = "")
+  public function showLogin(Alert $alert = null)
   {
     require_once VIEWS_PATH . 'home.php';
   }
