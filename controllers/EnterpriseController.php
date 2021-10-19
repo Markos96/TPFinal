@@ -5,11 +5,13 @@ namespace Controllers;
 use DAO\EnterpriseDAO as EnterpriseDAO;
 use Models\Enterprise as Enterprise;
 use Models\Session as Session;
+use Models\Alert as Alert;
 
 class EnterpriseController
 {
 
   private $EnterpriseDAO;
+  private $alert;
 
   public $eId = "";
   public $eName = "";
@@ -18,6 +20,7 @@ class EnterpriseController
   public function __construct()
   {
     $this->EnterpriseDAO = new EnterpriseDAO();
+    $this->alert = new Alert();
   }
 
   public function index() {
@@ -40,13 +43,15 @@ class EnterpriseController
   public function add( $id, $firstName, $description ) {
 
     // falta validacion de datos.....
-
-    
+    $this->alert->setType("");
+    $this->alert->setMessage("");
 
     $enterprise = new Enterprise();
     $enterprise->setFirstName( $firstName );
     $enterprise->setDescription( $description );
     $enterprise->setIsActive( true );
+
+    try{
 
     if ( $id == null ) {
       $enterprise->setId( strval( time() ) );
@@ -55,13 +60,24 @@ class EnterpriseController
       $enterprise->setId( $id );
       $this->EnterpriseDAO->update( $enterprise );
     }
+    $this->alert->setType("success");
+    $this->alert->setMessage("Empresa creada exitosamente.");
+  }catch(Exception $ex){
 
+    $alert->setType("danger");
+    $alert->setMessage($ex->getMessage("Error al crear la empresa."));
+
+  }finally{
     $this->relocationEnterprise();
-    //header( "Location:" . FRONT_ROOT . "enterprise" );
+    //$this->index($alert);
+    }
+   // header( "Location:" . FRONT_ROOT . "enterprise" );
   }
 
   public function create() {
+
     if ( Session::isActive() ) {
+
       $this->showCreateEnterprise();
     } else {
       $this->relocationHome();
@@ -92,7 +108,7 @@ class EnterpriseController
     require_once VIEWS_PATH . 'navbar.php';
   }
 
-  public function showEnterprises( $student = "", $enterprises = "" ) {
+  public function showEnterprises( $student = "", $enterprises = "") {
     require_once VIEWS_PATH . 'enterprises.php';
   }
 
@@ -110,7 +126,7 @@ class EnterpriseController
 
   public function showIndex() {
     $this->showNavbar( Session::getCurrentUser() );
-    $this->showEnterprises( Session::getCurrentUser(), $this->EnterpriseDAO->GetAll() );
+    $this->showEnterprises( Session::getCurrentUser(), $this->EnterpriseDAO->GetAll());
   }
 
   public function showOnlyEnterprise( $id = "" ) {

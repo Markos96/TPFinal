@@ -52,5 +52,29 @@
         "firstName": "LinkedIn",
         "description": "Es una red social orientada al uso empresarial, a los negocios y al empleo.",
         "isActive": true
+    },
+    {
+        "id": "1634681087",
+        "firstName": "",
+        "description": "",
+        "isActive": true
+    },
+    {
+        "id": "1634682358",
+        "firstName": "",
+        "description": "",
+        "isActive": true
+    },
+    {
+        "id": "1634682538",
+        "firstName": "Fulbito",
+        "description": "Alfajor de mani",
+        "isActive": true
+    },
+    {
+        "id": "1634682619",
+        "firstName": "Cachetazo",
+        "description": "....",
+        "isActive": true
     }
 ]
