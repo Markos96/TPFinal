@@ -1,4 +1,3 @@
-<?php var_dump($this->alert) ?>
 <div class="container container__pr">
   <div class="row row__pr ">
     <div class="col-12">
@@ -10,7 +9,7 @@
             <form action="" method="post">
 
               <input type="text" name="name" id="searchEnterprise" class="form-control" placeholder="buscar empresa" oninput="search(this.value)">
-              <div class="alert alert-<?php echo $this->alert->getType() ?> text-center fw-bold fs-6"><?php echo $this->alert->getMessage()?></div>
+              <div class="alert alert-<?php echo (isset($this->alert) ? $this->alert->getType() : "")?> text-center fw-bold fs-6"><?php echo (isset($this->alert) ? $this->alert->getMessage() : "")?></div>
             </form>
           </div>
 

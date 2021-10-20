@@ -3,24 +3,23 @@
 namespace Controllers;
 
 use DAO\EnterpriseDAO as EnterpriseDAO;
+use Exception;
+use Models\Alert as Alert;
 use Models\Enterprise as Enterprise;
 use Models\Session as Session;
-use Models\Alert as Alert;
 
-class EnterpriseController
-{
+class EnterpriseController {
 
   private $EnterpriseDAO;
-  private $alert;
+  public $alert;
 
-  public $eId = "";
-  public $eName = "";
+  public $eId          = "";
+  public $eName        = "";
   public $eDescription = "";
 
-  public function __construct()
-  {
+  public function __construct() {
     $this->EnterpriseDAO = new EnterpriseDAO();
-    $this->alert = new Alert();
+    $this->alert         = new Alert();
   }
 
   public function index() {
@@ -43,48 +42,41 @@ class EnterpriseController
   public function add( $id, $firstName, $description ) {
 
     // falta validacion de datos.....
+    //$this->alert = new Alert();
 
     $enterprise = new Enterprise();
     $enterprise->setFirstName( $firstName );
     $enterprise->setDescription( $description );
     $enterprise->setIsActive( true );
 
-    $this->alert->setType("");
-    $this->alert->setMessage("");
+    try {
 
+      $this->alert->setType( "success" );
+      if ( $id == null ) {
+        $enterprise->setId( strval( time() ) );
+        $this->EnterpriseDAO->add( $enterprise );
+        $this->alert->setMessage( "Empresa creada exitosamente." );
+      } else {
+        $enterprise->setId( $id );
+        $this->EnterpriseDAO->update( $enterprise );
+      }
+      var_dump( $this->alert );
 
-    $enterprise = new Enterprise();
-    $enterprise->setFirstName( $firstName );
-    $enterprise->setDescription( $description );
-    $enterprise->setIsActive( true );
+    } catch ( Exception $ex ) {
 
-    try{
+      $this->alert->setType( "danger" );
+      $this->alert->setMessage( $ex->getMessage( "Error al crear la empresa." ) );
 
-    if ( $id == null ) {
-      $enterprise->setId( strval( time() ) );
-      $this->EnterpriseDAO->add( $enterprise );
-    } else {
-      $enterprise->setId( $id );
-      $this->EnterpriseDAO->update( $enterprise );
+    } finally {
+      $this->relocationEnterprise();
+      //$this->index($alert);
     }
-    $this->alert->setType("success");
-    $this->alert->setMessage("Empresa creada exitosamente.");
-  }catch(Exception $ex){
-
-    $alert->setType("danger");
-    $alert->setMessage($ex->getMessage("Error al crear la empresa."));
-
-  }finally{
-    $this->relocationEnterprise();
-    //$this->index($alert);
-    }
-   // header( "Location:" . FRONT_ROOT . "enterprise" );
+    // header( "Location:" . FRONT_ROOT . "enterprise" );
   }
 
   public function create() {
 
     if ( Session::isActive() ) {
-
       $this->showCreateEnterprise();
     } else {
       $this->relocationHome();
@@ -115,7 +107,7 @@ class EnterpriseController
     require_once VIEWS_PATH . 'navbar.php';
   }
 
-  public function showEnterprises( $student = "", $enterprises = "") {
+  public function showEnterprises( $student = "", $enterprises = "" ) {
     require_once VIEWS_PATH . 'enterprises.php';
   }
 
@@ -133,7 +125,7 @@ class EnterpriseController
 
   public function showIndex() {
     $this->showNavbar( Session::getCurrentUser() );
-    $this->showEnterprises( Session::getCurrentUser(), $this->EnterpriseDAO->GetAll());
+    $this->showEnterprises( Session::getCurrentUser(), $this->EnterpriseDAO->GetAll() );
   }
 
   public function showOnlyEnterprise( $id = "" ) {
@@ -149,11 +141,6 @@ class EnterpriseController
   public function showUpdateEnterprise( $enterprise = "" ) {
     $this->showNavbar( Session::getCurrentUser() );
     $this->showFormEnterprise( $enterprise );
-  }
-
-  public function getDAO()
-  {
-    return $this->EnterpriseDAO;
   }
 
   private function relocationHome() {
