@@ -11,9 +11,9 @@
   define('JS_PATH', FRONT_ROOT.VIEWS_PATH.'js/');
   define('IMG_PATH', FRONT_ROOT.VIEWS_PATH.'img/');
 
-  define("DB_HOST", "localhost");
-  define("DB_NAME", "UTN");
-  define("DB_USER", "root");
-  define("DB_PASS", "");
+  define("DB_HOST", "b74wzacb9gt37kied2us-mysql.services.clever-cloud.com");
+  define("DB_NAME", "b74wzacb9gt37kied2us");
+  define("DB_USER", "ucqytsygexu3supd");
+  define("DB_PASS", "Z4m9rIpgCCkNkOAsONBv");
   ?>
   
