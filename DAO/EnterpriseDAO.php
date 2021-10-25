@@ -7,6 +7,10 @@
 
 	class EnterpriseDAO implements IEnterprise{
 
+
+    private $conexion;
+    private $tableName = "enterprises";
+
 		private $enterpriseList = array();
 
 		public function add(Enterprise $enterprise){
@@ -22,8 +26,36 @@
 
 		public function GetAll(){
 
-			return Connection::getDataJson();
+			//return Connection::getDataJson();
 			
+       try
+            {
+                $enterpriseList = array();
+
+                $query = "SELECT * FROM ".$this->tableName;
+
+                $this->connection = Connection::GetInstance();
+
+                $resultado = $this->connection->Execute($query);
+                
+                foreach ($resultado as $row)
+                {                
+                    $enterprise = new Enterprise();
+                    $enterprise->setId($row["id"]);
+                    $enterprise->setDescription($row["firstName"]);
+                    $enterprise->setDescription($row["description"]);
+                    $enterprise->setIsActive($row["isActive"]);
+
+                    array_push($enterpriseList, $enterprise);
+                }
+
+                return $enterpriseList;
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+
 		}
 
     public function pagination($name) {
