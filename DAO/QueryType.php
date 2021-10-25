@@ -3,7 +3,7 @@
 	abstract class QueryType
 	{
 		const Query = 0;
-		const StoredProcedure = ;
+		const StoredProcedure = 1;
 
 
 	}

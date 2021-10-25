@@ -42,7 +42,7 @@
                 {                
                     $enterprise = new Enterprise();
                     $enterprise->setId($row["id"]);
-                    $enterprise->setDescription($row["firstName"]);
+                    $enterprise->setFirstName($row["name"]);
                     $enterprise->setDescription($row["description"]);
                     $enterprise->setIsActive($row["isActive"]);
 
