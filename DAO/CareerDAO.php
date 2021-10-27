@@ -22,7 +22,6 @@
 
 		}
 
-
 		public function GetAll(){
 
 			//return Connection::getDataJson();
