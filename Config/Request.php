@@ -2,7 +2,7 @@
 
   class Request {
 
-    private $controller = 'student';
+    private $controller = 'Student';
     private $method = 'index';
     private $parameters = array();
 
