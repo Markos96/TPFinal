@@ -4,7 +4,7 @@
 	use DAO\IEnterprise as IEnterprise;
 	use \PDO as PDO;
 	use \Exception as Exception;
-	use Dao\QueryType as QueryType;
+	use DAO\QueryType as QueryType;
 
 	class Connection{
 
