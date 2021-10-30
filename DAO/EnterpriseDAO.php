@@ -27,16 +27,16 @@
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (name, description,isActive) VALUES (:firstname, :description,:isActive);";
+                $query = "INSERT INTO ".$this->tableName." (name, description,isActive) VALUES (:name, :description,:isActive);";
                 
                 
-                $parameters["firstName"] = $enterprise->getFirstName();
+                $parameters["name"] = $enterprise->getFirstName();
                 $parameters["description"] = $enterprise->getDescription();
                 $parameters["isActive"] = $enterprise->getIsActive();
 
-                $this->connection = Connection::GetInstance();
+                $this->conexion = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query, $parameters);
+                $this->conexion->ExecuteNonQuery($query, $parameters);
             }
             catch(Exception $ex)
             {
