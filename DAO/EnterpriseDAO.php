@@ -150,13 +150,15 @@
     } */
 
     public function deleteEnterprise($id) {
-      $this->enterpriseList = $this->GetAll();
+      //$this->enterpriseList = $this->GetAll();
 
       foreach ($this->enterpriseList as $enterprise => $value) {
         if($value->getId() == $id){
           
-          $query = "DELETE * FROM ".$this->tableName . "WHERE (id==id)";
+          $query = "UPDATE . $this->tableName . SET isActive = 0 WHERE id=:id";
+          //$query = "DELETE * FROM ".$this->tableName . "WHERE id=:id";
           //$value->setIsActive(!$value->getIsActive());
+          $parameters["id"] = $enterprise->getId();
 
           return $this->update($value);
         }
