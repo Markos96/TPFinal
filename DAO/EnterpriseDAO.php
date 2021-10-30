@@ -23,6 +23,26 @@
 
 		}
 
+    public function AddDb(Enterprise $enterprise)
+        {
+            try
+            {
+                $query = "INSERT INTO ".$this->tableName." (name, description,isActive) VALUES (:firstname, :description,:isActive);";
+                
+                
+                $parameters["firstName"] = $enterprise->getFirstName();
+                $parameters["description"] = $enterprise->getDescription();
+                $parameters["isActive"] = $enterprise->getIsActive();
+
+                $this->connection = Connection::GetInstance();
+
+                $this->connection->ExecuteNonQuery($query, $parameters);
+            }
+            catch(Exception $ex)
+            {
+                throw $ex;
+            }
+        }
 
 		public function GetAll(){
 

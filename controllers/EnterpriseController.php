@@ -39,7 +39,7 @@ class EnterpriseController {
     }
   }
 
-  public function add( $id, $firstName, $description ) {
+  /*public function add( $id, $firstName, $description ) {
 
     // falta validacion de datos.....
     //$this->alert = new Alert();
@@ -72,7 +72,39 @@ class EnterpriseController {
       //$this->index($alert);
     }
     // header( "Location:" . FRONT_ROOT . "enterprise" );
-  }
+  }*/
+
+  public function add ($id,$firstName,$description){
+
+    $enterprise = new Enterprise();
+    $enterprise->setFirstName( $firstName );
+    $enterprise->setDescription( $description );
+    $enterprise->setIsActive( true );
+
+    try {
+
+      if ( $id == null ) {      
+        $this->EnterpriseDAO->AddDb( $enterprise );
+       // $this->alert->setMessage( "Empresa creada exitosamente." );
+      } else {
+        $enterprise->setId( $id );
+        $this->EnterpriseDAO->update( $enterprise );
+      }
+      var_dump( $this->alert );
+
+    } catch ( Exception $ex ) {
+
+      $this->alert->setType( "danger" );
+      $this->alert->setMessage( $ex->getMessage( "Error al crear la empresa." ) );
+
+    } finally {
+      $this->relocationEnterprise();
+      //$this->index($alert);
+    }
+
+
+
+    }
 
   public function create() {
 

@@ -12,7 +12,7 @@
 
 		public function getById($id);
 
-
+		public function AddDb(Enterprise $enterprise);
 
 	}
 
