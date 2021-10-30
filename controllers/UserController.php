@@ -15,7 +15,7 @@ class UserController
 
     public function __construct()
     {
-        $this->userDao = new UserDao();
+        $this->userDao = new UserDAO();
     }
 
     public function index(Alert $alert = null)
@@ -44,6 +44,11 @@ class UserController
             $alert->setMessage($ex->getMessage());
             $this->index($alert);
         }
+    }
+
+    public function logout () {
+        Session::closeSession();
+        $this->showLogin();
     }
 
     private function verifyEmail($email)

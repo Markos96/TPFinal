@@ -20,10 +20,13 @@
         <ul class="navbar-nav" >
           <div class="w-100 d-flex justify-content-center align-items-center d-lg-flex justify-content-lg-end">
             <li class="nav-item me-2">
-              <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;"><?php echo $student->getFirstName() . ' ' . $student->getLastName() ?></a>
+              <!-- <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;"><?php /* echo $student->getFirstName() . ' ' . $student->getLastName() */ ?></a> -->
+              <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;">
+              <?php echo ($user->getRol() == 1) ? 'ADMIN' : $user->getFirstName() . ' ' . $user->getLastName() ?>
+              </a>
             </li>
             <li class="nav-item">
-              <a href="<?php echo FRONT_ROOT ?>student/logout" class="nav-link text-dark fw-bolder me-2" style="font-size: .8rem;">salir</a>
+              <a href="<?php echo FRONT_ROOT ?>user/logout" class="nav-link text-dark fw-bolder me-2" style="font-size: .8rem;">salir</a>
             </li>
           </div>
         </ul>

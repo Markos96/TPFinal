@@ -135,11 +135,11 @@ class EnterpriseController {
 
   }
 
-  public function showNavbar( $student = "" ) {
+  public function showNavbar( $user ) {
     require_once VIEWS_PATH . 'navbar.php';
   }
 
-  public function showEnterprises( $student = "", $enterprises = "" ) {
+  public function showEnterprises( $user , $enterprises = "" ) {
     require_once VIEWS_PATH . 'enterprises.php';
   }
 
