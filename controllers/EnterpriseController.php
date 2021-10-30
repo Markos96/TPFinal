@@ -135,6 +135,7 @@ class EnterpriseController {
 
   }
 
+<<<<<<< HEAD
   public function deleteDB($id = ""){
     if ( Session::isActive() ) {
       $this->EnterpriseDAO->deleteEnterprise( $id );
@@ -145,10 +146,13 @@ class EnterpriseController {
   }
 
   public function showNavbar( $student = "" ) {
+=======
+  public function showNavbar( $user ) {
+>>>>>>> develop
     require_once VIEWS_PATH . 'navbar.php';
   }
 
-  public function showEnterprises( $student = "", $enterprises = "" ) {
+  public function showEnterprises( $user , $enterprises = "" ) {
     require_once VIEWS_PATH . 'enterprises.php';
   }
 

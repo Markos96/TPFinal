@@ -1,6 +1,7 @@
 <?php namespace DAO;
 
 
+  use \Exception as Exception;
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
 	use DAO\Connection as Connection;
@@ -28,10 +29,10 @@
         {
             try
             {
-                $query = "INSERT INTO ".$this->tableName." (name, description,isActive) VALUES (:firstname, :description,:isActive);";
+                $query = "INSERT INTO ".$this->tableName." (name, description,isActive) VALUES (:name, :description,:isActive);";
                 
                 
-                $parameters["firstName"] = $enterprise->getFirstName();
+                $parameters["name"] = $enterprise->getFirstName();
                 $parameters["description"] = $enterprise->getDescription();
                 $parameters["isActive"] = $enterprise->getIsActive();
 
