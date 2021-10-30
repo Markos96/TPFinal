@@ -135,6 +135,15 @@ class EnterpriseController {
 
   }
 
+  public function deleteDB($id = ""){
+    if ( Session::isActive() ) {
+      $this->EnterpriseDAO->deleteEnterprise( $id );
+      $this->relocationEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+  }
+
   public function showNavbar( $student = "" ) {
     require_once VIEWS_PATH . 'navbar.php';
   }

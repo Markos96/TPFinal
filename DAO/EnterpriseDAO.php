@@ -137,12 +137,26 @@
       return false;
     }
 
-    public function deleteEnterprise($id) {
+   /* public function deleteEnterprise($id) {
       $this->enterpriseList = $this->GetAll();
 
       foreach ($this->enterpriseList as $enterprise => $value) {
         if($value->getId() == $id){
           $value->setIsActive(!$value->getIsActive());
+          return $this->update($value);
+        }
+      }
+    } */
+
+    public function deleteEnterprise($id) {
+      $this->enterpriseList = $this->GetAll();
+
+      foreach ($this->enterpriseList as $enterprise => $value) {
+        if($value->getId() == $id){
+          
+          $query = "DELETE * FROM ".$this->tableName . "WHERE (id==id)";
+          //$value->setIsActive(!$value->getIsActive());
+
           return $this->update($value);
         }
       }
