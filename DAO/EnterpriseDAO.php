@@ -4,6 +4,7 @@
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
 	use DAO\Connection as Connection;
+  use \Exception as Exception;
 
 	class EnterpriseDAO implements IEnterprise{
 
@@ -34,9 +35,9 @@
                 $parameters["description"] = $enterprise->getDescription();
                 $parameters["isActive"] = $enterprise->getIsActive();
 
-                $this->connection = Connection::GetInstance();
+                $this->conexion = Connection::GetInstance();
 
-                $this->connection->ExecuteNonQuery($query, $parameters);
+                $this->conexion->ExecuteNonQuery($query, $parameters);
             }
             catch(Exception $ex)
             {
@@ -54,9 +55,9 @@
 
                 $query = "SELECT * FROM ".$this->tableName;
 
-                $this->connection = Connection::GetInstance();
+                $this->conexion = Connection::GetInstance();
 
-                $resultado = $this->connection->Execute($query);
+                $resultado = $this->conexion->Execute($query);
                 
                 foreach ($resultado as $row)
                 {                

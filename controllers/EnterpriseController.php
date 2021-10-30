@@ -74,7 +74,7 @@ class EnterpriseController {
     // header( "Location:" . FRONT_ROOT . "enterprise" );
   }*/
 
-  public function add ($id,$firstName,$description){
+  public function add ($id,$firstName,$description,){
 
     $enterprise = new Enterprise();
     $enterprise->setFirstName( $firstName );

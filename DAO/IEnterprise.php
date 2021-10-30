@@ -4,7 +4,7 @@
 
 	interface IEnterprise{
 
-		public function add(Enterprise $enterprise);
+		//public function add(Enterprise $enterprise);
 
 		public function GetAll();
 
