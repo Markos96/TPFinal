@@ -35,7 +35,7 @@ body {
 
 .card__c {
   width: 72% !important;
-  height: 500px;
+  height: 700px !important;
 }
 
 .card-header {

@@ -1,6 +1,7 @@
 <?php namespace DAO;
 
 
+  use \Exception as Exception;
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
 	use DAO\Connection as Connection;
