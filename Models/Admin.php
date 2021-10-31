@@ -1,57 +1,49 @@
 <?php namespace Models;
 
-class Admin extends User{
+use Models\User as User;
 
-	private $
-	private $
-	private $
+trait Admin {
 
-	public function __construct($,$,$,$){
+    protected $id;
+    protected $description;
+    protected $position;
 
-	}
+    public function __construct($description, $position)
+    {
+       $this->description = $description; 
+       $this->position = $position;
+    }
 
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	public function setId($studentId) 
-		{ 
-		$this->studentId = $studentId; 
-		} 
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-		public function getId() 
-		{ 
-		return $this->studentId; 
-		} 
+    public function getPosition()
+    {
+        return $this->position;
+    }
 
-		public function setCareer($careerId) 
-		{ 
-		$this->careerId = $careerId; 
-		} 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
 
-		public function getCareer() 
-		{ 
-		return $this->careerId; 
-		} 
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
 
-		public function setFirstName($firstName) 
-		{ 
-		$this->firstName = $firstName; 
-		} 
-
-		public function getFirstName() 
-		{ 
-		return $this->firstName; 
-		} 
-
-		public function setLastName($lastName) 
-		{ 
-		$this->lastName = $lastName; 
-		} 
-
-		public function getLastName() 
-		{ 
-		return $this->lastName; 
-		} 
-
-
-
-
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
 }
+
+?>
+

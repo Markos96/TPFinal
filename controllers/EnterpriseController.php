@@ -74,7 +74,7 @@ class EnterpriseController {
     // header( "Location:" . FRONT_ROOT . "enterprise" );
   }*/
 
-  public function add ($id,$firstName,$description,){
+  public function add ($id,$firstName,$description){
 
     $enterprise = new Enterprise();
     $enterprise->setFirstName( $firstName );
@@ -135,7 +135,6 @@ class EnterpriseController {
 
   }
 
-<<<<<<< HEAD
   public function deleteDB($id = ""){
     if ( Session::isActive() ) {
       $this->EnterpriseDAO->deleteEnterprise( $id );
@@ -145,10 +144,7 @@ class EnterpriseController {
     }
   }
 
-  public function showNavbar( $student = "" ) {
-=======
-  public function showNavbar( $user ) {
->>>>>>> develop
+  public function showNavbar( $user = "" ) {
     require_once VIEWS_PATH . 'navbar.php';
   }
 

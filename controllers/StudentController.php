@@ -27,12 +27,6 @@ class StudentController
     }
   }
 
-  public function logout()
-  {
-    Session::closeSession();
-    $this->relocationHome();
-  }
-
   public function showNavbar($user)
   {
     require_once VIEWS_PATH . 'navbar.php';

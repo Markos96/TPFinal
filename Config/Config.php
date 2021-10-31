@@ -15,5 +15,10 @@
   define("DB_NAME", "b74wzacb9gt37kied2us");
   define("DB_USER", "ucqytsygexu3supd");
   define("DB_PASS", "Z4m9rIpgCCkNkOAsONBv");
+
+  // CONSTANTES PERMISOS
+  define("ADMIN", 1);
+  define("STUDENT", 2);
+
   ?>
   
