@@ -34,7 +34,7 @@ class UserController
 
         try {
             if ($this->verifyEmail($email) && $this->verifyPassword($password)) {
-                $user = new User($email, $password);
+                $user = new User($email, $password,1);
                 $user = $this->userDao->getByEmail($user);
                 Session::setCurrentUser($user);
                 $this->loginSuccess();

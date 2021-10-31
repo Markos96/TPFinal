@@ -1,7 +1,5 @@
 <?php namespace DAO;
 
-
-  use \Exception as Exception;
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
 	use DAO\Connection as Connection;
@@ -152,19 +150,33 @@
     public function deleteEnterprise($id) {
       //$this->enterpriseList = $this->GetAll();
 
-      foreach ($this->enterpriseList as $enterprise => $value) {
-        if($value->getId() == $id){
+          $query = "UPDATE $this->tableName SET isActive = '0' WHERE id=:id";
           
-          $query = "UPDATE . $this->tableName . SET isActive = 0 WHERE id=:id";
-          //$query = "DELETE * FROM ".$this->tableName . "WHERE id=:id";
-          //$value->setIsActive(!$value->getIsActive());
-          $parameters["id"] = $enterprise->getId();
+          $parameters['id'] = $id;
 
-          return $this->update($value);
+          try{
+            $this->conexion = Connection::GetInstance();
+              $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+          }catch(\PDOException $exception){
+              throw $exception;
+          }
+          
         }
-      }
-    }
 
+        public function altaEnterprise($id)
+        {
+          $query = "UPDATE $this->tableName SET isActive = '1' WHERE id=:id";
+          
+          $parameters['id'] = $id;
+
+          try{
+            $this->conexion = Connection::GetInstance();
+              $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+          }catch(\PDOException $exception){
+              throw $exception;
+          }
+        }
+    
 		public function getById($id){
       $this->enterpriseList = $this->GetAll();
       foreach ($this->enterpriseList as $enterprise => $value) {
@@ -174,10 +186,5 @@
       }
 		}
 
-
-
-	}
-
-
-
+  }
 ?>

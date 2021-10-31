@@ -2,9 +2,11 @@
 
 use Models\Student as Student;
 
+use Models\Admin as Admin;
+
 class User extends Student{
 
-    use Admin;
+    
     protected $idUser;
     protected $email;
     protected $password;
@@ -12,7 +14,7 @@ class User extends Student{
     protected $isActive;
     protected $idInfo;
 
-    public function __construct($email, $password) 
+    public function __construct($email, $password,$rol) 
     {
         $this->email = $email;
         $this->password = $password;

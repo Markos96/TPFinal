@@ -135,6 +135,16 @@ class EnterpriseController {
 
   }
 
+  public function alta( $id = "" ) {
+    if ( Session::isActive() ) {
+      $this->EnterpriseDAO->altaEnterprise( $id );
+      $this->relocationEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+
+  }
+
   public function deleteDB($id = ""){
     if ( Session::isActive() ) {
       $this->EnterpriseDAO->deleteEnterprise( $id );
