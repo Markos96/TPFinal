@@ -31,6 +31,23 @@
       </div>
       <div class="row mt-3">
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
+          <h3 class="card-title text-center fs-6 my-3 fw-bolder">Usuarios</h3>
+          <div class="align-self-center card-body mb-3 card-body__pr">
+            <a class="nav-link text-center text-dark fs-6" href="<?php echo FRONT_ROOT ?>student/all" target="_blank">Usuarios</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
+          <h3 class="card-title text-center fs-6 my-3 fw-bolder">Trabajos</h3>
+          <div class="align-self-center card-body mb-3 card-body__pr">
+            <a class="nav-link text-center text-dark fs-6" href="<?php echo FRONT_ROOT ?>student/all" target="_blank">Trabajos</a>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
           <h3 class="card-title text-center fs-6 my-3 fw-bolder">Campus Virtual</h3>
           <div class="align-self-center card-body mb-3 card-body__pr">
             <a class="card-title text-dark fs-6" href="https://campus.mdp.utn.edu.ar" target="_blank">Campus Virtual MDP <i class="fas fa-arrow-right"></i></a>

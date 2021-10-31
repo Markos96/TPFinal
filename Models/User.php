@@ -1,15 +1,21 @@
 <?php namespace Models;
 
-class User {
-    private $idUser;
-    private $email;
-    private $password;
-    private $rol;
+use Models\Student as Student;
+
+class User extends Student{
+
+    use Admin;
+    protected $idUser;
+    protected $email;
+    protected $password;
+    protected $rol;
+    protected $isActive;
+    protected $idInfo;
 
     public function __construct($email, $password) 
     {
         $this->email = $email;
-        $this->password = $password;
+        $this->password = $password; 
     }
 
     public function getId() {
@@ -28,6 +34,14 @@ class User {
         return $this->rol;
     }
 
+    public function active() {
+        return $this->isActive;
+    }
+
+    public function getIdInfo() {
+        return $this->idInfo;
+    }
+
     public function setId($id) {
         $this->idUser = $id;
     }
@@ -42,6 +56,10 @@ class User {
 
     public function setRol($rol) {
         $this->rol = $rol;
+    }
+
+    public function setIsActive($isActive){
+        $this->isActive = $isActive;
     }
 }
 
