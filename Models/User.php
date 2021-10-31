@@ -1,13 +1,5 @@
 <?php namespace Models;
 
-
-class User {
-    private $idUser;
-    private $email;
-    private $password;
-    private $rol;
-    private $active;
-
 use Models\Student as Student;
 
 class User extends Student{
@@ -77,6 +69,4 @@ class User extends Student{
     public function setIsActive($isActive){
         $this->isActive = $isActive;
     }
-}
-
 }
