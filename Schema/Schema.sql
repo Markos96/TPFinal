@@ -76,6 +76,29 @@ create table jobPosition(
 
 );
 
+create table admin (
+    
+    idAdmin int not null auto_increment primary key,
+    nombre varchar(30),
+    apellido varchar(30),
+    dni varchar(8),
+    gender char(1),
+    birthdate date,
+    phonenumber varchar(20),
+    description varchar(100),
+    cargo varchar(30),
+    idUser int not null,
+    foreign key(idUser) references User(idUser)
 
+);
 
+create table User(
+
+    idUser int not null auto_increment primary key,
+    email varchar(50),
+    pass varchar(255),
+    active tinyint(1),
+    rol tinyint(1)
+
+);
 
