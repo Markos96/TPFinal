@@ -12,12 +12,14 @@ class User extends Student{
     protected $isActive;
     protected $idInfo;
 
-
     public function __construct($email, $password) 
     {
         $this->email = $email;
-        $this->password = $password; 
+        $this->password = $password;
+        $this->active = true;
+        $this->rol = 1;
 
+        $this->password = $password; 
     }
 
     public function getId() {
