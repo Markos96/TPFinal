@@ -12,14 +12,24 @@ class User extends Student{
     protected $isActive;
     protected $idInfo;
 
+
     public function __construct($email, $password) 
     {
         $this->email = $email;
         $this->password = $password; 
+
     }
 
     public function getId() {
         return $this->idUser;
+    }
+
+    public function setId($id) {
+        $this->idUser = $id;
+    }
+
+     public function setEmail($email) {
+        $this->email = $email;
     }
 
     public function getEmail() {
@@ -30,38 +40,31 @@ class User extends Student{
         return $this->password;
     }
 
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
     public function getRol() {
         return $this->rol;
     }
 
-    public function active() {
-        return $this->isActive;
-    }
+    public function setRol($rol){
+        $this->rol = $rol;
+    } 
 
     public function getIdInfo() {
         return $this->idInfo;
     }
 
-    public function setId($id) {
-        $this->idUser = $id;
+    public function setIdInfo($idInfo) {
+        $this->idInfo = $idInfo;
     }
 
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-
-    public function setPassword($password) {
-        $this->password = $password;
-    }
-
-    public function setRol($rol) {
-        $this->rol = $rol;
+    public function getActive() {
+        return $this->active;
     }
 
     public function setIsActive($isActive){
         $this->isActive = $isActive;
     }
 }
-
-
-?>

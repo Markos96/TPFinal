@@ -5,6 +5,7 @@
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
 	use DAO\Connection as Connection;
+  use \Exception as Exception;
 
 	class EnterpriseDAO implements IEnterprise{
 
@@ -55,9 +56,9 @@
 
                 $query = "SELECT * FROM ".$this->tableName;
 
-                $this->connection = Connection::GetInstance();
+                $this->conexion = Connection::GetInstance();
 
-                $resultado = $this->connection->Execute($query);
+                $resultado = $this->conexion->Execute($query);
                 
                 foreach ($resultado as $row)
                 {                
@@ -137,12 +138,28 @@
       return false;
     }
 
-    public function deleteEnterprise($id) {
+   /* public function deleteEnterprise($id) {
       $this->enterpriseList = $this->GetAll();
 
       foreach ($this->enterpriseList as $enterprise => $value) {
         if($value->getId() == $id){
           $value->setIsActive(!$value->getIsActive());
+          return $this->update($value);
+        }
+      }
+    } */
+
+    public function deleteEnterprise($id) {
+      //$this->enterpriseList = $this->GetAll();
+
+      foreach ($this->enterpriseList as $enterprise => $value) {
+        if($value->getId() == $id){
+          
+          $query = "UPDATE . $this->tableName . SET isActive = 0 WHERE id=:id";
+          //$query = "DELETE * FROM ".$this->tableName . "WHERE id=:id";
+          //$value->setIsActive(!$value->getIsActive());
+          $parameters["id"] = $enterprise->getId();
+
           return $this->update($value);
         }
       }

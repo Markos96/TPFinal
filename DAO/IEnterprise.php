@@ -4,7 +4,7 @@
 
 	interface IEnterprise{
 
-		public function add(Enterprise $enterprise);
+		//public function add(Enterprise $enterprise);
 
 		public function GetAll();
 
@@ -13,6 +13,8 @@
 		public function getById($id);
 
 		public function AddDb(Enterprise $enterprise);
+
+		public function deleteDB($id);
 
 	}
 
