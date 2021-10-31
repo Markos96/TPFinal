@@ -29,12 +29,16 @@ class UserDAO implements IUserDAO
 
             $resultSet = $this->connection->Execute($query, $parameters);
 
+            echo '<pre>';
+            var_dump($resultSet[0]);
             if ($resultSet && password_verify($user->getPassword(), $resultSet[0]["pass"])) {
                 // traemos el estudiante especifico de la API
-                $student = $this->getAPIStudentById('Student', $user->getId());
+                $student = $this->getAPIStudentById("Student", (int)$user->getId());
+                var_dump($student);
                 // seteamos los datos del usuario guardados en la DB
                 $user->setId($resultSet[0]["idUser"]);
                 $user->setRol($resultSet[0]["rol"]);
+                $user->setPassword($resultSet[0]["pass"]);
                 // seteamos los datos en el usuario del estudiante especifico
                 $user->setCareer($this->getCareerNameById($student["careerId"]));
                 $user->setName($student["firstName"]);
@@ -46,7 +50,7 @@ class UserDAO implements IUserDAO
                 $user->setPhonenumber($student["phoneNumber"]);
                 $user->setIsActive($student["active"]);
 
-                return $user;
+                //return $user;
             } else {
                 throw new Exception("Usuario y/o password incorrecto");
             }
@@ -58,7 +62,7 @@ class UserDAO implements IUserDAO
     private function getAPIStudentById($url, $id)
     {
         $students = Connection::getDataApi($url);
-
+        var_dump($students);
         foreach ($students as $key => $student) {
             if ($student["studentId"] == $id) {
                 return $student;
