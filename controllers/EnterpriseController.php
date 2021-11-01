@@ -147,6 +147,7 @@ class EnterpriseController {
 
   public function update( $id = "" ) {
     if ( Session::isActive() ) {
+      
       $this->showUpdateEnterprise( $this->EnterpriseDAO->updateEnterprise( $id ) );
     } else {
       $this->relocationHome();
