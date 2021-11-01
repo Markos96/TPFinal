@@ -18,6 +18,8 @@
 
 		public function altaEnterprise($id);
 
+		public function updateEnterprise($id);
+
 	}
 
 

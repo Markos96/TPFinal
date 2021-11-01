@@ -63,7 +63,7 @@
                     $enterprise = new Enterprise();
                     $enterprise->setId($row["id"]);
                     $enterprise->setFirstName($row["name"]);
-                    $enterprise->setDescription($row["description"]);
+                    $enterprise->setDescription($row["descripcion"]);
                     $enterprise->setIsActive($row["isActive"]);
 
                     array_push($enterpriseList, $enterprise);
@@ -123,7 +123,7 @@
 
 		}
 
-    public function update($empresa) {
+    /*public function update($empresa) {
       $this->enterpriseList = $this->GetAll();
 
       foreach ($this->enterpriseList as $enterprise => $value) {
@@ -134,7 +134,7 @@
         }
       }
       return false;
-    }
+    }*/
 
    /* public function deleteEnterprise($id) {
       $this->enterpriseList = $this->GetAll();
@@ -177,6 +177,20 @@
           }
         }
     
+        public function updateEnterprise($id)
+        {
+          $query = "UPDATE $this->tableName SET descripcion = 'Hola' WHERE id=:id";
+          
+          $parameters['id'] = $id;
+
+          try{
+            $this->conexion = Connection::GetInstance();
+              $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+          }catch(\PDOException $exception){
+              throw $exception;
+          }
+        }
+
 		public function getById($id){
       $this->enterpriseList = $this->GetAll();
       foreach ($this->enterpriseList as $enterprise => $value) {
