@@ -88,7 +88,7 @@ class EnterpriseController {
        // $this->alert->setMessage( "Empresa creada exitosamente." );
       } else {
         $enterprise->setId( $id );
-        $this->EnterpriseDAO->update( $enterprise );
+        $this->EnterpriseDAO->updateEnterprise( $enterprise );
       }
       var_dump( $this->alert );
 
@@ -116,19 +116,39 @@ class EnterpriseController {
 
   }
 
-  public function update( $id = "" ) {
+  /*public function update( $id = "" ) {
     if ( Session::isActive() ) {
       $this->showUpdateEnterprise( $this->EnterpriseDAO->getById( $id ) );
     } else {
       $this->relocationHome();
     }
 
-  }
+  }*/
 
   public function delete( $id = "" ) {
     if ( Session::isActive() ) {
       $this->EnterpriseDAO->deleteEnterprise( $id );
       $this->relocationEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+
+  }
+
+  public function alta( $id = "" ) {
+    if ( Session::isActive() ) {
+      $this->EnterpriseDAO->altaEnterprise( $id );
+      $this->relocationEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+
+  }
+
+  public function update( $id = "" ) {
+    if ( Session::isActive() ) {
+      
+      $this->showUpdateEnterprise( $this->EnterpriseDAO->updateEnterprise( $id ) );
     } else {
       $this->relocationHome();
     }

@@ -9,15 +9,15 @@
             <form action="" method="post">
 
               <input type="text" name="name" id="searchEnterprise" class="form-control" placeholder="buscar empresa" oninput="search(this.value)">
-              <div class="alert alert-<?php echo (isset($this->alert) ? $this->alert->getType() : "")?> text-center fw-bold fs-6"><?php echo (isset($this->alert) ? $this->alert->getMessage() : "")?></div>
+              <div class="alert alert-<?php echo (isset($this->alert) ? $this->alert->getType() : "") ?> text-center fw-bold fs-6"><?php echo (isset($this->alert) ? $this->alert->getMessage() : "") ?></div>
             </form>
           </div>
 
           <div class="col-4">
 
-            <?php if ($student->getRol() == 'ROLE_ADMIN') { ?>
-              <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise/create">Agregar</a>
-            <?php } ?>
+
+            <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise/create">Agregar</a>
+            <?php ?>
           </div>
         </div>
 
@@ -33,60 +33,29 @@
 
             </thead>
             <tbody id="info">
-              <?php foreach ( $enterprises as $empresa ) {?>
-                <?php if ( $student->getRol() == 'ROLE_ADMIN' ) {?>
-                  <tr class="<?php echo ( $empresa->getIsActive() ? '' : "bg-danger" ) ?>">
-                    <td><?php echo $empresa->getId(); ?></td>
-                    <td><?php echo $empresa->getFirstName(); ?></td>
-                    <?php if ($student->getRol() == 'ROLE_ADMIN') { ?>
-                      <td>
-                        <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update/<?php echo $empresa->getId()?>">editar</a>
-                        <?php if ( $empresa->getIsActive() ) {?>
-                          <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">eliminar</a>
-                        <?php } else { ?>
-                          <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">Alta</a>
-                        <?php } ?>
-                      </td>
+              <?php foreach ($enterprises as $empresa) { ?>
+                <tr>
+                  <td><?php echo $empresa->getId(); ?></td>
+                  <td><?php echo $empresa->getFirstName(); ?></td>
+                  <td>
+                    <?php if ($user->getRol() == ADMIN) { ?>
+                      <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getFirstName() ?>">editar</a>
+                      <?php if ($empresa->getIsActive()) { ?>
+                        <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">eliminar</a>
+                      <?php } else { ?>
+                        <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/alta?id=<?php echo $empresa->getId() ?>">Alta</a>
+                      <?php } ?>
+                    <?php } else { ?>
+                      <a href="<?php echo FRONT_ROOT ?>enterprise/description/<?php echo $empresa->getId() ?>" class="btn btn-success">Ver descripcion</a>
                     <?php } ?>
-                  </tr>
-                <?php } else { ?>
-                  <?php if ($empresa->getIsActive()) { ?>
-                    <tr>
-                      <td><?php echo $empresa->getId(); ?></td>
-                      <td><?php echo $empresa->getFirstName(); ?></td>
-                      <td>
-                        <a href="<?php echo FRONT_ROOT ?>enterprise/description/<?php echo $empresa->getId() ?>" class="btn btn-success">Ver descripcion</a>
-                      </td>
-                    </tr>
-                  <?php } ?>
-                <?php } ?>
+                  </td>
+                </tr>
               <?php } ?>
-
             </tbody>
 
           </table>
-          <div class="row">
-            <div class="col-12 d-flex justify-content-center">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <?php /* for ( $i = 1; $i <= count( $this->listEnterprises ); $i++ )  */?>
-<!--                     <li class="page-item">
-                      <button class="border-0" style="background-color: white;" value="<?php $i?>">
-                        <a class="page-link" href="<?php echo FRONT_ROOT ?>enterprise/index/?page=<?php echo $i ?>">
-                          <?php echo $i ?>
-                        </a>
-                      </button>
-                    </li> -->
-<!--                   <?php ?> -->
-
-                </ul>
-              </nav>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-<script src="<?php echo JS_PATH ?>script.js"></script>

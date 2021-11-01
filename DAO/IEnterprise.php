@@ -14,7 +14,11 @@
 
 		public function AddDb(Enterprise $enterprise);
 
-		public function deleteDB($id);
+		public function deleteEnterprise($id);
+
+		public function altaEnterprise($id);
+
+		public function updateEnterprise($id);
 
 	}
 
