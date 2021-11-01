@@ -1,10 +1,9 @@
 <?php namespace DAO;
 
-
-  use \Exception as Exception;
 	use Models\Enterprise as Enterprise;
 	use DAO\IEnterprise as IEnterprise;
 	use DAO\Connection as Connection;
+  use \Exception as Exception;
 
 	class EnterpriseDAO implements IEnterprise{
 
@@ -55,16 +54,16 @@
 
                 $query = "SELECT * FROM ".$this->tableName;
 
-                $this->connection = Connection::GetInstance();
+                $this->conexion = Connection::GetInstance();
 
-                $resultado = $this->connection->Execute($query);
+                $resultado = $this->conexion->Execute($query);
                 
                 foreach ($resultado as $row)
                 {                
                     $enterprise = new Enterprise();
                     $enterprise->setId($row["id"]);
                     $enterprise->setFirstName($row["name"]);
-                    $enterprise->setDescription($row["description"]);
+                    $enterprise->setDescription($row["descripcion"]);
                     $enterprise->setIsActive($row["isActive"]);
 
                     array_push($enterpriseList, $enterprise);
@@ -124,7 +123,7 @@
 
 		}
 
-    public function update($empresa) {
+    /*public function update($empresa) {
       $this->enterpriseList = $this->GetAll();
 
       foreach ($this->enterpriseList as $enterprise => $value) {
@@ -135,9 +134,9 @@
         }
       }
       return false;
-    }
+    }*/
 
-    public function deleteEnterprise($id) {
+   /* public function deleteEnterprise($id) {
       $this->enterpriseList = $this->GetAll();
 
       foreach ($this->enterpriseList as $enterprise => $value) {
@@ -146,7 +145,51 @@
           return $this->update($value);
         }
       }
-    }
+    } */
+
+    public function deleteEnterprise($id) {
+      //$this->enterpriseList = $this->GetAll();
+
+          $query = "UPDATE $this->tableName SET isActive = '0' WHERE id=:id";
+          
+          $parameters['id'] = $id;
+
+          try{
+            $this->conexion = Connection::GetInstance();
+              $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+          }catch(\PDOException $exception){
+              throw $exception;
+          }
+          
+        }
+
+        public function altaEnterprise($id)
+        {
+          $query = "UPDATE $this->tableName SET isActive = '1' WHERE id=:id";
+          
+          $parameters['id'] = $id;
+
+          try{
+            $this->conexion = Connection::GetInstance();
+              $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+          }catch(\PDOException $exception){
+              throw $exception;
+          }
+        }
+    
+        public function updateEnterprise($id)
+        {
+          $query = "UPDATE $this->tableName SET descripcion = 'Hola' WHERE id=:id";
+          
+          $parameters['id'] = $id;
+
+          try{
+            $this->conexion = Connection::GetInstance();
+              $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+          }catch(\PDOException $exception){
+              throw $exception;
+          }
+        }
 
 		public function getById($id){
       $this->enterpriseList = $this->GetAll();
@@ -157,10 +200,5 @@
       }
 		}
 
-
-
-	}
-
-
-
+  }
 ?>

@@ -2,7 +2,7 @@
 
 use Models\User as User;
 
-trait Admin {
+trait Admin extends User {
 
     protected $id;
     protected $description;
@@ -46,3 +46,4 @@ trait Admin {
 }
 
 ?>
+

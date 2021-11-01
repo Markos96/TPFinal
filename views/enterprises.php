@@ -15,9 +15,9 @@
 
           <div class="col-4">
 
-            <?php if ($student->getRol() == 'ROLE_ADMIN') { ?>
+            
               <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise/create">Agregar</a>
-            <?php } ?>
+            <?php ?>
           </div>
         </div>
 
@@ -34,22 +34,19 @@
             </thead>
             <tbody id="info">
               <?php foreach ( $enterprises as $empresa ) {?>
-                <?php if ( $student->getRol() == 'ROLE_ADMIN' ) {?>
                   <tr class="<?php echo ( $empresa->getIsActive() ? '' : "bg-danger" ) ?>">
                     <td><?php echo $empresa->getId(); ?></td>
                     <td><?php echo $empresa->getFirstName(); ?></td>
-                    <?php if ($student->getRol() == 'ROLE_ADMIN') { ?>
                       <td>
-                        <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update/<?php echo $empresa->getId()?>">editar</a>
+                        <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getFirstName() ?>">editar</a>
                         <?php if ( $empresa->getIsActive() ) {?>
                           <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">eliminar</a>
                         <?php } else { ?>
-                          <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">Alta</a>
+                          <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/alta?id=<?php echo $empresa->getId() ?>">Alta</a>
                         <?php } ?>
                       </td>
                     <?php } ?>
                   </tr>
-                <?php } else { ?>
                   <?php if ($empresa->getIsActive()) { ?>
                     <tr>
                       <td><?php echo $empresa->getId(); ?></td>
@@ -59,9 +56,6 @@
                       </td>
                     </tr>
                   <?php } ?>
-                <?php } ?>
-              <?php } ?>
-
             </tbody>
 
           </table>
