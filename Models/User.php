@@ -42,6 +42,10 @@ class User extends Student{
         return $this->idInfo;
     }
 
+    public function setIdInfo($id) {
+        $this->idInfo = $id;
+    }
+
     public function setId($id) {
         $this->idUser = $id;
     }
