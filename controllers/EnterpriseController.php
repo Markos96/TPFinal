@@ -12,7 +12,7 @@ class EnterpriseController {
 
   private $EnterpriseDAO;
   public $alert;
-
+  
   public $eId          = "";
   public $eName        = "";
   public $eDescription = "";
@@ -88,7 +88,7 @@ class EnterpriseController {
        // $this->alert->setMessage( "Empresa creada exitosamente." );
       } else {
         $enterprise->setId( $id );
-        $this->EnterpriseDAO->updateEnterprise( $enterprise );
+        //$this->EnterpriseDAO->updateEnterprise( $id,$name,$descripcion,$isActive );
       }
       var_dump( $this->alert );
 
@@ -145,10 +145,10 @@ class EnterpriseController {
 
   }
 
-  public function update( $id = "" ) {
+  public function update( $id = "",$name="",$descripcion="") {
     if ( Session::isActive() ) {
       
-      $this->showUpdateEnterprise( $this->EnterpriseDAO->updateEnterprise( $id ));
+      $this->showUpdateEnterprise( $this->EnterpriseDAO->updateEnterprise($id,$name,$descripcion));
     } else {
       $this->relocationHome();
     }

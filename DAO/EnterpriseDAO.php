@@ -178,46 +178,41 @@ class EnterpriseDAO implements IEnterprise{
           }
         }
     
-        public function updateEnterprise($id)
+        public function updateEnterprise($id,$name,$descripcion)
         {
 
           $query = "SELECT * FROM $this->tableName WHERE id=:id";
           $parameters['id'] = $id;
-
+        
           $this->conexion = Connection::GetInstance();
           
-          $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+          $result = $this->conexion->Execute($query,$parameters);
 
-            var_dump($result);
-
-            if (is_array($result) || is_object($result))
-{
             foreach ($result as $row)
               {
                 $enterprise = new Enterprise();
+                
                 $enterprise->setFirstName($row['name']);
                 $enterprise->setDescription($row['descripcion']);
+                $enterprise->setIsActive($row['isActive']);
               }
+              
+              return $enterprise;
+             $query = "UPDATE . $this->tableName . SET name=':name', descripcion = ':descripcion' WHERE id = ':id'";
+  
+              $parameters['name'] = $name;
+
+                try{
+                $this->conexion = Connection::GetInstance();
+                  $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+              }catch(\PDOException $exception){
+                  throw $exception;
+              }
+
+
+               
 }
-
-     
-                    
-                
-          //echo $enterprise->getFirstName()($result['name']);
-          //echo $enterprise->getDescription()($result['descripcion']);
-        }
           
-
-          /*$query = "UPDATE $this->tableName SET descripcion = 'Holaa' WHERE id=:id";
-          
-          $parameters['id'] = $id;
-
-          try{
-            $this->conexion = Connection::GetInstance();
-              $result = $this->conexion->ExecuteNonQuery($query,$parameters);
-          }catch(\PDOException $exception){
-              throw $exception;
-          }*/
 
 		public function getById($id){
       $this->enterpriseList = $this->GetAll();
