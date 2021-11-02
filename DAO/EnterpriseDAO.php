@@ -4,8 +4,9 @@
 	use DAO\IEnterprise as IEnterprise;
 	use DAO\Connection as Connection;
   use \Exception as Exception;
+use mysqli;
 
-	class EnterpriseDAO implements IEnterprise{
+class EnterpriseDAO implements IEnterprise{
 
 
     private $conexion;
@@ -179,7 +180,35 @@
     
         public function updateEnterprise($id)
         {
-          $query = "UPDATE $this->tableName SET descripcion = 'Hola' WHERE id=:id";
+
+          $query = "SELECT * FROM $this->tableName WHERE id=:id";
+          $parameters['id'] = $id;
+
+          $this->conexion = Connection::GetInstance();
+          
+          $result = $this->conexion->ExecuteNonQuery($query,$parameters);
+
+            var_dump($result);
+
+            if (is_array($result) || is_object($result))
+{
+            foreach ($result as $row)
+              {
+                $enterprise = new Enterprise();
+                $enterprise->setFirstName($row['name']);
+                $enterprise->setDescription($row['descripcion']);
+              }
+}
+
+     
+                    
+                
+          //echo $enterprise->getFirstName()($result['name']);
+          //echo $enterprise->getDescription()($result['descripcion']);
+        }
+          
+
+          /*$query = "UPDATE $this->tableName SET descripcion = 'Holaa' WHERE id=:id";
           
           $parameters['id'] = $id;
 
@@ -188,8 +217,7 @@
               $result = $this->conexion->ExecuteNonQuery($query,$parameters);
           }catch(\PDOException $exception){
               throw $exception;
-          }
-        }
+          }*/
 
 		public function getById($id){
       $this->enterpriseList = $this->GetAll();

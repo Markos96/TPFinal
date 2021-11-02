@@ -38,7 +38,7 @@
                     <td><?php echo $empresa->getId(); ?></td>
                     <td><?php echo $empresa->getFirstName(); ?></td>
                       <td>
-                        <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getFirstName() ?>">editar</a>
+                        <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getId() ?>">editar</a>
                         <?php if ( $empresa->getIsActive() ) {?>
                           <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">eliminar</a>
                         <?php } else { ?>
