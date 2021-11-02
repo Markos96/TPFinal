@@ -29,6 +29,7 @@
           </div>
         </div>
       </div>
+      <?php if ($user->getRol() == ADMIN) { ?>
       <div class="row mt-3">
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
           <h3 class="card-title text-center fs-6 my-3 fw-bolder">Usuarios</h3>
@@ -37,7 +38,7 @@
           </div>
         </div>
       </div>
-
+      <?php } ?>
       <div class="row mt-3">
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
           <h3 class="card-title text-center fs-6 my-3 fw-bolder">Trabajos</h3>

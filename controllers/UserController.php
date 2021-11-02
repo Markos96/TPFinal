@@ -22,22 +22,22 @@ class UserController
     {
 
         if (Session::isActive()) {
-            $this->home();
+            $this->loginSuccess();
         } else {
             $this->showLogin($alert);
         }
     }
 
-    public function login($email, $password)
+    public function login($email = "", $password = "")
     {
         $alert = new Alert();
 
         try {
             if ($this->verifyEmail($email) && $this->verifyPassword($password)) {
-                $user = new User($email, $password,1);
+                $user = new User($email, $password);
                 $user = $this->userDao->getByEmail($user);
                 Session::setCurrentUser($user);
-                $this->loginSuccess();
+                $this->index();
             }
         } catch (Exception $ex) {
             $alert->setType("danger");
@@ -79,6 +79,7 @@ class UserController
             if (trim($password) === "") {
                 throw new Exception("El campo password no puede quedar vacio");
             }
+
         } catch (Exception $ex) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
@@ -96,12 +97,7 @@ class UserController
         require_once VIEWS_PATH . 'home.php';
     }
 
-    public function home()
-    {
-        header("Location: " . FRONT_ROOT . 'student');
-    }
-
     public function loginSuccess() {
-        header("Location: " . FRONT_ROOT . "student");
+        header("Location: " . FRONT_ROOT . "Student");
     }
 }

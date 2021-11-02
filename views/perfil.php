@@ -1,5 +1,3 @@
-<?php require_once VIEWS_PATH . 'navbar.php'; ?>
-
 <div class="container">
   <div class="row mx-3">
     <div class="col-12 fs-6 fw-bolder mt-5 p-2 ps-4 text-dark rounded title__pr " style="background-color: #f1f2f6;
@@ -24,7 +22,7 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
             </tr>
             <tr>
               <th class="text-center" style="font-size: .8rem;">Archivo:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $student->getFileNumber(); ?></td>
+              <td class="text-center" style="font-size: .8rem;"><?php echo ($student->getFileNumber()) ? $student->getFileNumber() : "No disponible"; ?></td>
             </tr>
             <tr>
               <th class="text-center" style="font-size: .8rem;">Genero:</th>
@@ -44,11 +42,11 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
             </tr>
             <tr>
               <th class="text-center" style="font-size: .8rem;">Rol:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $student->getRol(); ?></td>
+              <td class="text-center" style="font-size: .8rem;"><?php echo ($student->getRol() == ADMIN) ? "ADMINISTRADOR" : "ESTUDIANTE"; ?></td>
             </tr>
             <tr>
               <th class="text-center" style="font-size: .8rem;">Carrera:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $student->getCareer(); ?></td>
+              <td class="text-center" style="font-size: .8rem;"><?php echo ($student->getCareer()) ? $student->getCareer() : "No disponible"; ?></td>
             </tr>
           </table>
         </div>
