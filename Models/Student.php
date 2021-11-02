@@ -7,6 +7,7 @@ use Models\Person as Person;
 		private $studentId;
 		private $careerId; 
 		private $fileNumber;
+		private $postulado;
 
 		public function __construct($careerId,$fileNumber, $name, $lastname, $dni, $gender, $birthdate, $phonenumber){
 
@@ -45,5 +46,16 @@ use Models\Person as Person;
 		{ 
 		return $this->fileNumber; 
 		} 
+ 
+		public function getPostulado()
+		{
+				return $this->postulado;
+		}
 
+		public function setPostulado($postulado)
+		{
+				$this->postulado = $postulado;
+
+				return $this;
+		}
 }
