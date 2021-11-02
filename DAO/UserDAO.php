@@ -35,7 +35,6 @@ class UserDAO implements IUserDAO
                     // datos del usuario
                     $user->setId($resultSet[0]["idUser"]);
                     $user->setIsActive($resultSet[0]["active"]);
-                    $user->setIdInfo($resultSet[0]["id_info"]);
                     $user->setPassword($resultSet[0]["pass"]);
                     $user->setRol($resultSet[0]["rol"]);
 

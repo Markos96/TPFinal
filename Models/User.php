@@ -12,15 +12,11 @@ class User extends Student{
     protected $password;
     protected $rol;
     protected $isActive;
-    protected $idInfo;
 
     public function __construct($email, $password) 
     {
         $this->email = $email;
         $this->password = $password;
-        $this->active = true;
-
-        $this->password = $password; 
     }
 
     public function getId() {
@@ -54,14 +50,6 @@ class User extends Student{
     public function setRol($rol){
         $this->rol = $rol;
     } 
-
-    public function getIdInfo() {
-        return $this->idInfo;
-    }
-
-    public function setIdInfo($idInfo) {
-        $this->idInfo = $idInfo;
-    }
 
     public function getActive() {
         return $this->active;
