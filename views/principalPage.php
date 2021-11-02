@@ -16,6 +16,15 @@
           <h6 class="card-title fw-bolder card-title__pr">Extra:</h6>
           <p class="card-text__pr">-Un alumno puede filtrar la lista de empresas a través de su nombre.</p>
           <hr class="border border-dark border-3">
+          <h6 class="card-title fw-bolder card-title__pr">Sprint 2:</h6>
+          <p class="card-text__pr">-Implementar todos los DAO utilizando Base de Datos.</p>
+          <p class="card-text__pr">-Registro y persistencia de los usuarios dentro de la base de datos, validando su informacion contra la API</p>
+          <p class="card-text__pr">-Alta, Baja y Modificacion de los Job Offers. Se deben asociar la informacion de las carreras de la API para crear nuevo puestos ademas de su Job Position.</p>
+          <p class="card-text__pr">-Un alumno se puede postular a UN solo Job Offer</p>
+          <h6 class="card-title fw-bolder card-title__pr">Extra:</h6>
+          <p class="card-text__pr">-Implementar filtros para Job Offers (ya sea por carrera o Job Position)</p>
+          <p class="card-text__pr">-Implementar validaciones para el formulario de carga de una nueva empresa (Ya sea un unico nombre de empresa, unico CUIT, fechas, campos, ETC)</p>
+          <hr class="border border-dark border-3">
         </div>
       </div>
     </div>

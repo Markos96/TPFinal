@@ -199,7 +199,7 @@ class EnterpriseController
   public function showOnlyEnterprise($id = "")
   {
     $this->showNavbar(Session::getCurrentUser());
-    $this->showMoreInfo($this->EnterpriseDAO->getById($id));
+    $this->showMoreInfo($this->EnterpriseDAO->getByIdDB($id));
   }
 
   public function showCreateEnterprise()
