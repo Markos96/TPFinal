@@ -22,7 +22,7 @@
             <li class="nav-item me-2">
               <!-- <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;"><?php /* echo $student->getFirstName() . ' ' . $student->getLastName() */ ?></a> -->
               <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;">
-              
+              <?php echo $user->getName() . ' ' . $user->getLastname() ?>
               </a>
             </li>
             <li class="nav-item">

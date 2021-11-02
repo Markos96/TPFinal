@@ -30,23 +30,42 @@ class UserDAO implements IUserDAO
             $resultSet = $this->connection->Execute($query, $parameters);
 
             if ($resultSet && password_verify($user->getPassword(), $resultSet[0]["pass"])) {
-                // traemos el estudiante especifico de la API
-                $student = $this->getAPIStudentById('Student', $user->getId());
-                // seteamos los datos del usuario guardados en la DB
-                $user->setId($resultSet[0]["idUser"]);
-                $user->setRol($resultSet[0]["rol"]);
-                // seteamos los datos en el usuario del estudiante especifico
-                $user->setCareer($this->getCareerNameById($student["careerId"]));
-                $user->setName($student["firstName"]);
-                $user->setLastname($student["lastName"]);
-                $user->setDni($student["dni"]);
-                $user->setFileNumber($student["fileNumber"]);
-                $user->setGender($student["gender"]);
-                $user->setBirthdate($student["birthDate"]);
-                $user->setPhonenumber($student["phoneNumber"]);
-                $user->setIsActive($student["active"]);
+                if ($resultSet[0]["active"]) {
 
-                return $user;
+                    // datos del usuario
+                    $user->setId($resultSet[0]["idUser"]);
+                    $user->setIsActive($resultSet[0]["active"]);
+                    $user->setIdInfo($resultSet[0]["id_info"]);
+                    $user->setPassword($resultSet[0]["pass"]);
+                    $user->setRol($resultSet[0]["rol"]);
+
+                    if($user->getRol() == STUDENT) {
+                        $info = $this->getAPIStudentByEmail('Student', $user->getEmail());
+                        $user->setCareer($this->getCareerNameById($info["careerId"]));
+                        $user->setFileNumber($info["fileNumber"]);
+                    } else {
+                        try{
+                            $queryAdmin = "SELECT * FROM User left outer join admin on User.idUser = admin.idUser where User.idUser = :id";
+                            $parametersAdmin["id"] = $user->getId();
+                            $this->connection::GetInstance();
+                            $resultSetAdmin = $this->connection->Execute($queryAdmin, $parametersAdmin);
+                            $info = $resultSetAdmin[0];
+
+                        } catch (Exception $ex) {
+                            throw $ex;
+                        }
+                    }
+                    // seteamos los datos en el usuario del estudiante especifico
+                    $user->setName($info["firstName"]);
+                    $user->setLastname($info["lastName"]);
+                    $user->setDni($info["dni"]);
+                    $user->setGender($info["gender"]);
+                    $user->setBirthdate($info["birthDate"]);
+                    $user->setPhonenumber($info["phoneNumber"]);
+                    $user->setIsActive($info["active"]);
+
+                    return $user;
+                } else throw new Exception("El usuario no esta activo contacte con administracion para cambiar su situacion");
             } else {
                 throw new Exception("Usuario y/o password incorrecto");
             }
@@ -55,12 +74,16 @@ class UserDAO implements IUserDAO
         }
     }
 
-    private function getAPIStudentById($url, $id)
+    private function getDBAdminById($id) 
+    {
+
+    }
+
+    private function getAPIStudentByEmail($url, $email)
     {
         $students = Connection::getDataApi($url);
-
         foreach ($students as $key => $student) {
-            if ($student["studentId"] == $id) {
+            if ( $student["email"] == $email ) {
                 return $student;
             }
         }

@@ -21,7 +21,7 @@ class StudentController
   {
 
     if (Session::isActive()) {
-      $this->home();
+      $this->home(Session::getCurrentUser());
     } else {
       $this->showLogin($alert);
     }
@@ -32,7 +32,7 @@ class StudentController
     require_once VIEWS_PATH . 'navbar.php';
   }
 
-  public function showPrincipalPage()
+  public function showPrincipalPage($user)
   {
     require_once VIEWS_PATH . 'principalPage.php';
   }
@@ -47,10 +47,10 @@ class StudentController
     require_once VIEWS_PATH . 'perfil.php';
   }
 
-  public function home()
+  public function home($user)
   {
-    $this->showNavbar(Session::getCurrentUser());
-    $this->showPrincipalPage();
+    $this->showNavbar($user);
+    $this->showPrincipalPage($user);
   }
 
   public function perfil()
