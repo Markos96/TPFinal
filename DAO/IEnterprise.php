@@ -18,7 +18,7 @@
 
 		public function altaEnterprise($id);
 
-		public function updateEnterprise($id,$name,$descripcion);
+		public function updateEnterprise(Enterprise $enterprise);
 
 	}
 

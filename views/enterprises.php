@@ -34,19 +34,6 @@
             </thead>
             <tbody id="info">
 
-              <?php foreach ( $enterprises as $empresa ) ?>
-                  <tr class="<?php echo ( $empresa->getIsActive() ? '' : "bg-danger" ) ?>">
-                    <td><?php echo $empresa->getId(); ?></td>
-                    <td><?php echo $empresa->getFirstName(); ?></td>
-                      <td>
-                        <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getId() ?>">editar</a>
-                        <?php if ( $empresa->getIsActive() ) {?>
-                          <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">eliminar</a>
-                        <?php } else { ?>
-                          <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/alta?id=<?php echo $empresa->getId() ?>">Alta</a>
-                        <?php } ?>
-                      </td>
-
               <?php foreach ($enterprises as $empresa) { ?>
                 <tr>
                   <td><?php echo $empresa->getId(); ?></td>

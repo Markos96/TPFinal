@@ -8,32 +8,36 @@ use Models\Alert as Alert;
 use Models\Enterprise as Enterprise;
 use Models\Session as Session;
 
-class EnterpriseController {
+class EnterpriseController
+{
 
   private $EnterpriseDAO;
   public $alert;
-  
+
   public $eId          = "";
   public $eName        = "";
   public $eDescription = "";
 
-  public function __construct() {
+  public function __construct()
+  {
     $this->EnterpriseDAO = new EnterpriseDAO();
     $this->alert         = new Alert();
   }
 
-  public function index() {
+  public function index()
+  {
 
-    if ( Session::isActive() ) {
+    if (Session::isActive()) {
       $this->showIndex();
     } else {
       $this->relocationHome();
     }
   }
 
-  public function description( $id = "" ) {
-    if ( Session::isActive() ) {
-      $this->showOnlyEnterprise( $id );
+  public function description($id = "")
+  {
+    if (Session::isActive()) {
+      $this->showOnlyEnterprise($id);
     } else {
       $this->relocationHome();
     }
@@ -74,46 +78,41 @@ class EnterpriseController {
     // header( "Location:" . FRONT_ROOT . "enterprise" );
   }*/
 
-  public function add ($id,$firstName,$description){
+  public function add($id, $firstName, $description, $active)
+  {
 
     $enterprise = new Enterprise();
-    $enterprise->setFirstName( $firstName );
-    $enterprise->setDescription( $description );
-    $enterprise->setIsActive( true );
+    $enterprise->setFirstName($firstName);
+    $enterprise->setDescription($description);
+    $enterprise->setIsActive( $active != "" ? $active : true);
 
     try {
 
-      if ( $id == null ) {      
-        $this->EnterpriseDAO->AddDb( $enterprise );
-       // $this->alert->setMessage( "Empresa creada exitosamente." );
+      if ($id == null) {
+        
+        $this->EnterpriseDAO->AddDb($enterprise);
       } else {
-        $enterprise->setId( $id );
-        //$this->EnterpriseDAO->updateEnterprise( $id,$name,$descripcion,$isActive );
+        $enterprise->setId($id);
+        $this->EnterpriseDAO->updateEnterprise( $enterprise );
+
       }
-      var_dump( $this->alert );
+    } catch (Exception $ex) {
 
-    } catch ( Exception $ex ) {
-
-      $this->alert->setType( "danger" );
-      $this->alert->setMessage( $ex->getMessage( "Error al crear la empresa." ) );
-
+      $this->alert->setType("danger");
+      $this->alert->setMessage($ex->getMessage("Error al crear la empresa."));
     } finally {
       $this->relocationEnterprise();
-      //$this->index($alert);
     }
+  }
 
+  public function create()
+  {
 
-
-    }
-
-  public function create() {
-
-    if ( Session::isActive() ) {
+    if (Session::isActive()) {
       $this->showCreateEnterprise();
     } else {
       $this->relocationHome();
     }
-
   }
 
   /*public function update( $id = "" ) {
@@ -125,90 +124,103 @@ class EnterpriseController {
 
   }*/
 
-  public function delete( $id = "" ) {
-    if ( Session::isActive() ) {
-      $this->EnterpriseDAO->deleteEnterprise( $id );
-      $this->relocationEnterprise();
-    } else {
-      $this->relocationHome();
-    }
-
-  }
-
-  public function alta( $id = "" ) {
-    if ( Session::isActive() ) {
-      $this->EnterpriseDAO->altaEnterprise( $id );
-      $this->relocationEnterprise();
-    } else {
-      $this->relocationHome();
-    }
-
-  }
-
-  public function update( $id = "",$name="",$descripcion="") {
-    if ( Session::isActive() ) {
-      
-      $this->showUpdateEnterprise( $this->EnterpriseDAO->updateEnterprise($id,$name,$descripcion));
-    } else {
-      $this->relocationHome();
-    }
-
-  }
-
-  public function deleteDB($id = ""){
-    if ( Session::isActive() ) {
-      $this->EnterpriseDAO->deleteEnterprise( $id );
+  public function delete($id = "")
+  {
+    if (Session::isActive()) {
+      $this->EnterpriseDAO->deleteEnterprise($id);
       $this->relocationEnterprise();
     } else {
       $this->relocationHome();
     }
   }
 
-  public function showNavbar( $user = "" ) {
+  public function alta($id = "")
+  {
+    if (Session::isActive()) {
+      $this->EnterpriseDAO->altaEnterprise($id);
+      $this->relocationEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+  }
+
+  public function update($id)
+  {
+    if (Session::isActive()) {
+      //$this->EnterpriseDAO->getByIdDB($id); 
+      //$this->showUpdateEnterprise( $this->EnterpriseDAO->updateEnterprise($id,$name,$descripcion));
+      $this->showUpdateEnterprise($this->EnterpriseDAO->getByIdDB($id));
+    } else {
+      $this->relocationHome();
+    }
+  }
+
+  public function deleteDB($id = "")
+  {
+    if (Session::isActive()) {
+      $this->EnterpriseDAO->deleteEnterprise($id);
+      $this->relocationEnterprise();
+    } else {
+      $this->relocationHome();
+    }
+  }
+
+  public function showNavbar($user = "")
+  {
     require_once VIEWS_PATH . 'navbar.php';
   }
 
-  public function showEnterprises( $user , $enterprises = "" ) {
+  public function showEnterprises($user, $enterprises = "")
+  {
     require_once VIEWS_PATH . 'enterprises.php';
   }
 
-  public function showFormEnterprise( $enterprise = "" ) {
+  public function showFormEnterprise($enterprise = "")
+  {
     require_once VIEWS_PATH . 'form-enterprise.php';
   }
 
-  public function showAddEnterprise() {
+  public function showAddEnterprise()
+  {
     require_once VIEWS_PATH . 'add-enterprises.php';
   }
 
-  public function showMoreInfo( $enterprise = "" ) {
+  public function showMoreInfo($enterprise = "")
+  {
     require_once VIEWS_PATH . 'only-enterprise.php';
   }
 
-  public function showIndex() {
-    $this->showNavbar( Session::getCurrentUser() );
-    $this->showEnterprises( Session::getCurrentUser(), $this->EnterpriseDAO->GetAll() );
+  public function showIndex()
+  {
+    $this->showNavbar(Session::getCurrentUser());
+    $this->showEnterprises(Session::getCurrentUser(), $this->EnterpriseDAO->GetAll());
   }
 
-  public function showOnlyEnterprise( $id = "" ) {
-    $this->showNavbar( Session::getCurrentUser() );
-    $this->showMoreInfo( $this->EnterpriseDAO->getById( $id ) );
+  public function showOnlyEnterprise($id = "")
+  {
+    $this->showNavbar(Session::getCurrentUser());
+    $this->showMoreInfo($this->EnterpriseDAO->getById($id));
   }
 
-  public function showCreateEnterprise() {
-    $this->showNavbar( Session::getCurrentUser() );
-    $this->showFormEnterprise( null );
+  public function showCreateEnterprise()
+  {
+    $this->showNavbar(Session::getCurrentUser());
+    $this->showFormEnterprise(null);
   }
 
-  public function showUpdateEnterprise( $enterprise = "" ) {
-    $this->showNavbar( Session::getCurrentUser() );
-    $this->showFormEnterprise( $enterprise );
+  public function showUpdateEnterprise($enterprise = "")
+  {
+    $this->showNavbar(Session::getCurrentUser());
+    $this->showFormEnterprise($enterprise);
   }
 
-  private function relocationHome() {
-    header( "Location:" . FRONT_ROOT );
+  private function relocationHome()
+  {
+    header("Location:" . FRONT_ROOT);
   }
 
-  private function relocationEnterprise() {
-    header( "Location: " . FRONT_ROOT . "enterprise" );
+  private function relocationEnterprise()
+  {
+    header("Location: " . FRONT_ROOT . "enterprise");
   }
 }

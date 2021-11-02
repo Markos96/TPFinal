@@ -8,6 +8,7 @@
             <input class="mb-3 form-control" type="hidden" name="id" value="<?php echo ( isset( $enterprise ) ? $enterprise->getId() : "") ?>">
             <input class="mb-3 form-control" type="text" name="firstName" value="<?php echo ( isset( $enterprise ) ? $enterprise->getFirstName() : "" ) ?>" id="" placeholder="Nombre empresa">
             <textarea class="mb-3 form-control" name="description" style="resize: none;font-size: .8rem; height: 200px"><?php echo ( isset( $enterprise ) ? $enterprise->getDescription() : "" ) ?></textarea>
+            <input type="hidden" class="mb-3 form-control" name="active" value="<?php echo ( isset( $enterprise ) ? $enterprise->getIsActive() : "" ) ?>">
             <div>
               <button type="submit" class="btn btn-primary">enviar</button>
               <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise">Volver</a>
