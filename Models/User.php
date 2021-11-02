@@ -52,7 +52,7 @@ class User extends Student{
     } 
 
     public function getActive() {
-        return $this->active;
+        return $this->isActive;
     }
 
     public function setIsActive($isActive){

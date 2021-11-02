@@ -51,6 +51,16 @@ class UserController
         $this->showLogin();
     }
 
+    public function all() {
+        if(Session::isActive()) {
+            $this->allUsers(Session::getCurrentUser(), $this->userDao->getAll());
+        } else {
+            $this->index();
+        }
+    }
+
+    // ****************************** VALIDACIONES ****************************** 
+
     private function verifyEmail($email)
     {
 
@@ -97,7 +107,20 @@ class UserController
         require_once VIEWS_PATH . 'home.php';
     }
 
+    public function showNavbar (User $user){
+        require_once VIEWS_PATH . 'navbar.php';
+    }
+
+    public function showAllUsers ($users) {
+        require_once VIEWS_PATH . 'users.php';
+    }
+
     public function loginSuccess() {
         header("Location: " . FRONT_ROOT . "Student");
+    }
+
+    public function allUsers ($user, $users) {
+        $this->showNavbar($user);
+        $this->showAllUsers($users);
     }
 }

@@ -17,6 +17,28 @@ class UserDAO implements IUserDAO
     {
     }
 
+    public function getAll()
+    {
+        $query = "SELECT * FROM " . $this->table;
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
+            if($resultSet) {
+                $users = array();
+                foreach($resultSet as $row) {
+                    $u = new User($row["email"], $row["pass"]);
+                    $u->setId($row["idUser"]);
+                    $u->setIsActive($row["active"]);
+                    $u->setRol($row["rol"]);
+                    array_push($users, $u);
+                }
+                return $users;
+            }
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
     public function getByEmail(User $user)
     {
 
@@ -38,18 +60,17 @@ class UserDAO implements IUserDAO
                     $user->setPassword($resultSet[0]["pass"]);
                     $user->setRol($resultSet[0]["rol"]);
 
-                    if($user->getRol() == STUDENT) {
+                    if ($user->getRol() == STUDENT) {
                         $info = $this->getAPIStudentByEmail('Student', $user->getEmail());
                         $user->setCareer($this->getCareerNameById($info["careerId"]));
                         $user->setFileNumber($info["fileNumber"]);
                     } else {
-                        try{
+                        try {
                             $queryAdmin = "SELECT * FROM User left outer join admin on User.idUser = admin.idUser where User.idUser = :id";
                             $parametersAdmin["id"] = $user->getId();
                             $this->connection::GetInstance();
                             $resultSetAdmin = $this->connection->Execute($queryAdmin, $parametersAdmin);
                             $info = $resultSetAdmin[0];
-
                         } catch (Exception $ex) {
                             throw $ex;
                         }
@@ -73,16 +94,11 @@ class UserDAO implements IUserDAO
         }
     }
 
-    private function getDBAdminById($id) 
-    {
-
-    }
-
     private function getAPIStudentByEmail($url, $email)
     {
         $students = Connection::getDataApi($url);
         foreach ($students as $key => $student) {
-            if ( $student["email"] == $email ) {
+            if ($student["email"] == $email) {
                 return $student;
             }
         }
