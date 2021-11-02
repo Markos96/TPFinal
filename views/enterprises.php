@@ -5,7 +5,7 @@
         <h3 class="card-title text-center fs-6 my-3 fw-bolder">Empresas</h3>
         <div class="row">
           <div class="col-8">
-
+          
             <form action="" method="post">
 
               <input type="text" name="name" id="searchEnterprise" class="form-control" placeholder="buscar empresa" oninput="search(this.value)">
