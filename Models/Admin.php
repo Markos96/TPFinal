@@ -2,7 +2,7 @@
 
 use Models\User as User;
 
-trait Admin extends User {
+class Admin extends User {
 
     protected $id;
     protected $description;
