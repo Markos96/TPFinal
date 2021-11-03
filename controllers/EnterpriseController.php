@@ -80,22 +80,22 @@ class EnterpriseController
 
   public function add($id, $firstName, $description, $active)
   {
-
+    if($this->verifyName($firstName)&& $this->verifyDescripcion($description)){
     $enterprise = new Enterprise();
     $enterprise->setFirstName($firstName);
     $enterprise->setDescription($description);
     $enterprise->setIsActive( $active != "" ? $active : true);
-
+  }
     try {
-
+          
       if ($id == null) {
         
         $this->EnterpriseDAO->AddDb($enterprise);
       } else {
         $enterprise->setId($id);
         $this->EnterpriseDAO->updateEnterprise( $enterprise );
-
       }
+    
     } catch (Exception $ex) {
 
       $this->alert->setType("danger");
@@ -164,6 +164,40 @@ class EnterpriseController
       $this->relocationHome();
     }
   }
+
+  private function verifyName($name)
+    {
+
+        $alert = new Alert();
+
+        try {
+            if ($name === "") {
+                throw new Exception("El campo nombre no puede quedar vacio");
+        }
+       } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            $this->index($alert);
+        }
+        return true;
+    }
+
+    private function verifyDescripcion($descripcion)
+    {
+
+        $alert = new Alert();
+
+        try {
+            if ($descripcion === "") {
+                throw new Exception("El campo descripcion no puede quedar vacio");
+        }
+       } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            $this->index($alert);
+        }
+        return true;
+    }
 
   public function showNavbar($user = "")
   {
