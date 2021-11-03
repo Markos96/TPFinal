@@ -16,7 +16,7 @@
           <div class="col-4">
 
 
-            <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise/create">Agregar</a>
+            <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise/create"><i class="far fa-plus-square"></i></a>
             <?php ?>
           </div>
         </div>
@@ -40,9 +40,9 @@
                   <td><?php echo $empresa->getFirstName(); ?></td>
                   <td>
                     <?php if ($user->getRol() == ADMIN) { ?>
-                      <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getId() ?>">editar</a>
+                      <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getId() ?>"><i class="far fa-edit text-light text-center"></i></a>
                       <?php if ($empresa->getIsActive()) { ?>
-                        <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>">eliminar</a>
+                        <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>"><i class="far fa-trash-alt"></i></a>
                       <?php } else { ?>
                         <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/alta?id=<?php echo $empresa->getId() ?>">Alta</a>
                       <?php } ?>
