@@ -21,6 +21,9 @@ class JobController {
         }
     }
 
+    public function form() {
+        $this->showFormCreateOrupdate();
+    }
 
 
     /* ************************* VISTAS **************************/
@@ -38,7 +41,16 @@ class JobController {
         $this->showPrincipalPage();
     }
 
+    public function showForm() {
+        require_once VIEWS_PATH . 'form-job.php';
+    }
+
     public function relocationUser() {
         header( "Location: " . FRONT_ROOT . "user" );
+    }
+
+    public function showFormCreateOrupdate() {
+        $this->showNavbar(Session::getCurrentUser());
+        $this->showForm();
     }
 }
