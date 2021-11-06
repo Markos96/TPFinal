@@ -19,6 +19,6 @@
   // CONSTANTES PERMISOS
   define("ADMIN", 1);
   define("STUDENT", 2);
-
+  define("ENTERPRISE", 3);
   ?>
   
