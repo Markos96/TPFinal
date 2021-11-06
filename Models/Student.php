@@ -16,12 +16,12 @@ use Models\Person as Person;
 			parent::__construct($name, $lastname, $dni, $gender, $birthdate, $phonenumber);
 		}
 
-		public function setId($studentId) 
+		public function setStudentId($studentId) 
 		{ 
 		$this->studentId = $studentId; 
 		} 
 
-		public function getId() 
+		public function getStudentId() 
 		{ 
 		return $this->studentId; 
 		} 

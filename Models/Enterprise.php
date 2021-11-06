@@ -6,7 +6,7 @@
 	private $id;
 	private $firstName;
 	private $description;
-  private $isActive;
+    private $isActive;
 
 	public function getId() { 
 		return $this->id; 
