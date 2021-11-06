@@ -48,7 +48,6 @@ class EnterpriseDAO implements IEnterprise
   public function GetAll()
   {
 
-    //return Connection::getDataJson();
 
     try {
       $enterpriseList = array();
@@ -69,7 +68,6 @@ class EnterpriseDAO implements IEnterprise
         array_push($enterpriseList, $en);
       }
 
-      //var_dump($enterpriseList);
       return $enterpriseList;
     } catch (Exception $ex) {
       throw $ex;
@@ -94,30 +92,6 @@ class EnterpriseDAO implements IEnterprise
       file_put_contents(fileName, $jsonContent);
     }
   }
-
-  /*public function update($empresa) {
-      $this->enterpriseList = $this->GetAll();
-
-      foreach ($this->enterpriseList as $enterprise => $value) {
-        if($value->getId() == $empresa->getId()) {
-          $this->enterpriseList[$enterprise] = $empresa;
-          $this->Save();
-          return;
-        }
-      }
-      return false;
-    }*/
-
-  /* public function deleteEnterprise($id) {
-      $this->enterpriseList = $this->GetAll();
-
-      foreach ($this->enterpriseList as $enterprise => $value) {
-        if($value->getId() == $id){
-          $value->setIsActive(!$value->getIsActive());
-          return $this->update($value);
-        }
-      }
-    } */
 
   public function deleteEnterprise($id)
   {

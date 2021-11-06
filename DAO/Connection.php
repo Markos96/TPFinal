@@ -45,22 +45,6 @@ class Connection
         return json_decode($data, true);
     }
 
-    /*public static function getAPIStudenById($url, $id)
-    {
-        $students = self::getDataApi($url);
-
-        foreach ($students as $key => $student) {
-            if ($student['studentId'] == $id) {
-                $st = new Student($this->getCareerName($student['careerId']), $student['firstName'], $student['lastName'], $student['dni'], $student['fileNumber'], $student['gender'], $student['birthDate'], $student['email'], $student['phoneNumber'], $student['active'], $student['careerId'] % 2 == 0 ? 'ROLE_ADMIN' : 'ROLE_STUDENT');
-
-                $st->setId($student['studentId']);
-
-                return $st;
-            }
-        }
-    } */
-
-
     public static function getDataJson()
     {
 
