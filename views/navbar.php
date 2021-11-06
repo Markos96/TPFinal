@@ -12,7 +12,7 @@
       </div>
       <div class="row collapse navbar-collapse" id="navbarSupportedContent" style="margin-right: 1px;">
         <ul class="navbar-nav d-flex justify-content-end align-items-center">
-          <li class="nav-item"><a href="<?php echo FRONT_ROOT ?>student/index" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="<?php echo FRONT_ROOT ?>user" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="<?php echo FRONT_ROOT ?>user/perfil" class="nav-link">Perfil</a></li>
         </ul>
       </div>
@@ -21,7 +21,7 @@
           <div class="w-100 d-flex justify-content-center align-items-center d-lg-flex justify-content-lg-end">
             <li class="nav-item me-2">
               <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;">
-              <?php echo $user->getEmail() ?>
+              <?php echo $user->getName() . ' ' . $user->getLastname() ?>
               </a>
             </li>
             <li class="nav-item">
