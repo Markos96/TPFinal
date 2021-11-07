@@ -13,6 +13,11 @@ class AdminDAO implements IAdminDAO
     private $connection = null;
     private $table = 'admin';
 
+    public function getById($id)
+    {
+        
+    }
+
     public function getAll()
     {}
 
