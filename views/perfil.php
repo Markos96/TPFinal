@@ -21,10 +21,12 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
               <th class="text-center" style="font-size: .8rem;">DNI:</th>
               <td class="text-center" style="font-size: .8rem;"><?php echo $user->getDni(); ?></td>
             </tr>
+            <?php if ($user->getFileNumber() != "") {?>
             <tr>
               <th class="text-center" style="font-size: .8rem;">Archivo:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo ($user->getFileNumber()) ? $user->getFileNumber() : "No disponible"; ?></td>
+              <td class="text-center" style="font-size: .8rem;"><?php echo $user->getFileNumber() ?></td>
             </tr>
+            <?php } ?>
             <tr>
               <th class="text-center" style="font-size: .8rem;">Genero:</th>
               <td class="text-center" style="font-size: .8rem;"><?php echo $user->getGender(); ?></td>
@@ -45,10 +47,12 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
               <th class="text-center" style="font-size: .8rem;">Rol:</th>
               <td class="text-center" style="font-size: .8rem;"><?php echo ($user->getRol() == ADMIN) ? "ADMINISTRADOR" : "ESTUDIANTE"; ?></td>
             </tr>
+            <?php if($user->getCareer() != "") { ?>
             <tr>
               <th class="text-center" style="font-size: .8rem;">Carrera:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo ($user->getCareer()) ? $user->getCareer() : "No disponible"; ?></td>
+              <td class="text-center" style="font-size: .8rem;"><?php echo $user->getCareer() ?></td>
             </tr>
+            <?php } ?>
           </table>
         </div>
       </div>
