@@ -8,10 +8,10 @@ use Models\JobPosition as JobPosition;
 class JobOffer {
 
     private $id;
-    private Enterprise $enterprise;
-    private User $user;
-    private Career $career;
-    private JobPosition $jobPosition;
+    private $enterprise;
+    private $student;
+    private $career;
+    private $jobPosition;
     private $active;
     private $description;
     private $date;
@@ -26,7 +26,7 @@ class JobOffer {
         return $this->enterprise;
     } 
 
-    public function getUser()
+    public function getStudent()
     {
         return $this->user;
     }
@@ -61,22 +61,22 @@ class JobOffer {
         $this->id = $id;
     }
 
-    public function setEnterprise(Enterprise $enterprise)
+    public function setEnterprise($enterprise)
     {
         $this->enterprise = $enterprise;
     }
 
-    public function setUser(User $user)
+    public function setStudent($user)
     {
         $this->user = $user;
     }
 
-    public function setCareer(Career $career)
+    public function setCareer($career)
     {
         $this->career = $career;
     }
 
-    public function setJobPosition(JobPosition $jobPosition)
+    public function setJobPosition($jobPosition)
     {
         $this->jobPosition = $jobPosition;
     }

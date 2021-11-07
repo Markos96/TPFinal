@@ -15,8 +15,9 @@ class ViewController
     {
         require_once self::$header;
         $user = null;
-        $enterprises = null;
-        $alertPass = null;
+        $enterprises = $list;
+        $alertPass = $alert;
+        $jobs = $list;
 
         if (Session::isActive()) {
             if ($view !== 'login'){
@@ -24,7 +25,7 @@ class ViewController
                 require_once VIEWS_PATH . 'navbar.php';
             }
 
-            switch ($view) {
+/*             switch ($view) {
                 case "enterprises":
                     $enterprises = $list;
                     break;
@@ -34,16 +35,15 @@ class ViewController
                 case "perfil":
                     $alertPass = $alert;
                     break;
-            } 
+                case "jobs":
+
+                    break;
+            }  */
 
             require_once VIEWS_PATH . $view . '.php';
 
         } else require_once VIEWS_PATH . 'login.php';
 
         require_once self::$footer;
-    }
-
-    private static function enterprises($user, $enterprises) {
-        require_once VIEWS_PATH . 'enterprises.php';
     }
 }

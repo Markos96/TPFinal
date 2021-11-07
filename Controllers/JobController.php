@@ -3,54 +3,29 @@
 use Models\Alert as Alert;
 use Exception as Exception;
 use Models\Session as Session;
+use DAO\JobOfferDAO as JobOfferDAO;
+use Controllers\ViewController as ViewController;
+use DAO\EnterpriseDAO;
 
 class JobController {
 
-    private $jobDAO;
+    private $jobOfferDAO;
+    private $enterpriseDAO;
 
     public function __construct()
     {
-        
+        $this->jobOfferDAO = new JobOfferDAO();
+        $this->enterpriseDAO = new EnterpriseDAO();
     }
 
     public function index (Alert $alert = null) {
-        if( Session::isActive() ) {
-            $this->showAllJobs();
-        } else {
-            $this->relocationUser();
+        $jobsFull = array();
+        $jobs = $this->jobOfferDAO->getAll();
+        foreach($jobs as $job) {
+            $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
+            array_push($jobsFull, $job);
         }
+        ViewController::showView($alert, 'jobs', $jobsFull);
     }
 
-    public function form() {
-        $this->showFormCreateOrupdate();
-    }
-
-
-    /* ************************* VISTAS **************************/
-
-    public function showNavbar($user) {
-        require_once VIEWS_PATH . 'navbar.php';
-    }
-
-    public function showPrincipalPage() {
-        require_once VIEWS_PATH . 'jobs.php';
-    }
-
-    public function showAllJobs() {
-        $this->showNavbar( Session::getCurrentUser() );
-        $this->showPrincipalPage();
-    }
-
-    public function showForm() {
-        require_once VIEWS_PATH . 'form-job.php';
-    }
-
-    public function relocationUser() {
-        header( "Location: " . FRONT_ROOT . "user" );
-    }
-
-    public function showFormCreateOrupdate() {
-        $this->showNavbar(Session::getCurrentUser());
-        $this->showForm();
-    }
 }
