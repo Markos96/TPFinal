@@ -13,6 +13,9 @@ class UserDAO implements IUserDAO
     private $connection;
     private $table = 'User';
 
+    public function getById($id)
+    {}
+
     public function getAll()
     {
         $query = "SELECT * FROM " . $this->table;

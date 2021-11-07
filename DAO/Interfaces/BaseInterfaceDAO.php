@@ -2,6 +2,7 @@
 
 interface BaseInterfaceDAO {
 
+    function getById($id);
     function getAll();
     function getInfo($model);
     function save($model);

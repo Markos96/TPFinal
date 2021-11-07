@@ -9,22 +9,154 @@ class EnterpriseDAO implements IEnterpriseDAO
 {
 
 
-  private $conexion;
-  private $tableName = "enterprises";
+  private $connection = null;
+  private $table = "enterprises";
 
-  private $enterpriseList = array();
+  public function getById($id)
+  {
+    $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+    $parameters["id"] = $id;
+    $enterprise = null;    
+    try {
+      $this->connection = Connection::GetInstance();
+      $resultSet = ($this->connection->Execute($query, $parameters))[0]; 
+
+      if($resultSet) {
+        $enterprise =  new Enterprise();
+        $enterprise->setId($id);
+        $enterprise->setFirstName($resultSet["name"]);
+        $enterprise->setDescription($resultSet["descripcion"]);
+        $enterprise->setIsActive($resultSet["isActive"]);
+      }
+      return $enterprise;
+    } catch(Exception $ex) {
+      throw $ex;
+    }
+  }
 
   public function getAll()
-  {}
+  {
+    $query = "SELECT * FROM " . $this->table;
+    $enterprises = array();
+
+    try {
+      $this->connection = Connection::GetInstance();
+      $resultSet = $this->connection->Execute($query);
+
+      foreach ($resultSet as $row) {
+        $enterprise = new Enterprise();
+        $enterprise->setId($row["id"]);
+        $enterprise->setFirstName($row["name"]);
+        $enterprise->setDescription($row["descripcion"]);
+        $enterprise->setIsActive($row["isActive"]);
+        array_push($enterprises, $enterprise);
+      }
+
+      return $enterprises;
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+  }
+
+  public function getAllActives()
+  {
+    $query = "SELECT * FROM " . $this->table . " WHERE isActive = :isActive";
+    $parameters["isActive"] = true;
+    $enterprises = array();
+
+    try {
+      $this->connection = Connection::GetInstance();
+      $resultSet = $this->connection->Execute($query, $parameters);
+
+      foreach ($resultSet as $row) {
+        $enterprise = new Enterprise();
+        $enterprise->setId($row["id"]);
+        $enterprise->setFirstName($row["name"]);
+        $enterprise->setDescription($row["descripcion"]);
+        $enterprise->setIsActive($row["isActive"]);
+        array_push($enterprises, $enterprise);
+      }
+
+      return $enterprises;
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+  }
+
+  public function getAllInactives()
+  {
+    $query = "SELECT * FROM " . $this->table . " WHERE isActive = :isActive";
+    $parameters["isActive"] = false;
+    $enterprises = array();
+
+    try {
+      $this->connection = Connection::GetInstance();
+      $resultSet = $this->connection->Execute($query, $parameters);
+
+      foreach ($resultSet as $row) {
+        $enterprise = new Enterprise();
+        $enterprise->setId($row["id"]);
+        $enterprise->setFirstName($row["name"]);
+        $enterprise->setDescription($row["descripcion"]);
+        $enterprise->setIsActive($row["isActive"]);
+        array_push($enterprises, $enterprise);
+      }
+
+      return $enterprises;
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+  }
 
   public function save($enterprise)
-  {}
+  {
+    $query = "INSERT INTO " . $this->table . " (name, descripcion, isActive) VALUES (:name, :descripcion, :isActive)";
+    $parameters["name"] = $enterprise->getFirstName();
+    $parameters["descripcion"] = $enterprise->getDescription();
+    $parameters["isActive"] = $enterprise->getIsActive();
+
+    try {
+      $this->connection = Connection::GetInstance();
+      $this->connection->ExecuteNonQuery($query, $parameters);
+    } catch( Exception $ex) {
+      throw $ex;
+    }
+  }
 
   public function update($enterprise)
-  {}
+  {
+    $query = "UPDATE " . $this->table . " SET name = :name, descripcion = :descripcion, isActive = :isActive WHERE id = :id";
+
+    $parameters["name"] = $enterprise->getFirstName();
+    $parameters["descripcion"] = $enterprise->getDescription();
+    $parameters["isActive"] = $enterprise->getIsActive();
+    $parameters["id"] = $enterprise->getId();
+
+    try {
+
+      $this->connection = Connection::GetInstance();
+      $this->connection->ExecuteNonQuery($query, $parameters);
+
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+  }
 
   public function delete($enterprise) 
-  {}
+  {
+    $query = "UPDATE " . $this->table . " SET isActive = :isActive WHERE id = :id";
+    $parameters["isActive"] = ($enterprise->getIsActive()) ? 0 : 1;
+    $parameters["id"] = $enterprise->getId();
+
+    try {
+
+      $this->connection = Connection::GetInstance();
+      $this->connection->ExecuteNonQuery($query, $parameters);
+
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+  }
 
   public function getInfo($enterprise)
   {}

@@ -21,9 +21,9 @@
 		return $this->firstName; 
 	} 
 
-  public function getIsActive() {
-    return $this->isActive;
-  }
+  	public function getIsActive() {
+  	  return $this->isActive;
+  	}
 
 	public function setFirstName($firstName) 
 	{ 
@@ -43,5 +43,3 @@
     $this->isActive = $active;
   }
 }
-
-?>

@@ -4,6 +4,8 @@
 
 	interface IEnterpriseDAO extends BaseInterfaceDAO{
 
+		function getAllActives();
+		function getAllInactives();
 
 	}
 
