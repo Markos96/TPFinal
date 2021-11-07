@@ -5,14 +5,18 @@ namespace DAO;
 use Exception;
 use Models\User as User;
 use DAO\Connection as Connection;
+use DAO\Interfaces\IAdminDAO as IAdminDAO;
 
-class AdminDAO
+class AdminDAO implements IAdminDAO
 {
 
     private $connection = null;
     private $table = 'admin';
 
-    public function getInfo(User $user)
+    public function getAll()
+    {}
+
+    public function getInfo($user)
     {
 
         $query = "SELECT * FROM User left outer join admin on User.idUser = admin.idUser where User.idUser = :id";
@@ -35,4 +39,13 @@ class AdminDAO
             throw $ex;
         }
     }
+
+    public function save($user) 
+    {}
+
+    public function update($user)
+    {}
+
+    public function delete($user)
+    {}
 }

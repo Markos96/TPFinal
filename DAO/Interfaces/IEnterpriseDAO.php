@@ -1,0 +1,13 @@
+<?php namespace DAO\Interfaces;
+	
+	use Models\Enterprise as Enterprise;
+
+	interface IEnterpriseDAO extends BaseInterfaceDAO{
+
+
+	}
+
+
+
+
+?>

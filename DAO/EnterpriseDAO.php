@@ -1,14 +1,11 @@
-<?php
-
-namespace DAO;
+<?php namespace DAO;
 
 use Models\Enterprise as Enterprise;
-use DAO\IEnterprise as IEnterprise;
+use DAO\Interfaces\IEnterpriseDAO as IEnterpriseDAO;
 use DAO\Connection as Connection;
 use \Exception as Exception;
-use mysqli;
 
-class EnterpriseDAO implements IEnterprise
+class EnterpriseDAO implements IEnterpriseDAO
 {
 
 
@@ -17,7 +14,22 @@ class EnterpriseDAO implements IEnterprise
 
   private $enterpriseList = array();
 
-  public function add(Enterprise $enterprise)
+  public function getAll()
+  {}
+
+  public function save($enterprise)
+  {}
+
+  public function update($enterprise)
+  {}
+
+  public function delete($enterprise) 
+  {}
+
+  public function getInfo($enterprise)
+  {}
+
+/*   public function add(Enterprise $enterprise)
   {
 
     $this->enterpriseList = Connection::getDataJson();
@@ -143,40 +155,9 @@ class EnterpriseDAO implements IEnterprise
       throw $ex;
     }
 
-  }
-
-/*   public function updateEnterprise($id, $name, $descripcion)
-  {
-
-    $query = "SELECT * FROM $this->tableName WHERE id=:id";
-    $parameters['id'] = $id;
-
-    $this->conexion = Connection::GetInstance();
-
-    $result = $this->conexion->Execute($query, $parameters);
-
-    foreach ($result as $row) {
-      $enterprise = new Enterprise();
-
-      $enterprise->setFirstName($row['name']);
-      $enterprise->setDescription($row['descripcion']);
-      $enterprise->setIsActive($row['isActive']);
-    }
-
-    return $enterprise;
-    $query = "UPDATE . $this->tableName . SET name=':name', descripcion = ':descripcion' WHERE id = ':id'";
-
-    $parameters['name'] = $name;
-
-    try {
-      $this->conexion = Connection::GetInstance();
-      $result = $this->conexion->ExecuteNonQuery($query, $parameters);
-    } catch (\PDOException $exception) {
-      throw $exception;
-    }
   } */
 
-  public function getById($id)
+/*   public function getById($id)
   {
     //$this->enterpriseList = $this->GetAll();
     foreach ($this->enterpriseList as $enterprise => $value) {
@@ -205,5 +186,5 @@ class EnterpriseDAO implements IEnterprise
     } catch (Exception $ex) {
       throw $ex;
     }
-  }
+  } */
 }
