@@ -1,9 +1,8 @@
 <?php
 namespace Controllers;
 
-use Models\Alert as Alert;
-use Models\User as User;
-use Models\Session as Session;
+use Models\Alert;
+use Models\Session;
 
 class ViewController
 {
@@ -18,6 +17,8 @@ class ViewController
         $enterprises = $list;
         $alertPass = $alert;
         $jobs = $list;
+        $careers = $list;
+        $career = $model;
 
         if (Session::isActive()) {
             if ($view !== 'login'){

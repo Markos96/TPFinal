@@ -1,6 +1,6 @@
 <?php namespace Controllers;
 
-use Models\User as User;
+use Models\User;
 use DAO\UserDAO as UserDAO;
 use \Exception as Exception;
 use Models\Alert as Alert;
@@ -121,7 +121,7 @@ class UserController
 
         try {
             if (trim($email) === "") {
-                throw new Exception("El campo email no puede quedar vacio");
+                throw new Exception(EMPTY_FIELD);
             } else if (!preg_match("/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/", $email)) {
                 throw new Exception("Ingrese un email valido");
             }
