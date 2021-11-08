@@ -1,4 +1,5 @@
 <?php namespace Config;
+  require_once 'Config/Generic_Messages.php';
 
   define('ROOT', dirname(__DIR__) . '/');
 
@@ -20,5 +21,7 @@
   define("ADMIN", 1);
   define("STUDENT", 2);
   define("ENTERPRISE", 3);
+
+
   ?>
   

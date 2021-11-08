@@ -6,10 +6,10 @@
   require 'Config/Autoload.php';
   require 'Config/Config.php';
 
-  use Config\Autoload as Autoload;
-  use Config\Router as Router;
-  use Config\Request as Request;
-  use Models\Session as Session;
+  use Config\Autoload;
+  use Config\Router;
+  use Config\Request;
+  use Models\Session;
 
   Autoload::Start();
 
