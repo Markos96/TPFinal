@@ -9,7 +9,6 @@
             <form action="" method="post">
 
               <input type="text" name="name" id="searchEnterprise" class="form-control" placeholder="buscar empresa" oninput="search(this.value)">
-              <div class="alert alert-<?php echo (isset($this->alert) ? $this->alert->getType() : "") ?> text-center fw-bold fs-6"><?php echo (isset($this->alert) ? $this->alert->getMessage() : "") ?></div>
             </form>
           </div>
 
@@ -42,9 +41,9 @@
                     <?php if ($user->getRol() == ADMIN) { ?>
                       <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update?id=<?php echo $empresa->getId() ?>"><i class="far fa-edit text-light text-center"></i></a>
                       <?php if ($empresa->getIsActive()) { ?>
-                        <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete?id=<?php echo $empresa->getId() ?>"><i class="far fa-trash-alt"></i></a>
+                        <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete/<?php echo $empresa->getId() ?>"><i class="far fa-trash-alt"></i></a>
                       <?php } else { ?>
-                        <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/alta?id=<?php echo $empresa->getId() ?>">Alta</a>
+                        <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/delete/<?php echo $empresa->getId() ?>"><i class="fas fa-undo-alt"></i></a>
                       <?php } ?>
                     <?php } else { ?>
                       <a href="<?php echo FRONT_ROOT ?>enterprise/description/<?php echo $empresa->getId() ?>" class="btn btn-success">Ver descripcion</a>

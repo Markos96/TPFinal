@@ -6,7 +6,7 @@
 	private $id;
 	private $firstName;
 	private $description;
-  private $isActive;
+    private $isActive;
 
 	public function getId() { 
 		return $this->id; 
@@ -21,9 +21,9 @@
 		return $this->firstName; 
 	} 
 
-  public function getIsActive() {
-    return $this->isActive;
-  }
+  	public function getIsActive() {
+  	  return $this->isActive;
+  	}
 
 	public function setFirstName($firstName) 
 	{ 
@@ -43,5 +43,3 @@
     $this->isActive = $active;
   }
 }
-
-?>

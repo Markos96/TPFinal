@@ -9,7 +9,7 @@
       $methodName = $request->getMethod();
       $methodParameters = $request->getParameters();
 
-      $controllerClassName = 'controllers\\' . $controllerName;
+      $controllerClassName = 'Controllers\\' . $controllerName;
 
       $controller = new $controllerClassName;
 

@@ -1,14 +1,16 @@
-<?php
-
-namespace Models;
+<?php namespace Models;
 
 class Career
 {
-
-
 	private $idCareer;
 	private $name;
 	private $active;
+
+	public function __construct($name, $active)
+	{
+		$this->name = $name;
+		$this->active = $active;	
+	}
 
 	public function getId()
 	{

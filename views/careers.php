@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="col-4">
-                        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>job/form"><i class="far fa-plus-square"></i></a>
+                        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>career/create"><i class="far fa-plus-square"></i></a>
                         <?php ?>
                     </div>
                 </div>
@@ -22,25 +22,23 @@
                         <thead>
 
                             <tr>
-                                <th scope="col">Empresa</th>
-                                <th scope="col">Posicion</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Fecha de Publicacion</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col">Nombre</th>
+                                <th>Acciones</th>
                             </tr>
 
                         </thead>
                         <tbody id="info">
-                            <?php if ($jobs != null) { ?>
-                                <?php foreach ($jobs as $job) { ?>
+                            <?php if ($careers != null) { ?>
+                                <?php foreach ($careers as $career) { ?>
                                     <tr>
-                                        <td><?php echo $job->getEnterprise()->getFirstName() ?></td>
-                                        <td><?php echo $job->getJobPosition() ?></td>
-                                        <td><?php echo $job->getActive() ?></td>
-                                        <td><?php echo $job->getDate() ?></td>
+                                        <td><?php echo $career->getName() ?></td>
                                         <td>
-                                            <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>job/update/"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-danger" href="#"><i class="fas fa-trash-alt"></i></a>
+                                            <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>career/update/<?php echo $career->getId() ?>"><i class="fas fa-edit"></i></a>
+                                            <?php if ($career->getActive()) { ?>
+                                                <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>career/delete/<?php echo $career->getId() ?>"><i class="fas fa-trash-alt"></i></a>
+                                            <?php } else { ?>
+                                                <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>career/delete/<?php echo $career->getId() ?>"><i class="fas fa-undo-alt"></i></a>
+                                            <?php } ?>
                                         </td>
                                         <!-- Si es admin mostrar editar y eliminar -->
                                         <!-- Si es un estudiante y todavia no se postulo a ningun trabajo postular -->

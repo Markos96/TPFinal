@@ -48,6 +48,16 @@
         </div>
       </div>
       <?php } ?>
+      <?php if ($user->getRol() == ADMIN) { ?>
+      <div class="row mt-3">
+        <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
+          <h3 class="card-title text-center fs-6 my-3 fw-bolder">Carreras</h3>
+          <div class="align-self-center card-body mb-3 card-body__pr">
+            <a class="nav-link text-center text-dark fs-6" href="<?php echo FRONT_ROOT ?>career">Carreras</a>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
       <div class="row mt-3">
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
           <h3 class="card-title text-center fs-6 my-3 fw-bolder">Trabajos</h3>
