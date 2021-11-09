@@ -9,10 +9,11 @@ use Models\Person as Person;
 		private $fileNumber;
 		private $postulado;
 
-		public function __construct($careerId,$fileNumber, $name, $lastname, $dni, $gender, $birthdate, $phonenumber){
+		public function __construct($careerId,$fileNumber,$postulado, $name, $lastname, $dni, $gender, $birthdate, $phonenumber){
 
 			$this->careerId = $careerId;
 			$this->fileNumber = $fileNumber;
+			$this->postulado = $postulado;
 			// atributos de  || Person || 
 			parent::__construct($name, $lastname, $dni, $gender, $birthdate, $phonenumber);
 		}

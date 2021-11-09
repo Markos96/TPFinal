@@ -80,12 +80,17 @@ class EnterpriseController
 
   public function add($id, $firstName, $description, $active)
   {
-    if($this->verifyName($firstName)&& $this->verifyDescripcion($description)){
+    
+    if($this->verifyName($firstName) && $this->verifyDescripcion($description)){
     $enterprise = new Enterprise();
     $enterprise->setFirstName($firstName);
     $enterprise->setDescription($description);
     $enterprise->setIsActive( $active != "" ? $active : true);
+    
+  }else{
+    echo "ERROR"; 
   }
+  
     try {
           
       if ($id == null) {
