@@ -26,6 +26,7 @@
                                 <th scope="col">Posicion</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Fecha de Publicacion</th>
+                                <th>Carrera</th>
                                 <th scope="col">Acciones</th>
                             </tr>
 
@@ -38,10 +39,12 @@
                                         <td><?php echo $job->getJobPosition() ?></td>
                                         <td><?php echo $job->getActive() ?></td>
                                         <td><?php echo $job->getDate() ?></td>
+                                        <td><?php echo $job->getCareer()->getName()?></td>
                                         <td>
                                             <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>job/update/"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-danger" href="#"><i class="fas fa-trash-alt"></i></a>
                                         </td>
+                                        
                                         <!-- Si es admin mostrar editar y eliminar -->
                                         <!-- Si es un estudiante y todavia no se postulo a ningun trabajo postular -->
                                     </tr>

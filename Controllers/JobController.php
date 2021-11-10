@@ -3,8 +3,9 @@
 use Models\Alert as Alert;
 use Exception as Exception;
 use Models\Session as Session;
-use DAO\JobOfferDAO as JobOfferDAO;
+use DAO\JobOfferDAO;
 use Controllers\ViewController as ViewController;
+use DAO\CareerDAO;
 use DAO\EnterpriseDAO;
 
 class JobController {
@@ -16,12 +17,14 @@ class JobController {
     {
         $this->jobOfferDAO = new JobOfferDAO();
         $this->enterpriseDAO = new EnterpriseDAO();
+        $this->careerDAO = new CareerDAO();
     }
 
     public function index (Alert $alert = null) {
         $jobsFull = array();
         $jobs = $this->jobOfferDAO->getAll();
         foreach($jobs as $job) {
+            $job->setCareer($this->careerDAO->getById($job->getCareer()));
             $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
             array_push($jobsFull, $job);
         }
