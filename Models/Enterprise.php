@@ -1,45 +1,54 @@
-<?php namespace Models;
+<?php
+
+namespace Models;
 
 
-   class Enterprise{
+class Enterprise
+{
 
 	private $id;
-	private $firstName;
+	private $name;
 	private $description;
-    private $isActive;
+	private $active;
 
-	public function getId() { 
-		return $this->id; 
-	} 
+	public function getId()
+	{
+		return $this->id;
+	}
 
-	public function setId($id) 
-	{ 
-		$this->id = $id; 
-	} 
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
 
-	public function getFirstName() { 
-		return $this->firstName; 
-	} 
+	public function getName()
+	{
+		return $this->name;
+	}
 
-  	public function getIsActive() {
-  	  return $this->isActive;
-  	}
+	public function setName($name)
+	{
+		$this->name = $name;
+	}
 
-	public function setFirstName($firstName) 
-	{ 
-		$this->firstName = $firstName; 
-	} 
+	public function getActive()
+	{
+		return $this->active;
+	}
+	
+	public function setActive($active)
+	{
+		$this->active = $active;
+	}
 
-	public function getDescription() { 
-		return $this->description; 
-	} 
+	public function getDescription()
+	{
+		return $this->description;
+	}
 
-	public function setDescription($description) 
-	{ 
-		$this->description = $description; 
-	} 
+	public function setDescription($description)
+	{
+		$this->description = $description;
+	}
 
-  public function setIsActive($active) {
-    $this->isActive = $active;
-  }
 }

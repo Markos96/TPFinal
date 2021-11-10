@@ -40,7 +40,7 @@
                                             <?php } else { ?>
                                                 <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>user/delete/<?php echo $user->getId() ?>"><i class="fas fa-undo-alt"></i></a>
                                             <?php } ?>
-                                            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>user/delete/<?php echo $user->getId() ?>"><i class="far fa-eye"></i></a>
+                                            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>user/description/<?php echo $user->getId() ?>"><i class="far fa-eye"></i></a>
                                         </td>
                                         <!-- Si es admin mostrar editar y eliminar -->
                                         <!-- Si es un estudiante y todavia no se postulo a ningun trabajo postular -->

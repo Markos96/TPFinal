@@ -1,17 +1,13 @@
 <?php namespace Models;
 
-use Models\Student as Student;
+class User {
 
-use Models\Admin as Admin;
-
-class User extends Student{
-
+    private $id;
+    private $email;
+    private $password;
+    private $rol;
+    private $active;
     
-    protected $idUser;
-    protected $email;
-    protected $password;
-    protected $rol;
-    protected $isActive;
 
     public function __construct($email, $password) 
     {
@@ -19,15 +15,15 @@ class User extends Student{
         $this->password = $password;
     }
 
-    public function getId() {
-        return $this->idUser;
-    }
-
     public function setId($id) {
-        $this->idUser = $id;
+        $this->id = $id;
     }
 
-     public function setEmail($email) {
+    public function getId(){
+        return $this->id;
+    }
+
+    public function setEmail($email) {
         $this->email = $email;
     }
 
@@ -52,10 +48,10 @@ class User extends Student{
     } 
 
     public function getActive() {
-        return $this->isActive;
+        return $this->active;
     }
 
-    public function setIsActive($isActive){
-        $this->isActive = $isActive;
+    public function setActive($active){
+        $this->active = $active;
     }
 }

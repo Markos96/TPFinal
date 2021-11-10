@@ -83,14 +83,13 @@ class CareerController
                 $career = new Career($name, (($active) ? $active : true));
                 $alert->setType("success");
                 if ($this->careerDAO->getInfo($career)) {
-                    echo $id;
                     if ($id) {
                         $career->setId((int)$id);
                         $alert->setMessage("Carrera modificada");
                         ViewController::showView($alert, 'career-form', $this->careerDAO->update($career));
                     } else {
                         $alert->setMessage("Carrera agregada");
-                    ViewController::showView($alert, 'career-form' /*$this->careerDAO->save($career)*/);
+                        ViewController::showView($alert, 'career-form' ,$this->careerDAO->save($career));
                     }
                 } else throw new Exception("La carrera que quiere agregar ya existe");
             }

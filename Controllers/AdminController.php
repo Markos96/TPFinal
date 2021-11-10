@@ -23,7 +23,12 @@ class AdminController
         $alert = new Alert();
         $user = Session::getCurrentUser();
         try {
-            Session::setCurrentUser($this->adminDAO->getInfo($user));
+            $admin = $this->adminDAO->getById($user->getId());
+            Session::setCurrentInfoUser($admin);
+          /*   echo '<pre>';
+            var_dump(Session::getCurrentUser());
+            echo '<br><br><br>';
+            var_dump(Session::getCurrentInfoUser()); */
             $this->relocationAdmin();
         } catch (Exception $ex) {
             $alert->setType("danger");
@@ -33,6 +38,6 @@ class AdminController
     }
 
     private function relocationAdmin() {
-        header("Location: " . FRONT_ROOT . "user");
+        header("Location: " . FRONT_ROOT . "user/principal_page");
     }
 }

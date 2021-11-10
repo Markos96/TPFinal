@@ -4,6 +4,7 @@ class Session {
 
   static $userSessionName = "LoggedUser";
   static $sessionTime     = "Time";
+  static $userInfo = "userInfo";
 
   public static function start() {
     session_start();
@@ -16,6 +17,15 @@ class Session {
 
   public static function getCurrentUser() {
     return $_SESSION[self::$userSessionName];
+  }
+
+  public static function setCurrentInfoUser($infoUser){
+    self::setTimeSession();
+    $_SESSION[self::$userInfo] = $infoUser;
+  }
+
+  public static function getCurrentInfoUser() {
+    return $_SESSION[self::$userInfo];
   }
 
   public static function setTimeSession() {

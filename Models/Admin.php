@@ -1,15 +1,19 @@
-<?php namespace Models;
+<?php
 
-trait Admin {
+namespace Models;
+
+class Admin extends Person
+{
 
     protected $id;
     protected $description;
     protected $position;
 
-    public function __construct($description, $position)
+    public function __construct($name, $lastname, $dni, $gender, $birthdate, $phonenumber, $description, $position)
     {
-       $this->description = $description; 
-       $this->position = $position;
+		parent::__construct($name, $lastname, $dni, $gender, $birthdate, $phonenumber);
+        $this->description = $description;
+        $this->position = $position;
     }
 
     public function getId()
@@ -42,6 +46,3 @@ trait Admin {
         $this->position = $position;
     }
 }
-
-?>
-

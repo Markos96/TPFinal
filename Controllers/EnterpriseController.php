@@ -35,23 +35,14 @@ class EnterpriseController
     ViewController::showView(null, 'enterprises', $this->enterpriseDAO->getAllActives());
   }
 
-/*   public function description($id = "")
-  {
-    if (Session::isActive()) {
-      $this->showOnlyEnterprise($id);
-    } else {
-      $this->relocationHome();
-    }
-  } */
-
   public function add($id, $firstName, $description, $active)
   {
 
     // agregar validaciones para que los datos no vallan vacios a la base de datos
     $enterprise = new Enterprise();
-    $enterprise->setFirstName($firstName);
+    $enterprise->setName($firstName);
     $enterprise->setDescription($description);
-    $enterprise->setIsActive( $active != "" ? $active : true);
+    $enterprise->setActive( $active != "" ? $active : true);
 
     try {
 
@@ -70,16 +61,6 @@ class EnterpriseController
       $this->relocationEnterprise();
     }
   }
-
-/*   public function delete($id = "")
-  {
-    if (Session::isActive()) {
-      $this->EnterpriseDAO->deleteEnterprise($id);
-      $this->relocationEnterprise();
-    } else {
-      $this->relocationHome();
-    }
-  } */
 
   private function relocationEnterprise()
   {

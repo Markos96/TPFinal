@@ -1,4 +1,6 @@
-<?php namespace Controllers;
+<?php
+
+namespace Controllers;
 
 use Models\User;
 use DAO\UserDAO as UserDAO;
@@ -20,42 +22,38 @@ class UserController
 
     public function index(Alert $alert = null)
     {
-        if ($alert == null) {
-            ViewController::showView(null, 'principalPage');
-        } else {
-            ViewController::showView($alert, 'login');
-        }
+        ViewController::showView($alert, 'login');
     }
 
-    public function add($id, $email, $password,$active)
+    public function principal_page(){
+        ViewController::showView(null, 'principalPage');
+    }
+
+    public function add($id, $email, $password, $active)
     {
         $alert = new Alert();
         try {
-
-            
-                $user = new User($email,$password);
-                $user->setId($id);
-                $user->setIsActive(true);
-                $user->setRol(2);
-                $alert->setType("success");
-                if ($this->userDao->getInfo($user)) {
-                    echo $id;
-                    if ($id) {
-                        $user->setId((int)$id);
-                        $alert->setMessage("Carrera modificada");
-                        ViewController::showView($alert, 'user-form', $this->userDao->update($user));
-                    } else {
-                        $alert->setMessage("Usuario agregado");
-                        $this->userDao->save($user);
+            $user = new User($email, $password);
+            $user->setId($id);
+            $user->setActive(true);
+            $user->setRol(2);
+            $alert->setType("success");
+            if ($this->userDao->getInfo($user)) {
+                echo $id;
+                if ($id) {
+                    $user->setId((int)$id);
+                    $alert->setMessage("Carrera modificada");
+                    ViewController::showView($alert, 'user-form', $this->userDao->update($user));
+                } else {
+                    $alert->setMessage("Usuario agregado");
+                    $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
+                    $this->userDao->save($user);
                     ViewController::showView($alert, 'users', $this->userDao->getAll() /*$this->careerDAO->save($career)*/);
-                    }
-                } else throw new Exception("La carrera que quiere agregar ya existe");
-            
+                }
+            } else throw new Exception("La carrera que quiere agregar ya existe");
         } catch (Exception $ex) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
-        } finally {
-            ViewController::showView($alert, 'career-form');
         }
     }
 
@@ -64,12 +62,22 @@ class UserController
         $alert = new Alert();
 
         try {
-            if ($this->verifyEmail($email) && $this->verifyPassword($password)) {
-                $user = new User($email, $password);
-                $user = $this->userDao->getInfo($user);
-                Session::setCurrentUser($user);
-                $this->getInfo($user);
+            $this->verifyEmail($email);
+            $this->verifyPassword($password);
+
+            $user = new User($email, $password);
+            $user = $this->userDao->getByEmail($email);
+
+            if (!$user->getActive()) {
+                throw new Exception("El usuario esta dado de baja contacte con un administrador");
             }
+            if (!password_verify($password, $user->getPassword())) {
+                throw new Exception("Usuario y/o password incorrecto");
+            }
+
+            Session::setCurrentUser($user);
+            $this->getInfo();
+
         } catch (Exception $ex) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
@@ -88,29 +96,46 @@ class UserController
         ViewController::showView($alertPass, 'perfil');
     }
 
+    public function description($id)
+    {
+        $alert = new Alert();
+        try {
+            $user = $this->userDao->getById($id);
+
+            if ($user) {
+                ViewController::showView(null, 'perfil', null, $user);
+            }
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'users', $this->userDao->getAll());
+        }
+    }
+
     public function changepassword($passwordact, $passwordnew, $passwordrep)
     {
         $alert = new Alert();
-
+        $user = Session::getCurrentUser();
         try {
+            $this->verifyEmptyField($passwordact);
 
-            if ($this->verifyEmptyField($passwordact) && $this->verifyEmptyField($passwordnew) && $this->verifyEmptyField($passwordrep)) {
-                $user = Session::getCurrentUser();
+            if(!password_verify($passwordact, $user->getPassword()))
+                throw new Exception("Tu password no coincide con el actual");
 
-                if(!password_verify($passwordact, $user->getPassword())) 
-                    throw new Exception("Contraseña incorrecta");
+            $this->verifyEmptyField($passwordnew);
+            $this->verifyEmptyField($passwordrep);
 
-                if($passwordnew != $passwordrep)
-                    throw new Exception("Las contraseñas no coinciden");
+            if($passwordnew !== $passwordrep)
+                throw new Exception("Las contraseñas no coinciden");
 
-                $user->setPassword(password_hash($passwordnew, PASSWORD_DEFAULT));
 
-                if($this->userDao->update($user)){
-                    Session::setCurrentUser($user);
-                    $alert->setType("success");
-                    $alert->setMessage("Password cambiado correctamente");
-                }
-            }
+            $user->setPassword(password_hash($passwordnew, PASSWORD_DEFAULT));
+
+            $this->userDao->update($user);
+
+            Session::setCurrentUser($user);
+            $alert->setType("success");
+            $alert->setMessage("Password cambiado correctamente");
 
         } catch (Exception $ex) {
             $alert->setType("danger");
@@ -120,13 +145,14 @@ class UserController
         }
     }
 
-    public function create(){
-        ViewController::showView(null,'user-form');
+    public function create()
+    {
+        ViewController::showView(null, 'user-form');
     }
 
     public function all()
     {
-        ViewController::showView(null,'users',$this->userDao->getAll());
+        ViewController::showView(null, 'users', $this->userDao->getAll());
     }
 
     public function update($id)
@@ -149,15 +175,15 @@ class UserController
         $alert = new Alert();
         try {
             $user = $this->userDao->getById($id);
-            if($user) {
+            if ($user) {
                 $alert->setType("success");
-                if($user->getActive()) {
+                if ($user->getActive()) {
                     $alert->setMessage("El usuario se dio de baja");
                 } else {
                     $alert->setMessage("El usuario se dio de alta");
                 }
-                $user->setIsActive(!($user->getActive()));
-                if($this->userDao->delete($user)){
+                $user->setActive(!($user->getActive()));
+                if ($this->userDao->delete($user)) {
                     ViewController::showView($alert, 'users', $this->userDao->getAll());
                 }
             } else throw new Exception("El registro que quiere eliminar no existe");
@@ -168,18 +194,16 @@ class UserController
         }
     }
 
-    private function getInfo($user) {
+    private function getInfo() {
+        $user = Session::getCurrentUser();
+
         switch ($user->getRol()) {
             case ADMIN:
                 header("Location: " . FRONT_ROOT . "admin/getInfo");
                 break;
             case STUDENT:
-                header("Location: " . FRONT_ROOT . "student/getInfo");
                 break;
             case ENTERPRISE:
-                break;
-            default:
-                # code...
                 break;
         }
     }
@@ -189,8 +213,6 @@ class UserController
     private function verifyEmail($email)
     {
 
-        $alert = new Alert();
-
         try {
             if (trim($email) === "") {
                 throw new Exception(EMPTY_FIELD);
@@ -198,26 +220,20 @@ class UserController
                 throw new Exception("Ingrese un email valido");
             }
         } catch (Exception $ex) {
-            $alert->setType("danger");
-            $alert->setMessage($ex->getMessage());
-            $this->index($alert);
+            throw $ex;
         }
         return true;
     }
 
     private function verifyPassword($password)
     {
-        $alert = new Alert();
-
         try {
 
             if (trim($password) === "") {
                 throw new Exception("El campo password no puede quedar vacio");
             }
         } catch (Exception $ex) {
-            $alert->setType("danger");
-            $alert->setMessage($ex->getMessage());
-            $this->index($alert);
+            throw $ex;
         }
 
         return true;
@@ -234,5 +250,4 @@ class UserController
             throw $ex;
         }
     }
-
 }

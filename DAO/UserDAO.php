@@ -25,7 +25,7 @@ class UserDAO implements IUserDAO
             if($resultSet) {
                 $user = new User($resultSet[0]["email"], $resultSet[0]["pass"]);
                 $user->setId($resultSet[0]["idUser"]);
-                $user->setIsActive($resultSet[0]["active"]);
+                $user->setActive($resultSet[0]["active"]);
                 $user->setRol($resultSet[0]["rol"]);
             }
             return $user;
@@ -33,6 +33,27 @@ class UserDAO implements IUserDAO
             throw $ex;
         }
     } 
+    
+    public function getByEmail($email) {
+        $query = "SELECT * FROM " . $this->table . " WHERE email = :email";
+        $parameters["email"] = $email;
+        $user = null;
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if ($resultSet) {
+                $user = new User($resultSet[0]["email"], $resultSet[0]["pass"]);
+                $user->setId($resultSet[0]["idUser"]);
+                $user->setActive($resultSet[0]["active"]);
+                $user->setRol($resultSet[0]["rol"]);
+            }
+
+            return $user;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
 
     public function getAll()
     {
@@ -45,7 +66,7 @@ class UserDAO implements IUserDAO
                 foreach ($resultSet as $row) {
                     $u = new User($row["email"], $row["pass"]);
                     $u->setId($row["idUser"]);
-                    $u->setIsActive($row["active"]);
+                    $u->setActive($row["active"]);
                     $u->setRol($row["rol"]);
                     array_push($users, $u);
                 }
@@ -55,6 +76,7 @@ class UserDAO implements IUserDAO
             throw $ex;
         }
     }
+
 
     public function getInfo($user)
     {
@@ -80,11 +102,11 @@ class UserDAO implements IUserDAO
 
     public function save($user)
     {
-        $query = "INSERT INTO " . $this->table . " (email,password,active,rol) VALUES (:name,:pass,:active,:rol)";
-        echo $parameters["email"] = $user->getEmail();
-        echo $parameters["pass"] = $user->getPassword();
-        echo $parameters["active"] = $user->getActive();
-        echo $parameters["rol"] = $user->getRol();
+        $query = "INSERT INTO " . $this->table . " (email,pass,active,rol) VALUES (:email,:pass,:active,:rol)";
+        $parameters["email"] = $user->getEmail();
+        $parameters["pass"] = $user->getPassword();
+        $parameters["active"] = $user->getActive();
+        $parameters["rol"] = $user->getRol();
         
         try {
             $this->connection = Connection::GetInstance();

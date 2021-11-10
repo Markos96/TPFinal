@@ -13,7 +13,7 @@ class ViewController
     static function showView(Alert $alert = null, $view, $list = array(), $model = null)
     {
         require_once self::$header;
-        $us = $model;
+        //$user = $model;
         $users = $list;
         $enterprises = $list;
         $alertPass = $alert;
@@ -24,6 +24,7 @@ class ViewController
         if (Session::isActive()) {
             if ($view !== 'login'){
                 $user = Session::getCurrentUser();
+                $info = Session::getCurrentInfoUser();
                 require_once VIEWS_PATH . 'navbar.php';
             }
 
