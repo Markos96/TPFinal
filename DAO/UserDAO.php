@@ -13,8 +13,26 @@ class UserDAO implements IUserDAO
     private $connection;
     private $table = 'User';
 
-    public function getById($id)
-    {}
+    public function getById($id) 
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE idUser = :idUser";
+        $parameters["idUser"] = $id;
+        $user = null;
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet) {
+                $user = new User($resultSet[0]["email"], $resultSet[0]["pass"]);
+                $user->setId($resultSet[0]["idUser"]);
+                $user->setIsActive($resultSet[0]["active"]);
+                $user->setRol($resultSet[0]["rol"]);
+            }
+            return $user;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    } 
 
     public function getAll()
     {
@@ -47,15 +65,14 @@ class UserDAO implements IUserDAO
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query, $parameters);
 
-            if ($resultSet && password_verify($user->getPassword(), $resultSet[0]["pass"])) {
-                if ($resultSet[0]["active"]) {
-                    $user->setId($resultSet[0]["idUser"]);
-                    $user->setPassword($resultSet[0]["pass"]);
-                    $user->setIsActive($resultSet[0]["active"]);
-                    $user->setRol($resultSet[0]["rol"]);
-                    return $user;
-                } else throw new Exception("Su cuenta esta dada de baja contacte con un administrador");
-            } else throw new Exception("Usuario y/o password incorrecto");
+            if ($resultSet) {
+                
+                    return false;
+            
+            }
+            else{
+                return true;
+            }
         } catch (Exception $ex) {
             throw $ex;
         }
@@ -63,6 +80,18 @@ class UserDAO implements IUserDAO
 
     public function save($user)
     {
+        $query = "INSERT INTO " . $this->table . " (email,password,active,rol) VALUES (:name,:pass,:active,:rol)";
+        echo $parameters["email"] = $user->getEmail();
+        echo $parameters["pass"] = $user->getPassword();
+        echo $parameters["active"] = $user->getActive();
+        echo $parameters["rol"] = $user->getRol();
+        
+        try {
+            $this->connection = Connection::GetInstance();
+            return $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     public function update($user)
@@ -86,5 +115,14 @@ class UserDAO implements IUserDAO
 
     public function delete($user)
     {
+        $query = "UPDATE " . $this->table . " SET active = :active WHERE idUser = :idUser";
+        $parameters["active"] = ($user->getActive()) ? 1 : 0;
+        $parameters["idUser"] = $user->getId();
+        try {
+            $this->connection = Connection::GetInstance();
+            return $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 }
