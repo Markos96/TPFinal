@@ -13,8 +13,26 @@ class UserDAO implements IUserDAO
     private $connection;
     private $table = 'User';
 
-    public function getById($id)
-    {}
+    public function getById($id) 
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE idUser = :idUser";
+        $parameters["idUser"] = $id;
+        $user = null;
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if($resultSet) {
+                $user = new User($resultSet[0]["email"], $resultSet[0]["pass"]);
+                $user->setId($resultSet[0]["idUser"]);
+                $user->setIsActive($resultSet[0]["active"]);
+                $user->setRol($resultSet[0]["rol"]);
+            }
+            return $user;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    } 
 
     public function getAll()
     {
