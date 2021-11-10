@@ -28,7 +28,7 @@ class JobOffer {
 
     public function getStudent()
     {
-        return $this->user;
+        return $this->student;
     }
 
     public function getCareer()

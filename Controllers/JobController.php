@@ -43,7 +43,24 @@ class JobController {
     }
 
     public function more_info ($id) {
+        $alert = new Alert();
+        try {
+            $job = $this->jobOfferDAO->getById($id);
+
+            if(!$job)
+                throw new Exception("La oferta de trabajo que busca no existe");
+
+            $job->setCareer($this->careerDAO->getById($job->getCareer()));
+            $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
+            $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
         
+            ViewController::showView(null, 'only-job', null, $job);
+
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            $this->index($alert);
+        }
     }
 
 }
