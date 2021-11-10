@@ -36,13 +36,14 @@ class UserController
                 $user = new User($email,$password);
                 $user->setId($id);
                 $user->setIsActive(true);
+                $user->setRol(2);
                 $alert->setType("success");
                 if ($this->userDao->getInfo($user)) {
                     echo $id;
                     if ($id) {
                         $user->setId((int)$id);
                         $alert->setMessage("Carrera modificada");
-                        ViewController::showView($alert, 'career-form', $this->careerDAO->update($user));
+                        ViewController::showView($alert, 'user-form', $this->userDao->update($user));
                     } else {
                         $alert->setMessage("Usuario agregado");
                         $this->userDao->save($user);
@@ -126,6 +127,45 @@ class UserController
     public function all()
     {
         ViewController::showView(null,'users',$this->userDao->getAll());
+    }
+
+    public function update($id)
+    {
+        $alert = new Alert();
+        try {
+            $user = $this->userDao->getById($id);
+            if ($user) {
+                ViewController::showView(null, 'user-form', null, $user);
+            } else throw new Exception("Error al seleccionar la carrera");
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'users', $this->userDao->getAll());
+        }
+    }
+
+    public function delete($id)
+    {
+        $alert = new Alert();
+        try {
+            $user = $this->userDao->getById($id);
+            if($user) {
+                $alert->setType("success");
+                if($user->getActive()) {
+                    $alert->setMessage("El usuario se dio de baja");
+                } else {
+                    $alert->setMessage("El usuario se dio de alta");
+                }
+                $user->setIsActive(!($user->getActive()));
+                if($this->userDao->delete($user)){
+                    ViewController::showView($alert, 'users', $this->userDao->getAll());
+                }
+            } else throw new Exception("El registro que quiere eliminar no existe");
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'users', $this->userDao->getAll());
+        }
     }
 
     private function getInfo($user) {
