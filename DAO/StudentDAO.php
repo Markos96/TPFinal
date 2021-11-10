@@ -14,6 +14,12 @@ class StudentDAO implements IStudentDAO
   private $connection = null;
   private $tableName = "students";
 
+  public function getById($id)
+  {
+    
+  }
+
+
   public function getInfo($user)
   {
     $students = Connection::getDataApi("Student");
