@@ -13,49 +13,65 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
           <p class="card-text__pr">Cualquier error en la información de sus datos personales, puede reportarlo en el Formulario de Contacto y será actualizado a la brevedad.</p>
           <hr class="border border-dark border-3">
           <table class="table table-borderless">
-            <tr>
-              <th class="text-center" style="font-size: .8rem;">Nombre:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $info->getName() . ' ' . $info->getLastname(); ?></td>
-            </tr>
-            <tr>
-              <th class="text-center" style="font-size: .8rem;">DNI:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $info->getDni(); ?></td>
-            </tr>
-            <?php if ($user->getRol() == STUDENT) { ?>
-              <?php if ($info->getFileNumber() != "") { ?>
-                <tr>
-                  <th class="text-center" style="font-size: .8rem;">Archivo:</th>
-                  <td class="text-center" style="font-size: .8rem;"><?php echo $info->getFileNumber() ?></td>
-                </tr>
+            <?php if ($user->getRol() != ENTERPRISE) { ?>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Nombre:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getName() . ' ' . $info->getLastname(); ?></td>
+              </tr>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">DNI:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getDni(); ?></td>
+              </tr>
+              <?php if ($user->getRol() == STUDENT) { ?>
+                <?php if ($info->getFileNumber() != "") { ?>
+                  <tr>
+                    <th class="text-center" style="font-size: .8rem;">Archivo:</th>
+                    <td class="text-center" style="font-size: .8rem;"><?php echo $info->getFileNumber() ?></td>
+                  </tr>
+                <?php } ?>
               <?php } ?>
-            <?php } ?>
-            <tr>
-              <th class="text-center" style="font-size: .8rem;">Genero:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $info->getGender(); ?></td>
-            </tr>
-            <tr>
-              <th class="text-center" style="font-size: .8rem;">Fecha Nacimiento:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $info->getBirthDate(); ?></td>
-            </tr>
-            <tr>
-              <th class="text-center" style="font-size: .8rem;">Email:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $user->getEmail(); ?></td>
-            </tr>
-            <tr>
-              <th class="text-center" style="font-size: .8rem;">Telefono:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo $info->getPhoneNumber(); ?></td>
-            </tr>
-            <tr>
-              <th class="text-center" style="font-size: .8rem;">Rol:</th>
-              <td class="text-center" style="font-size: .8rem;"><?php echo ($user->getRol() == ADMIN) ? "ADMINISTRADOR" : "ESTUDIANTE"; ?></td>
-            </tr>
-            <?php if ($user->getRol() == STUDENT) { ?>
-              <?php if ($info->getCareer() != "") { ?>
-                <tr>
-                  <th class="text-center" style="font-size: .8rem;">Carrera:</th>
-                  <td class="text-center" style="font-size: .8rem;"><?php echo $info->getCareer() ?></td>
-                </tr>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Genero:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getGender(); ?></td>
+              </tr>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Fecha Nacimiento:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getBirthDate(); ?></td>
+              </tr>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Email:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $user->getEmail(); ?></td>
+              </tr>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Telefono:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getPhoneNumber(); ?></td>
+              </tr>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Rol:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo ($user->getRol() == ADMIN) ? "ADMINISTRADOR" : "ESTUDIANTE"; ?></td>
+              </tr>
+              <?php if ($user->getRol() == STUDENT) { ?>
+                <?php if ($info->getCareer() != "") { ?>
+                  <tr>
+                    <th class="text-center" style="font-size: .8rem;">Carrera:</th>
+                    <td class="text-center" style="font-size: .8rem;"><?php echo $info->getCareer() ?></td>
+                  </tr>
+                <?php } ?>
               <?php } ?>
+            <?php } else { ?>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Nombre:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $user->getName(); ?></td>
+              </tr>
+
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Cuit:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $user->getCuit(); ?></td>
+              </tr>
+              <tr>
+                <th class="text-center" style="font-size: .8rem;">Descripcion:</th>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $user->getDescription(); ?></td>
+              </tr>
             <?php } ?>
           </table>
         </div>

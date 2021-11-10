@@ -2,10 +2,11 @@
 
 namespace Controllers;
 
-use DAO\StudentDAO as StudentDAO;
+use DAO\StudentDAO;
 use Exception;
-use Models\Alert as Alert;
-use Models\Session as Session;
+use Models\Alert;
+use Models\Session;
+use Models\User;
 
 class StudentController
 {
@@ -21,16 +22,18 @@ class StudentController
     $alert = new Alert();
     $user = Session::getCurrentUser();
     try {
-      Session::setCurrentUser($this->studentDao->getInfo($user));
+      Session::setCurrentInfoUser($this->studentDao->getInfo($user));
+      var_dump(Session::getCurrentInfoUser());
       $this->relocationPrincipalPage();
     } catch(Exception $ex) {
       $alert->setType("danger");
       $alert->setMessage($ex->getMessage());
+      ViewController::showView($alert, 'login');
     }
   }
 
   private function relocationPrincipalPage()
   {
-    header("Location: " . FRONT_ROOT . "user");
+    header("Location: " . FRONT_ROOT . "user/principal_page");
   }
 }

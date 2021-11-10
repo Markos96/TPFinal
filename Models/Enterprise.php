@@ -10,6 +10,8 @@ class Enterprise
 	private $name;
 	private $description;
 	private $active;
+	private $cuit;
+	
 
 	public function getId()
 	{
@@ -49,6 +51,14 @@ class Enterprise
 	public function setDescription($description)
 	{
 		$this->description = $description;
+	}
+
+	public function getCuit() {
+		return $this->cuit;
+	}
+
+	public function setCuit($cuit) {
+		$this->cuit = $cuit;
 	}
 
 }

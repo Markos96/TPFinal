@@ -9,7 +9,7 @@ abstract class Person {
     protected $birthdate;
     protected $phonenumber;
 
-    public function __construct($name, $lastname, $dni, $gender, $birthdate, $phonenumber)
+    public function __construct($name = "", $lastname = "", $dni = "", $gender = "", $birthdate = null, $phonenumber = "")
     {
         $this->name = $name; 
         $this->lastname = $lastname;

@@ -2,41 +2,61 @@
 
 namespace DAO;
 
-use DAO\Interfaces\IStudentDAO as IStudentDAO;
-use Models\Student as Student;
-use \Exception as Exception;
-use DAO\Connection as Connection;
+use DAO\Interfaces\IStudentDAO;
+use Models\Student;
+use Exception;
+use DAO\Connection;
 use Models\User;
 
 class StudentDAO implements IStudentDAO
 {
 
   private $connection = null;
-  private $tableName = "students";
+  private $tableName = "student";
 
   public function getById($id)
   {
-    
+    $query = "SELECT * FROM " . $this->tableName . " right outer join User on student.idUser = User.idUser where student.idUser = :id";
+    $parameters["id"] = $id;
+    $student = null;
+    try {
+      $this->connection = Connection::GetInstance();
+      $resultSet = $this->connection->Execute($query, $parameters);
+      if($resultSet) {
+        $student = new Student();
+        $student->setPostulado($resultSet[0]["postulado"]);
+      }
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+    return $student;
   }
 
 
   public function getInfo($user)
   {
     $students = Connection::getDataApi("Student");
+    $st = null;
     try {
 
       foreach ($students as $key => $student) {
         if ($student["email"] == $user->getEmail()) {
-          $user->setStudentId($student["studentId"]);
-          $user->setCareer($this->getCareerName($student["careerId"]));
-          $user->setFileNumber($student["fileNumber"]);
-          $user->setName($student["firstName"]);
-          $user->setLastname($student["lastName"]);
-          $user->setDni($student["dni"]);
-          $user->setGender($student["gender"]);
-          $user->setBirthdate($student["birthDate"]);
-          $user->setPhonenumber($student["phoneNumber"]);
-          return $user;
+          //echo '<pre>';
+          //var_dump($student);
+          $st = new Student();
+          $st->setStudentId($student["studentId"]);
+          $st->setCareer($this->getCareerName($student["careerId"]));
+          $st->setFileNumber($student["fileNumber"]);
+          $st->setName($student["firstName"]);
+          $st->setLastname($student["lastName"]);
+          $st->setDni($student["dni"]);
+          $st->setGender($student["gender"]);
+          $st->setBirthdate($student["birthDate"]);
+          $st->setPhonenumber($student["phoneNumber"]);
+
+          $st->setPostulado($this->getById($st->getStudentId()));
+
+          return $st; 
         }
       }
     } catch (Exception $ex) {
