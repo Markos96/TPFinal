@@ -13,7 +13,8 @@ class ViewController
     static function showView(Alert $alert = null, $view, $list = array(), $model = null)
     {
         require_once self::$header;
-        $user = null;
+        $us = $model;
+        $users = $list;
         $enterprises = $list;
         $alertPass = $alert;
         $jobs = $list;
