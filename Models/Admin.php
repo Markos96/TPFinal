@@ -1,8 +1,6 @@
 <?php namespace Models;
 
-use Models\User as User;
-
-trait Admin extends User {
+trait Admin {
 
     protected $id;
     protected $description;
