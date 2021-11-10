@@ -20,6 +20,7 @@ class ViewController
         $jobs = $list;
         $careers = $list;
         $career = $model;
+        $job = $model;
 
         if (Session::isActive()) {
             if ($view !== 'login'){

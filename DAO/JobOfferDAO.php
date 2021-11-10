@@ -1,9 +1,7 @@
-<?php
+<?php namespace DAO;
 
-namespace DAO;
-
-use Exception as Exception;
-use DAO\Interfaces\IJobOfferDAO as IJobOfferDAO;
+use Exception;
+use DAO\Interfaces\IJobOfferDAO;
 use Models\JobOffer;
 
 class JobOfferDAO implements IJobOfferDAO
@@ -18,6 +16,27 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function getById($id)
     {
+        $query = "SELECT * FROM " . $this->table . " WHERE idJobOffer = :idJobOffer";
+        $parameters["idJobOffer"] = $id;
+        $jobOffer = null;
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+            if ($resultSet) {
+                $jobOffer = new JobOffer();
+                $jobOffer->setId($resultSet[0]["idJobOffer"]);
+                $jobOffer->setEnterprise($resultSet[0]["id_enterprise"]);
+                $jobOffer->setJobPosition($resultSet[0]["idJobPosition"]);
+                $jobOffer->setActive($resultSet[0]["estado"]);
+                $jobOffer->setCareer($resultSet[0]["id_career"]);
+                $jobOffer->setDescription($resultSet[0]["descripcion"]);
+                $jobOffer->setDate($resultSet[0]["fecha"]);
+            }
+        } catch(Exception $ex) {
+            throw $ex;
+        }
+
+        return $jobOffer;
     }
 
     public function getAll()

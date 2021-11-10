@@ -43,7 +43,7 @@
                                             <?php if($user->getRol() == ENTERPRISE || $user->getRol() == ADMIN) {?>
                                             <a class="btn btn-danger" href="#"><i class="fas fa-trash-alt"></i></a>
                                             <?php } ?>
-                                            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>job/more_info<?php echo $job->getId() ?>"><i class="far fa-eye"></i></a>
+                                            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>job/more_info/<?php echo $job->getId() ?>"><i class="far fa-eye"></i></a>
 
                                         </td>
                                         
