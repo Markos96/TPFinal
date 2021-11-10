@@ -20,22 +20,6 @@ create table student(
     FOREIGN KEY (idUser) REFERENCES User(idUser)
 );
 
-create table admin (
-    
-    idAdmin int not null auto_increment primary key,
-    nombre varchar(30),
-    apellido varchar(30),
-    dni varchar(8),
-    gender char(1),
-    birthdate date,
-    phonenumber varchar(20),
-    description varchar(100),
-    cargo varchar(30),
-    idUser int not null,
-    foreign key(idUser) references User(idUser)
-
-);
-
 create table jobOffer(
 
     idJobOffer int not null auto_increment primary key,
@@ -63,9 +47,11 @@ create table enterprises(
     id int not null auto_increment primary key,
     name varchar(100),
     description text,
-    isActive tinyint(1)
-
+    isActive tinyint(1),
+    idUser int not null
 );
+
+alter table enterprises add foreign key(idUser) references User(idUser);
 
 create table jobPosition(
 
@@ -101,4 +87,6 @@ create table User(
     rol tinyint(1)
 
 );
+
+
 
