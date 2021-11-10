@@ -24,9 +24,7 @@
                             <tr>
                                 <th scope="col">Empresa</th>
                                 <th scope="col">Posicion</th>
-                                <th scope="col">Estado</th>
                                 <th scope="col">Fecha de Publicacion</th>
-                                <th>Carrera</th>
                                 <th scope="col">Acciones</th>
                             </tr>
 
@@ -36,13 +34,17 @@
                                 <?php foreach ($jobs as $job) { ?>
                                     <tr>
                                         <td><?php echo $job->getEnterprise()->getName() ?></td>
-                                        <td><?php echo $job->getJobPosition() ?></td>
-                                        <td><?php echo $job->getActive() ?></td>
+                                        <td><?php echo $job->getJobPosition()->getDescription() ?></td>
                                         <td><?php echo $job->getDate() ?></td>
-                                        <td><?php echo $job->getCareer()->getName()?></td>
                                         <td>
+                                            <?php if($user->getRol() == ENTERPRISE) {?>
                                             <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>job/update/"><i class="fas fa-edit"></i></a>
+                                            <?php } ?>
+                                            <?php if($user->getRol() == ENTERPRISE || $user->getRol() == ADMIN) {?>
                                             <a class="btn btn-danger" href="#"><i class="fas fa-trash-alt"></i></a>
+                                            <?php } ?>
+                                            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>job/more_info<?php echo $job->getId() ?>"><i class="far fa-eye"></i></a>
+
                                         </td>
                                         
                                         <!-- Si es admin mostrar editar y eliminar -->
