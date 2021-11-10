@@ -22,7 +22,7 @@
                         <thead>
 
                             <tr>
-                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
                                 <th>Acciones</th>
                             </tr>
 
@@ -32,6 +32,7 @@
                                 <?php foreach ($users as $user) { ?>
                                     <tr>
                                         <td><?php echo $user->getEmail() ?></td>
+                                       
                                         <td>
                                             <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>user/update/<?php echo $user->getId() ?>"><i class="fas fa-edit"></i></a>
                                             <?php if ($user->getActive()) { ?>
@@ -39,6 +40,7 @@
                                             <?php } else { ?>
                                                 <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>user/delete/<?php echo $user->getId() ?>"><i class="fas fa-undo-alt"></i></a>
                                             <?php } ?>
+                                            <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>user/delete/<?php echo $user->getId() ?>"><i class="far fa-eye"></i></a>
                                         </td>
                                         <!-- Si es admin mostrar editar y eliminar -->
                                         <!-- Si es un estudiante y todavia no se postulo a ningun trabajo postular -->
