@@ -35,7 +35,7 @@
                             <?php if ($jobs != null) { ?>
                                 <?php foreach ($jobs as $job) { ?>
                                     <tr>
-                                        <td><?php echo $job->getEnterprise()->getFirstName() ?></td>
+                                        <td><?php echo $job->getEnterprise()->getName() ?></td>
                                         <td><?php echo $job->getJobPosition() ?></td>
                                         <td><?php echo $job->getActive() ?></td>
                                         <td><?php echo $job->getDate() ?></td>

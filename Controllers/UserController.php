@@ -67,7 +67,7 @@ class UserController
 
             $user = new User($email, $password);
             $user = $this->userDao->getByEmail($email);
-
+           
             if (!$user->getActive()) {
                 throw new Exception("El usuario esta dado de baja contacte con un administrador");
             }
@@ -77,6 +77,7 @@ class UserController
 
             Session::setCurrentUser($user);
             $this->getInfo();
+            ViewController::showView(null,'principal-page');
 
         } catch (Exception $ex) {
             $alert->setType("danger");

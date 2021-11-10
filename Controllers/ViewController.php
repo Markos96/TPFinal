@@ -27,22 +27,7 @@ class ViewController
                 $info = Session::getCurrentInfoUser();
                 require_once VIEWS_PATH . 'navbar.php';
             }
-
-/*             switch ($view) {
-                case "enterprises":
-                    $enterprises = $list;
-                    break;
-                case "form-enterprise":
-                    $enterprise = $model;
-                    break;
-                case "perfil":
-                    $alertPass = $alert;
-                    break;
-                case "jobs":
-
-                    break;
-            }  */
-
+            
             require_once VIEWS_PATH . $view . '.php';
 
         } else require_once VIEWS_PATH . 'login.php';
