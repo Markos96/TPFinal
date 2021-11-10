@@ -202,8 +202,10 @@ class UserController
                 header("Location: " . FRONT_ROOT . "admin/getInfo");
                 break;
             case STUDENT:
+                header("Location: " . FRONT_ROOT . "student/getInfo");
                 break;
             case ENTERPRISE:
+                header("Location: " . FRONT_ROOT . "enterprise/getInfo");
                 break;
         }
     }

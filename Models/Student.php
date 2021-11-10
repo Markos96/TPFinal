@@ -12,14 +12,14 @@ class Student extends Person
 	private $fileNumber;
 	private $postulado;
 
-	public function __construct($careerId, $fileNumber, $postulado, $name, $lastname, $dni, $gender, $birthdate, $phonenumber)
+/* 	public function __construct($careerId, $fileNumber, $postulado, $name, $lastname, $dni, $gender, $birthdate, $phonenumber)
 	{
 
 		$this->careerId = $careerId;
 		$this->fileNumber = $fileNumber;
 		$this->postulado = $postulado;
 		parent::__construct($name, $lastname, $dni, $gender, $birthdate, $phonenumber);
-	}
+	} */
 
 	public function setStudentId($studentId)
 	{
