@@ -33,11 +33,11 @@
                                     <tr>
                                         <td><?php echo $user->getEmail() ?></td>
                                         <td>
-                                            <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>career/update/<?php echo $user->getId() ?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>user/update/<?php echo $user->getId() ?>"><i class="fas fa-edit"></i></a>
                                             <?php if ($user->getActive()) { ?>
-                                                <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>career/delete/<?php echo $user->getId() ?>"><i class="fas fa-trash-alt"></i></a>
+                                                <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>user/delete/<?php echo $user->getId() ?>"><i class="fas fa-trash-alt"></i></a>
                                             <?php } else { ?>
-                                                <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>career/delete/<?php echo $user->getId() ?>"><i class="fas fa-undo-alt"></i></a>
+                                                <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>user/delete/<?php echo $user->getId() ?>"><i class="fas fa-undo-alt"></i></a>
                                             <?php } ?>
                                         </td>
                                         <!-- Si es admin mostrar editar y eliminar -->
