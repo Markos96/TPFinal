@@ -37,7 +37,7 @@ class EnterpriseController
 
   public function add($id, $firstName, $description, $active)
   {
-
+      
     // agregar validaciones para que los datos no vallan vacios a la base de datos
     $enterprise = new Enterprise();
     $enterprise->setName($firstName);
