@@ -3,10 +3,13 @@
 use Models\Alert;
 use Exception;
 use Controllers\ViewController;
+use Models\JobOfferXStudent;
+use Models\Session;
 use DAO\JobOfferDAO;
 use DAO\CareerDAO;
 use DAO\EnterpriseDAO;
 use DAO\JobPositionDAO;
+use DAO\jobOfferXStudentDAO;
 
 class JobController {
 
@@ -14,6 +17,7 @@ class JobController {
     private $enterpriseDAO;
     private $jobPositionDAO;
     private $careerDAO;
+    private $jobOfferXStudent;
 
     public function __construct()
     {
@@ -21,6 +25,7 @@ class JobController {
         $this->enterpriseDAO = new EnterpriseDAO();
         $this->careerDAO = new CareerDAO();
         $this->jobPositionDAO = new JobPositionDAO();
+        $this->jobOfferXStudent = new JobOfferXStudentDAO();
     }
 
     public function index (Alert $alert = null) {
@@ -63,4 +68,19 @@ class JobController {
         }
     }
 
+    public function save_postulation ($idJob) {
+        $alert = new Alert();
+        try {
+            $job = $this->jobOfferDAO->getById($idJob);
+            if(!$job) 
+                throw new Exception("La oferta de trabajo no exite");
+            $jobOfferXStudent = new JobOfferXStudent(Session::getCurrentUser()->getId(), $idJob);
+            $this->jobOfferXStudentDAO->save($jobOfferXStudent); 
+            ViewController::showView(null, 'jobs', $this->index());
+        } catch (Exception $ex ) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'jobs', $this->index());
+        }
+    }
 }
