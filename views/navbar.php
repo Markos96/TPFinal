@@ -21,7 +21,14 @@
           <div class="w-100 d-flex justify-content-center align-items-center d-lg-flex justify-content-lg-end">
             <li class="nav-item me-2">
               <a class="nav-link text-dark fw-bolder" style="font-size: .8rem;">
-              <?php echo $info->getName() . ' ' . $info->getLastname() ?>
+              <?php 
+
+                echo $info->getName() . ' ' . (($user->getRol() == ENTERPRISE) ? '' : $info->getLastname());
+/*                 if ($user->getRol() == ENTERPRISE) 
+                  echo $info->getName() 
+                else 
+                  echo $info->getName() . ' ' . $info->getLastname();  */
+              ?>
               </a>
             </li>
             <li class="nav-item">

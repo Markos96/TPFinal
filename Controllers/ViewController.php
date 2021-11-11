@@ -15,6 +15,7 @@ class ViewController
         require_once self::$header;
         //$user = $model;
         $users = $list;
+        $enterprise = $model;
         $enterprises = $list;
         $alertPass = $alert;
         $jobs = $list;

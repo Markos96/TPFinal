@@ -158,7 +158,27 @@ class EnterpriseDAO implements IEnterpriseDAO
     }
   }
 
-  public function getInfo($enterprise)
-  {}
+  public function getInfo($id)
+  {
+    $query = "SELECT * FROM " . $this->table . " right outer join User on " . $this->table . ".id_user = User.idUser where " . $this->table . ".id_user = :id";
+    $parameters["id"] = $id;
+    $enterprise = null;
+    try {
+      $this->connection = Connection::GetInstance();
+      $resultSet = $this->connection->Execute($query, $parameters);
+      if($resultSet) {
+        $enterprise = new Enterprise();
+        $enterprise->setId($resultSet[0]["id"]);
+        $enterprise->setName($resultSet[0]["name"]);
+        $enterprise->setDescription($resultSet[0]["descripcion"]);
+        $enterprise->setActive($resultSet[0]["isActive"]);
+        $enterprise->setCuit($resultSet[0]["cuit"]);
+      }
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+
+    return $enterprise;
+  }
 
 }

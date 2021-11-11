@@ -1,20 +1,30 @@
 <?php namespace Controllers;
 
-use Controllers\ViewController as ViewController;
-use DAO\EnterpriseDAO as EnterpriseDAO;
+use Controllers\ViewController;
+use DAO\CareerDAO;
+use DAO\EnterpriseDAO;
+use DAO\JobOfferDAO;
+use DAO\JobPositionDAO;
 use Exception;
-use Models\Alert as Alert;
-use Models\Enterprise as Enterprise;
+use Models\Alert;
+use Models\Enterprise;
+use Models\Session;
+use Models\JobOffer;
 
 class EnterpriseController
 {
 
   private $enterpriseDAO;
+  private $jobOfferDAO;
+  private $careerDAO;
+  private $jobPositionDAO;
 
   public function __construct()
   {
     $this->enterpriseDAO = new EnterpriseDAO();
-    $this->alert         = new Alert();
+    $this->jobOfferDAO = new JobOfferDAO();
+    $this->careerDAO = new CareerDAO();
+    $this->jobPositionDAO = new JobPositionDAO();
   }
 
   public function index()
@@ -33,6 +43,18 @@ class EnterpriseController
   public function delete($id) {
     $this->enterpriseDAO->delete($this->enterpriseDAO->getById((int)$id));
     ViewController::showView(null, 'enterprises', $this->enterpriseDAO->getAllActives());
+  }
+
+  public function description($id) {
+    $alert = new Alert();
+    try {
+      $enterprise = $this->enterpriseDAO->getById($id);
+      if($enterprise)
+        ViewController::showView(null, 'only-enterprise', null, $enterprise);
+    } catch (Exception $ex) {
+      $alert->setType("danger");
+      $alert->setMessage($ex->getMessage());
+    }
   }
 
   public function add($id, $firstName, $description, $active)
@@ -60,6 +82,61 @@ class EnterpriseController
     } finally {
       $this->relocationEnterprise();
     }
+  }
+
+  public function getInfo() {
+    $alert = new Alert();
+    $user = Session::getCurrentUser();
+    try {
+      Session::setCurrentInfoUser($this->enterpriseDAO->getInfo($user->getId()));
+      $this->relocationPrincipalPage();
+    } catch(Exception $ex) {
+      $alert->setType("danger");
+      $alert->setMessage($ex->getMessage());
+      ViewController::showView($alert, 'login');
+    }
+  }
+
+  public function jobs($id){
+    $alert = new Alert();
+    $jobs = array();
+    try {
+      $jobs = $this->jobOfferDAO->getJobsByEnterpriseId($id);
+      foreach ($jobs as $job) {
+        $job->setEnterprise(Session::getCurrentInfoUser());
+        $job->setCareer($this->careerDAO->getById($job->getCareer()));
+        $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
+      }
+      ViewController::showView(null, 'jobs', $jobs);
+    } catch (Exception $ex) {
+      $alert->setType("danger");
+      $alert->setMessage($ex->getMessage());
+      ViewController::showView($alert, 'principal_page');
+    }
+  }
+
+  public function job_delete($id){
+    $alert = new Alert();
+    try {
+      $job = $this->jobOfferDAO->getById($id);
+      echo '<pre>';
+      var_dump($job);
+      if($this->jobOfferDAO->delete($job)){
+        $job->setActive(!($job->getActive()));
+        
+        $this->jobOfferDAO->delete($job);
+        ViewController::showView($alert, 'only-job', null, $job);
+      }
+    } catch (Exception $ex) {
+      $alert->setType("danger");
+      $alert->setMessage($ex->getMessage());
+      var_dump($alert);
+    }
+  }
+
+  private function relocationPrincipalPage()
+  {
+    header("Location: " . FRONT_ROOT . "user/principal_page");
   }
 
   private function relocationEnterprise()
