@@ -103,7 +103,7 @@ class EnterpriseController
     try {
       $jobs = $this->jobOfferDAO->getJobsByEnterpriseId($id);
       foreach ($jobs as $job) {
-        $job->setEnterprise(Session::getCurrentInfoUser());
+        $job->setEnterprise($this->enterpriseDAO->getById($id));
         $job->setCareer($this->careerDAO->getById($job->getCareer()));
         $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
       }

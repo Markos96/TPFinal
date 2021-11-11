@@ -38,12 +38,7 @@
                   <td><?php echo $empresa->getName(); ?></td>
                   <td>
                     <?php if ($user->getRol() == ADMIN) { ?>
-                      <a class="btn btn-warning" href="<?php echo FRONT_ROOT ?>enterprise/update/<?php echo $empresa->getId() ?>"><i class="far fa-edit text-light text-center"></i></a>
-                      <?php if ($empresa->getActive()) { ?>
-                        <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>enterprise/delete/<?php echo $empresa->getId() ?>"><i class="far fa-trash-alt"></i></a>
-                      <?php } else { ?>
-                        <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>enterprise/delete/<?php echo $empresa->getId() ?>"><i class="fas fa-undo-alt"></i></a>
-                      <?php } ?>
+                      <a href="<?php echo FRONT_ROOT ?>enterprise/jobs/<?php echo $empresa->getId() ?>" class="btn btn-info text-light"><i class="fas fa-newspaper"></i></a>
                     <?php } else { ?>
                       <a href="<?php echo FRONT_ROOT ?>enterprise/description/<?php echo $empresa->getId() ?>" class="btn btn-success"><i class="fas fa-info-circle"></i></a>
                       <a href="<?php echo FRONT_ROOT ?>enterprise/jobs/<?php echo $empresa->getId() ?>" class="btn btn-info text-light"><i class="fas fa-newspaper"></i></a>
