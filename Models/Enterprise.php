@@ -11,6 +11,7 @@ class Enterprise
 	private $description;
 	private $active;
 	private $cuit;
+	private $idUser;
 	
 
 	public function getId()
@@ -21,6 +22,14 @@ class Enterprise
 	public function setId($id)
 	{
 		$this->id = $id;
+	}
+
+	public function getIdUser(){
+		return $this->idUser;
+	}
+
+	public function setIdUser($idUser) {
+		$this->idUser = $idUser;
 	}
 
 	public function getName()

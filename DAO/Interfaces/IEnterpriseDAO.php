@@ -1,15 +1,13 @@
-<?php namespace DAO\Interfaces;
-	
-	use Models\Enterprise as Enterprise;
+<?php
 
-	interface IEnterpriseDAO extends BaseInterfaceDAO{
+namespace DAO\Interfaces;
 
-		function getAllActives();
-		function getAllInactives();
+use Models\Enterprise as Enterprise;
 
-	}
+interface IEnterpriseDAO extends BaseInterfaceDAO
+{
 
-
-
-
-?>
+	function getAllActives();
+	function getAllInactives();
+	function getByCuit($cuit);
+}

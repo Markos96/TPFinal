@@ -37,10 +37,8 @@
                                         <td><?php echo $job->getJobPosition()->getDescription() ?></td>
                                         <td><?php echo $job->getDate() ?></td>
                                         <td>
-                                            <?php if($user->getRol() == ENTERPRISE) {?>
-                                            <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>job/update/"><i class="fas fa-edit"></i></a>
-                                            <?php } ?>
                                             <?php if($user->getRol() == ENTERPRISE || $user->getRol() == ADMIN) {?>
+                                            <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>job/update/"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-danger" href="#"><i class="fas fa-trash-alt"></i></a>
                                             <?php } ?>
                                             <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>job/more_info/<?php echo $job->getId() ?>"><i class="far fa-eye"></i></a>
