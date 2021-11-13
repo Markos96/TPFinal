@@ -26,6 +26,8 @@ class EnterpriseDAO implements IEnterpriseDAO
         $enterprise->setId($id);
         $enterprise->setName($resultSet["name"]);
         $enterprise->setDescription($resultSet["descripcion"]);
+        $enterprise->setCuit($resultSet["cuit"]);
+        $enterprise->setIdUser($resultSet["id_user"]);
         $enterprise->setActive($resultSet["isActive"]);
       }
       return $enterprise;
@@ -97,6 +99,7 @@ class EnterpriseDAO implements IEnterpriseDAO
         $enterprise = new Enterprise();
         $enterprise->setId($row["id"]);
         $enterprise->setName($row["name"]);
+        $enterprise->setCuit($row["cuit"]);
         $enterprise->setDescription($row["descripcion"]);
         $enterprise->setActive($row["isActive"]);
         array_push($enterprises, $enterprise);
@@ -125,9 +128,10 @@ class EnterpriseDAO implements IEnterpriseDAO
 
   public function update($enterprise)
   {
-    $query = "UPDATE " . $this->table . " SET name = :name, descripcion = :descripcion, isActive = :isActive WHERE id = :id";
+    $query = "UPDATE " . $this->table . " SET name = :name, cuit = :cuit, descripcion = :descripcion, isActive = :isActive WHERE id = :id";
 
     $parameters["name"] = $enterprise->getName();
+    $parameters["cuit"] = $enterprise->getCuit();
     $parameters["descripcion"] = $enterprise->getDescription();
     $parameters["isActive"] = $enterprise->getActive();
     $parameters["id"] = $enterprise->getId();
@@ -173,6 +177,30 @@ class EnterpriseDAO implements IEnterpriseDAO
         $enterprise->setDescription($resultSet[0]["descripcion"]);
         $enterprise->setActive($resultSet[0]["isActive"]);
         $enterprise->setCuit($resultSet[0]["cuit"]);
+      }
+    } catch (Exception $ex) {
+      throw $ex;
+    }
+
+    return $enterprise;
+  }
+
+  public function getByCuit($cuit)
+  {
+    $query = "SELECT * FROM " . $this->table . " WHERE cuit = :cuit";
+    $parameters["cuit"] = $cuit;
+    $enterprise = null;
+    try {
+      $this->connection = Connection::GetInstance();
+      $resultSet = $this->connection->Execute($query, $parameters);
+      
+      if ($resultSet) {
+        $enterprise = new Enterprise();
+        $enterprise->setId($resultSet[0]["id"]);
+        $enterprise->setName($resultSet[0]["name"]);
+        $enterprise->setDescription($resultSet[0]["descripcion"]);
+        $enterprise->setActive($resultSet[0]["isActive"]);
+        $enterprise->setCuit($resultSet[0]["id_user"]);
       }
     } catch (Exception $ex) {
       throw $ex;
