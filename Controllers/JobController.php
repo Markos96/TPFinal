@@ -115,20 +115,70 @@ class JobController
         }
     }
 
+    public function add ($id, $description, $enterprise, $jobPosition, $career, $active) {
+        echo '<pre>';
+        $alert = new Alert();
+        try {
+            // validar que los campos $description - $enterprise - $jobposition - career no llegen vacios 
+            $jobOffer = new JobOffer();
+            $jobOffer->setDescription($description);
+            $jobOffer->setEnterprise($enterprise);
+            $jobOffer->setJobPosition($jobPosition);
+            $jobOffer->setCareer($career);
+            $jobOffer->setActive((($active) ? $active : true));
+
+            $alert->setType("success");
+            if($id == null){
+               $jobOffer->setDate(date('d-m-y'));
+               $alert->setMessage(JOBOFFER_CREATE);
+               $this->jobOfferDAO->save($jobOffer);
+            } else {
+                $alert->setMessage(JOBOFFER_UPDATE);
+                $this->jobOfferDAO->update($jobOffer);
+            }
+
+            ViewController::showView($alert, 'job-form', $this->jobCreateContent());
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'job-form');
+        }
+
+    }
+
     public function create()
     {
         $alert = new Alert();
         $createJob = new JobOffer();
         try {
 
-            $createJob->setCareer($this->careerDAO->getAll());
-            $createJob->setEnterprise($this->enterpriseDAO->getAllActives());
-            $createJob->setJobPosition($this->jobPositionDAO->getAll());
-            ViewController::showView(null, 'job-form', $createJob);
+            ViewController::showView(null, 'job-form', $this->jobCreateContent());
+
         } catch (Exception $ex) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
             ViewController::showView($alert, 'jobs', $this->jobOfferDAO->getAll());
         }
+    }
+
+    private function jobCreateContent($id = null){
+        $alert = new Alert();
+        $jobContent = null;
+        try {
+
+            if ($id == null) {
+                $jobContent = new JobOffer();
+                $jobContent->setCareer($this->careerDAO->getAll());
+                $jobContent->setEnterprise($this->enterpriseDAO->getAllActives());
+                $jobContent->setJobPosition($this->jobPositionDAO->getAll());
+            }
+
+            return $jobContent;
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'jobs');
+        }
+
     }
 }
