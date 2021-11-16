@@ -61,16 +61,16 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
             <?php } else { ?>
               <tr>
                 <th class="text-center" style="font-size: .8rem;">Nombre:</th>
-                <td class="text-center" style="font-size: .8rem;"><?php echo $user->getName(); ?></td>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getName(); ?></td>
               </tr>
 
               <tr>
                 <th class="text-center" style="font-size: .8rem;">Cuit:</th>
-                <td class="text-center" style="font-size: .8rem;"><?php echo $user->getCuit(); ?></td>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getCuit(); ?></td>
               </tr>
               <tr>
                 <th class="text-center" style="font-size: .8rem;">Descripcion:</th>
-                <td class="text-center" style="font-size: .8rem;"><?php echo $user->getDescription(); ?></td>
+                <td class="text-center" style="font-size: .8rem;"><?php echo $info->getDescription(); ?></td>
               </tr>
             <?php } ?>
           </table>

@@ -3,13 +3,13 @@
 use Models\Alert;
 use Exception;
 use Controllers\ViewController;
-use Models\JobOfferXStudent;
+use Models\UserXOffer;
 use Models\Session;
 use DAO\JobOfferDAO;
 use DAO\CareerDAO;
 use DAO\EnterpriseDAO;
 use DAO\JobPositionDAO;
-use DAO\jobOfferXStudentDAO;
+use DAO\JobOfferXStudentDAO;
 
 class JobController {
 
@@ -17,7 +17,7 @@ class JobController {
     private $enterpriseDAO;
     private $jobPositionDAO;
     private $careerDAO;
-    private $jobOfferXStudent;
+    private $jobOfferXStudentDAO;
 
     public function __construct()
     {
@@ -25,7 +25,7 @@ class JobController {
         $this->enterpriseDAO = new EnterpriseDAO();
         $this->careerDAO = new CareerDAO();
         $this->jobPositionDAO = new JobPositionDAO();
-        $this->jobOfferXStudent = new JobOfferXStudentDAO();
+        $this->jobOfferXStudentDAO = new JobOfferXStudentDAO();
     }
 
     public function index (Alert $alert = null) {
@@ -55,6 +55,7 @@ class JobController {
             if(!$job)
                 throw new Exception("La oferta de trabajo que busca no existe");
 
+            
             $job->setCareer($this->careerDAO->getById($job->getCareer()));
             $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
             $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
@@ -74,13 +75,36 @@ class JobController {
             $job = $this->jobOfferDAO->getById($idJob);
             if(!$job) 
                 throw new Exception("La oferta de trabajo no exite");
-            $jobOfferXStudent = new JobOfferXStudent(Session::getCurrentUser()->getId(), $idJob);
-            $this->jobOfferXStudentDAO->save($jobOfferXStudent); 
+            $this->jobOfferXStudentDAO->save(Session::getCurrentUser()->getId(), $idJob); 
             ViewController::showView(null, 'jobs', $this->index());
         } catch (Exception $ex ) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
             ViewController::showView($alert, 'jobs', $this->index());
+        }
+    }
+
+    public function postulations ($id) {
+        $alert = new Alert();
+        $jobs = array();
+        try {
+            $offersXuser = $this->jobOfferXStudentDAO->postulations_user($id);
+            foreach ($offersXuser as $offerXuser) {
+                $job = $this->jobOfferDAO->getById($offerXuser->getIdOffer());
+                $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
+                $job->setCareer($this->careerDAO->getById($job->getCareer()));
+                $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
+                if($offerXuser->getIdOffer() == $job->getId())
+                    $job->setStudent(Session::getCurrentUser()->getId());
+                array_push($jobs, $job);
+            }
+            //echo '<pre>';
+            //var_dump($jobs);
+            ViewController::showView(null, 'jobs', $jobs);
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            //ViewController::showView($alert, '');
         }
     }
 }

@@ -41,8 +41,6 @@ class StudentDAO implements IStudentDAO
 
       foreach ($students as $key => $student) {
         if ($student["email"] == $user->getEmail()) {
-          //echo '<pre>';
-          //var_dump($student);
           $st = new Student();
           $st->setStudentId($student["studentId"]);
           $st->setCareer($this->getCareerName($student["careerId"]));

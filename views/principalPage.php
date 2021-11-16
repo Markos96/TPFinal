@@ -29,8 +29,8 @@
       </div>
     </div>
     <div class="col-5">
+      <?php if($user->getRol() != ENTERPRISE) { ?>
       <div class="row">
-
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
           <h3 class="card-title text-center fs-6 my-3 fw-bolder">Empresas</h3>
           <div class="align-self-center card-body mb-3 card-body__pr">
@@ -38,6 +38,7 @@
           </div>
         </div>
       </div>
+      <?php } ?>
       <?php if ($user->getRol() == ADMIN) { ?>
       <div class="row mt-3">
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
@@ -60,12 +61,22 @@
       <?php } ?>
       <div class="row mt-3">
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
-          <h3 class="card-title text-center fs-6 my-3 fw-bolder">Trabajos</h3>
+          <h3 class="card-title text-center fs-6 my-3 fw-bolder"><?php echo ($user->getRol() == ENTERPRISE) ? 'Trabajos Publicados' : 'Trabajos' ?></h3>
           <div class="align-self-center card-body mb-3 card-body__pr">
-            <a class="nav-link text-center text-dark fs-6" href="<?php echo FRONT_ROOT ?>job" >Trabajos</a>
+            <a class="nav-link text-center text-dark fs-6" href="<?php echo FRONT_ROOT ?><?php echo ($user->getRol() == ENTERPRISE) ? "enterprise/jobs/" . $info->getId()  : "job"?>" ><?php echo ($user->getRol() == ENTERPRISE) ? 'Trabajos Publicados' : 'Trabajos' ?></a>
           </div>
         </div>
       </div>
+      <?php if($user->getRol() == STUDENT) {?>
+      <div class="row mt-3">
+        <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
+          <h3 class="card-title text-center fs-6 my-3 fw-bolder">Mis postulaciones</h3>
+          <div class="align-self-center card-body mb-3 card-body__pr">
+            <a class="nav-link text-center text-dark fs-6" href="<?php echo FRONT_ROOT ?>job/postulations/<?php echo $user->getId()?>">Postulaciones</a>
+          </div>
+        </div>
+      </div>
+      <?php } ?>
       <div class="row mt-3">
         <div class="d-flex flex-column justify-content-center rounded" style="background-color: #DDDDDD;">
           <h3 class="card-title text-center fs-6 my-3 fw-bolder">Campus Virtual</h3>

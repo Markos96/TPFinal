@@ -4,14 +4,17 @@
       <div class="d-flex flex-column align-items-center rounded" style="background-color: #DDDDDD;">
         <h3 class="card-title text-center fs-6 my-3 fw-bolder">Empresas</h3>
         <div class="align-self-center card-body mb-3 card-body__pr">
+          <p class="text-<?php echo (isset($alert) ? $alert->getType() : '') ?> text-center" style="font-size: .8rem;">
+            <?php echo (isset($alert) ? $alert->getMessage() : '') ?>
+          </p>
           <form action="<?php echo FRONT_ROOT ?>enterprise/add" method="POST">
             <input class="mb-3 form-control" type="hidden" name="id" value="<?php echo ( isset( $enterprise ) ? $enterprise->getId() : "") ?>">
             <input class="mb-3 form-control" type="text" name="firstName" value="<?php echo ( isset( $enterprise ) ? $enterprise->getFirstName() : "" ) ?>" id="" placeholder="Nombre empresa" required > 
             <textarea class="mb-3 form-control" name="description"  required style="resize: none;font-size: .8rem; height: 200px"><?php echo ( isset( $enterprise ) ? $enterprise->getDescription() : "" ) ?> </textarea>
             <input type="hidden" class="mb-3 form-control" name="active" value="<?php echo ( isset( $enterprise ) ? $enterprise->getIsActive() : "" ) ?>">
             <div>
-              <button type="submit" class="btn btn-primary">enviar</button>
-              <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise">Volver</a>
+              <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i></button>
+              <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise"><i class="fas fa-long-arrow-alt-left"></i></a>
             </div>
           </form>
         </div>

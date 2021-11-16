@@ -1,4 +1,6 @@
-<?php namespace DAO;
+<?php
+
+namespace DAO;
 
 use Exception;
 use DAO\Interfaces\IJobOfferDAO;
@@ -27,12 +29,12 @@ class JobOfferDAO implements IJobOfferDAO
                 $jobOffer->setId($resultSet[0]["idJobOffer"]);
                 $jobOffer->setEnterprise($resultSet[0]["id_enterprise"]);
                 $jobOffer->setJobPosition($resultSet[0]["idJobPosition"]);
-                $jobOffer->setActive($resultSet[0]["estado"]);
+                $jobOffer->setActive($resultSet[0]["active"]);
                 $jobOffer->setCareer($resultSet[0]["id_career"]);
                 $jobOffer->setDescription($resultSet[0]["descripcion"]);
                 $jobOffer->setDate($resultSet[0]["fecha"]);
             }
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
             throw $ex;
         }
 
@@ -47,7 +49,7 @@ class JobOfferDAO implements IJobOfferDAO
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
 
-/*             echo '<pre>';
+            /*             echo '<pre>';
             var_dump($resultSet); */
             if ($resultSet) {
                 foreach ($resultSet as $row) {
@@ -56,7 +58,7 @@ class JobOfferDAO implements IJobOfferDAO
                     $jobOffer->setEnterprise($row["id_enterprise"]);
                     $jobOffer->setStudent($row["id_student"]);
                     $jobOffer->setJobPosition($row["idJobPosition"]);
-                    $jobOffer->setActive($row["estado"]);
+                    $jobOffer->setActive($row["active"]);
                     $jobOffer->setCareer($row["id_career"]);
                     $jobOffer->setDescription($row["descripcion"]);
                     $jobOffer->setDate($row["fecha"]);
@@ -64,6 +66,37 @@ class JobOfferDAO implements IJobOfferDAO
                 }
             }
 
+            return $jobOffers;
+        } catch (Exception $ex) {
+            throw $ex;
+        }
+    }
+
+    public function getJobsByEnterpriseId($id)
+    {
+        $query = "SELECT * FROM jobOffer WHERE id_enterprise = :id";
+        $parameters["id"] = $id;
+        $jobOffers = array();
+        try {
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query, $parameters);
+
+            if ($resultSet) {
+                foreach ($resultSet as $row) {
+                    $jobOffer = new JobOffer();
+                    $jobOffer->setId($row["idJobOffer"]);
+                    $jobOffer->setEnterprise($row["id_enterprise"]);
+                    $jobOffer->setStudent($row["id_student"]);
+                    $jobOffer->setJobPosition($row["idJobPosition"]);
+                    $jobOffer->setActive($row["active"]);
+                    $jobOffer->setCareer($row["id_career"]);
+                    $jobOffer->setDescription($row["descripcion"]);
+                    $jobOffer->setDate($row["fecha"]);
+                    array_push($jobOffers, $jobOffer);
+                }
+            }
+/*             echo '<pre>';
+            var_dump($resultSet); */
             return $jobOffers;
         } catch (Exception $ex) {
             throw $ex;
@@ -84,5 +117,14 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function delete($jobOffer)
     {
+        $query = "UPDATE " . $this->table . " SET active = :active WHERE idJobOffer = :id";
+        $parameters["active"] = ($jobOffer->getActive()) ? 1 : 0;
+        $parameters["id"] = $jobOffer->getId();
+        try {
+            $this->connection = Connection::GetInstance();
+            return $this->connection->ExecuteNonQuery($query, $parameters);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 }

@@ -25,38 +25,72 @@ class UserController
         ViewController::showView($alert, 'login');
     }
 
-    public function principal_page(){
+    public function principal_page()
+    {
         ViewController::showView(null, 'principalPage');
     }
 
-    public function add($id, $email, $password, $active)
+/*     public function add($id, $email, $password, $active = true, $rol = STUDENT)
     {
         $alert = new Alert();
         try {
             $user = new User($email, $password);
+
+            if (!$this->userDao->getInfo($user))
+                throw new Exception("El usuario ya existe");
+
             $user->setId($id);
-            $user->setActive(true);
-            $user->setRol(2);
+            $user->setActive($active);
+            $user->setRol($rol);
             $alert->setType("success");
-            if ($this->userDao->getInfo($user)) {
-                echo $id;
-                if ($id) {
-                    $user->setId((int)$id);
-                    $alert->setMessage("Carrera modificada");
-                    ViewController::showView($alert, 'user-form', $this->userDao->update($user));
-                } else {
-                    $alert->setMessage("Usuario agregado");
-                    $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
-                    $this->userDao->save($user);
-                    ViewController::showView($alert, 'users', $this->userDao->getAll() /*$this->careerDAO->save($career)*/);
-                }
-            } else throw new Exception("La carrera que quiere agregar ya existe");
+
+            if ($id != "") {
+                $user->setId($id);
+                $alert->setMessage("Carrera modificada");
+                ViewController::showView($alert, 'user-form', $this->userDao->update($user));
+            } else {
+                $alert->setMessage("Usuario agregado");
+                $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
+                $this->userDao->save($user);
+                ViewController::showView($alert, 'user-form', $this->userDao->getAll() /*$this->careerDAO->save($career));
+            }
         } catch (Exception $ex) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'user-form');
+        }
+    } */
+
+    public function add($id = null, $email, $password, $active, $rol = STUDENT)
+    {
+        $alert = new Alert();
+        try {
+            $user = new User($email, $password);
+
+            if (!$this->userDao->getInfo($user))
+                throw new Exception("El usuario ya existe");
+
+            $user->setId($id);
+            $user->setActive(($active) ? $active : true);
+            $user->setRol($rol);
+            $alert->setType("success");
+
+            if ($id) {
+                $user->setId($id);
+                $alert->setMessage("Carrera modificada");
+                ViewController::showView($alert, 'user-form', $this->userDao->update($user));
+            } else {
+                $alert->setMessage("Usuario agregado");
+                $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
+                $this->userDao->save($user);
+                ViewController::showView($alert, 'user-form', $this->userDao->getAll() /*$this->careerDAO->save($career)*/);
+            }
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'user-form');
         }
     }
-
     public function login($email = "", $password = "")
     {
         $alert = new Alert();
@@ -120,13 +154,13 @@ class UserController
         try {
             $this->verifyEmptyField($passwordact);
 
-            if(!password_verify($passwordact, $user->getPassword()))
+            if (!password_verify($passwordact, $user->getPassword()))
                 throw new Exception("Tu password no coincide con el actual");
 
             $this->verifyEmptyField($passwordnew);
             $this->verifyEmptyField($passwordrep);
 
-            if($passwordnew !== $passwordrep)
+            if ($passwordnew !== $passwordrep)
                 throw new Exception("Las contraseñas no coinciden");
 
 
@@ -137,7 +171,6 @@ class UserController
             Session::setCurrentUser($user);
             $alert->setType("success");
             $alert->setMessage("Password cambiado correctamente");
-
         } catch (Exception $ex) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
@@ -195,7 +228,8 @@ class UserController
         }
     }
 
-    private function getInfo() {
+    private function getInfo()
+    {
         $user = Session::getCurrentUser();
 
         switch ($user->getRol()) {
