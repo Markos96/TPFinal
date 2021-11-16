@@ -30,6 +30,7 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
                         </table>
                     </div>
                     <a href="<?php echo FRONT_ROOT ?>enterprise/jobs/<?php echo $job->getEnterprise()->getId() ?>" class="btn btn-primary" role="button"><i class="fas fa-long-arrow-alt-left"></i></a>
+
                     <?php if ($user->getRol() == STUDENT) { ?>
                         <?php if ($job->getStudent() == null) { ?>
                             <a href="<?php echo FRONT_ROOT ?>job/save_postulation/<?php echo $job->getId() ?>" class="btn btn-success"><i class="fas fa-check"></i></a>
@@ -43,6 +44,7 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
                             <a class="btn btn-success text-light" href="<?php echo FRONT_ROOT ?>enterprise/job_delete/<?php echo $job->getId() ?>" ><i class="fas fa-undo-alt"></i></a>
                         <?php } ?>
                     <?php } ?>
+
                 </div>
             </div>
         </div>

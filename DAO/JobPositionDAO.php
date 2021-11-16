@@ -31,7 +31,26 @@ class JobPositionDAO implements IJobPositionDAO {
     }
 
     public function getAll(){
+        $query = "SELECT * FROM " . $this->table;
+        $jobPositions = array();
+        try{
+            $this->connection = Connection::GetInstance();
+            $resultSet = $this->connection->Execute($query);
 
+            if($resultSet) {
+                foreach ($resultSet as $row) {
+                    $jobPos = new JobPosition();
+                    $jobPos->setId($row["idJobPosition"]);
+                    $jobPos->setCareer($row["idcareer"]);
+                    $jobPos->setDescription($row["description"]);
+                    array_push($jobPositions, $jobPos);
+                }
+            }
+
+        } catch (Exception $ex ) {
+            throw $ex;
+        }
+        return $jobPositions;
     }
 
     public function save($model) {
