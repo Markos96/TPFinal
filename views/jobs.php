@@ -12,7 +12,7 @@
                     </div>
 
                     <div class="col-4">
-                        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>job/form"><i class="far fa-plus-square"></i></a>
+                        <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>job/create"><i class="far fa-plus-square"></i></a>
                         <?php ?>
                     </div>
                 </div>
