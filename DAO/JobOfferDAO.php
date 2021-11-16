@@ -109,6 +109,21 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function save($jobOffer)
     {
+        $query = "INSERT INTO " . $this->table . " (id_enterprise, idJobPosition, id_career, descripcion, fecha, active) VALUES (:id_enterprise, :idJobPosition, :id_career, :descripcion, :fecha, :active)";
+        $parameters["id_enterprise"] = $jobOffer->getEnterprise();
+        $parameters["idJobPosition"] = $jobOffer->getJobPosition();
+        $parameters["id_career"] = $jobOffer->getCareer();
+        $parameters["descripcion"] = $jobOffer->getDescription();
+        $parameters["fecha"] = $jobOffer->getDate();
+        $parameters["active"] = $jobOffer->getActive();
+
+        try {
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+
+        } catch (Exception $ex ) {
+            throw $ex;
+        }
     }
 
     public function update($jobOffer)
