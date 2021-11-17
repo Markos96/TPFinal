@@ -169,7 +169,7 @@ class EnterpriseController
   }
 
   public function envio($id){
-    
+    $jobs = array();
     $enterprise = $this->enterpriseDAO->getById($id); 
     $career = $this->careerDAO->getById($id);
     $para      = "markossolari@gmail.com";
@@ -179,9 +179,10 @@ class EnterpriseController
 
     if (mail($para, $asunto, $descripcion, $de))
       {
-        echo "Envio de email satisfactorio";
-        
+        ViewController::showView(null, 'jobs', $jobs);
+
       }
+      
   }
 
   public function job_delete($id)

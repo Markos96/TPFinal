@@ -133,6 +133,7 @@ class UserDAO implements IUserDAO
         } catch (Exception $ex) {
             throw $ex;
         }
+        return $user;
     }
 
     public function delete($user)

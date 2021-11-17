@@ -61,7 +61,7 @@ class UserController
         }
     } */
 
-    public function add($id = null, $email, $password, $active, $rol = STUDENT)
+    public function add($id, $email, $password, $active, $rol = STUDENT)
     {
         $alert = new Alert();
         try {
@@ -201,6 +201,9 @@ class UserController
             ViewController::showView($alert, 'users', $this->userDao->getAll());
         }
     }
+
+
+
 
     public function delete($id)
     {
