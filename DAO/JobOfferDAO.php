@@ -49,8 +49,6 @@ class JobOfferDAO implements IJobOfferDAO
             $this->connection = Connection::GetInstance();
             $resultSet = $this->connection->Execute($query);
 
-            /*             echo '<pre>';
-            var_dump($resultSet); */
             if ($resultSet) {
                 foreach ($resultSet as $row) {
                     $jobOffer = new JobOffer();
@@ -95,8 +93,6 @@ class JobOfferDAO implements IJobOfferDAO
                     array_push($jobOffers, $jobOffer);
                 }
             }
-/*             echo '<pre>';
-            var_dump($resultSet); */
             return $jobOffers;
         } catch (Exception $ex) {
             throw $ex;
@@ -128,6 +124,20 @@ class JobOfferDAO implements IJobOfferDAO
 
     public function update($jobOffer)
     {
+        //$query = "UPDATE " . $this->table . " SET name = :name WHERE idCareer = :idCareer";
+        $query = "UPDATE " . $this->table . " SET idJobPosition = :idJobPosition, id_career = :id_career, descripcion = :descripcion WHERE idJobOffer = :idJobOffer";
+        $parameters["idJobPosition"] = $jobOffer->getJobPosition();
+        $parameters["id_career"] = $jobOffer->getCareer();
+        $parameters["descripcion"] = $jobOffer->getDescription();
+        $parameters["idJobOffer"] = $jobOffer->getId();
+
+        try {
+            $this->connection = Connection::GetInstance();
+            $this->connection->ExecuteNonQuery($query, $parameters);
+
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 
     public function delete($jobOffer)

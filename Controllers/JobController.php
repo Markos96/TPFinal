@@ -116,7 +116,6 @@ class JobController
     }
 
     public function add ($id, $description, $enterprise, $jobPosition, $career, $active) {
-        echo '<pre>';
         $alert = new Alert();
         try {
             // validar que los campos $description - $enterprise - $jobposition - career no llegen vacios 
@@ -128,11 +127,13 @@ class JobController
             $jobOffer->setActive((($active) ? $active : true));
 
             $alert->setType("success");
+
             if($id == null){
-               $jobOffer->setDate(date('d-m-y'));
+               $jobOffer->setDate(date('y-m-d'));
                $alert->setMessage(JOBOFFER_CREATE);
                $this->jobOfferDAO->save($jobOffer);
             } else {
+                $jobOffer->setId($id);
                 $alert->setMessage(JOBOFFER_UPDATE);
                 $this->jobOfferDAO->update($jobOffer);
             }
@@ -161,6 +162,50 @@ class JobController
         }
     }
 
+    public function update($id) {
+        $alert = new Alert();
+        $job = null;
+        try {
+            $job = $this->jobOfferDAO->getById($id);
+
+            if($job){
+                $job->setCareer($this->careerDAO->getById($job->getCareer()));
+                $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
+                $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
+                ViewController::showView(null, 'job-form', $this->jobCreateContent(), $job);
+            }
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'jobs', $this->jobOfferDAO->getAll());
+        }
+    }
+
+    public function delete($id ) {
+        $alert = new Alert();
+
+        try {
+            $jobOffer = $this->jobOfferDAO->getById($id);
+
+            if(!$jobOffer)
+                throw new Exception("El registro que quiere eliminar no existe");
+            
+            $alert->setType("success");
+
+            $alert->setMessage($jobOffer->getActive() ? "La oferta se dio de baja" : "La oferta se dio de alta");
+
+            $jobOffer->setActive(!($jobOffer->getActive()));
+
+            $this->jobOfferDAO->delete($jobOffer);
+
+            ViewController::showView($alert, 'jobs', $this->getFullJobsContent());
+        } catch (Exception $ex) {
+            $alert->setType("danger");
+            $alert->setMessage($ex->getMessage());
+            ViewController::showView($alert, 'jobs', $this->jobCreateContent());
+        }
+    }
+
     private function jobCreateContent($id = null){
         $alert = new Alert();
         $jobContent = null;
@@ -177,8 +222,24 @@ class JobController
         } catch (Exception $ex) {
             $alert->setType("danger");
             $alert->setMessage($ex->getMessage());
-            ViewController::showView($alert, 'jobs');
+            ViewController::showView($alert, 'jobs', $this->getFullJobsContent());
         }
 
+    }
+
+    private function getFullJobsContent () {
+        $jobs = array();
+        try {
+            $jobs = $this->jobOfferDAO->getAll();
+            foreach ($jobs as $job) {
+                $job->setCareer($this->careerDAO->getById($job->getCareer()));
+                $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
+                $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
+                array_push($jobsFull, $job);
+            }
+            ViewController::showView(null, 'jobs', $jobsFull);
+        } catch (Exception $ex) {
+            throw $ex;
+        }
     }
 }
