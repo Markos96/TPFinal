@@ -30,6 +30,7 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
                         </table>
                     </div>
                     <a href="<?php echo FRONT_ROOT ?>enterprise/jobs/<?php echo $job->getEnterprise()->getId() ?>" class="btn btn-primary" role="button"><i class="fas fa-long-arrow-alt-left"></i></a>
+                    <a href="<?php echo FRONT_ROOT ?>enterprise/envio/<?php echo $enterprise->getId() ?>" class="btn btn-success text-light"><i class="fas fa-envelope-open-text"></i></a>
 
                     <?php if ($user->getRol() == STUDENT) { ?>
                         <?php if ($job->getStudent() == null) { ?>

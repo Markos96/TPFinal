@@ -156,12 +156,7 @@ class EnterpriseController
     try {
       $jobs = $this->jobOfferDAO->getJobsByEnterpriseId($id);
       foreach ($jobs as $job) {
-<<<<<<< HEAD
         $job->setEnterprise($this->enterpriseDAO->getById($id));
-=======
-        //$job->setEnterprise(Session::getCurrentInfoUser());
-        $job->setEnterprise($this->enterpriseDAO->getById($job->getEnterprise()));
->>>>>>> joaquin_alvarez
         $job->setCareer($this->careerDAO->getById($job->getCareer()));
         $job->setJobPosition($this->jobPositionDAO->getById($job->getJobPosition()));
       }
@@ -171,6 +166,28 @@ class EnterpriseController
       $alert->setMessage($ex->getMessage());
       ViewController::showView($alert, 'principal_page');
     }
+  }
+
+  public function envio($id){
+    $enterprise = $this->enterpriseDAO->getById($id); 
+    $career = $this->careerDAO->getById($id);
+    $para      = "markossolari@gmail.com";
+    $asunto    = 'Expiracion de Oferta';
+    
+    foreach($enterprise as $em){
+      if($id == $em->getId()){
+      echo $em->getName();
+    }
+    }
+
+    $descripcion   = 'La oferta para el puesto '. $career->getName() .' publicada por ' . $enterprise->getName(). ' acaba de expirar';
+   $de = 'From: ' . $enterprise->getName() ;
+
+    if (mail($para, $asunto, $descripcion, $de))
+      {
+        echo "Envio de email satisfactorio";
+        
+      }
   }
 
   public function job_delete($id)

@@ -15,6 +15,7 @@ require_once VIEWS_PATH . 'navbar.php';
           <div class="row">
             <div class="col-3">
               <a href="<?php echo FRONT_ROOT ?>enterprise/jobs/<?php echo $enterprise->getId() ?>" class="btn btn-info text-light"><i class="fas fa-newspaper"></i></a>
+              
             </div>
           </div>
         </div>
