@@ -35,6 +35,10 @@ background-image: linear-gradient(315deg, #f1f2f6 0%, #c9c6c6 74%);box-shadow: 0
                         <?php if ($job->getStudent() == null) { ?>
                             <a href="<?php echo FRONT_ROOT ?>job/save_postulation/<?php echo $job->getId() ?>" class="btn btn-success"><i class="fas fa-check"></i></a>
                         <?php } ?>
+                        <?php if($user->getRol()== ADMIN) { ?>
+
+<a href="<?php echo FRONT_ROOT ?>enterprise/envio/<?php echo $enterprise->getId() ?>" class="btn btn-success text-light"><i class="fas fa-envelope-open-text"></i></a>
+    <?php } ?>
                     <?php } ?>
                     <?php if ($user->getRol() == ENTERPRISE) { ?>
                         <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>enterprise/job_update/<?php echo $job->getId() ?>" ><i class="fas fa-edit"></i></a>
