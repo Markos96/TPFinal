@@ -173,13 +173,6 @@ class EnterpriseController
     $career = $this->careerDAO->getById($id);
     $para      = "markossolari@gmail.com";
     $asunto    = 'Expiracion de Oferta';
-    
-    foreach($enterprise as $em){
-      if($id == $em->getId()){
-      echo $em->getName();
-    }
-    }
-
     $descripcion   = 'La oferta para el puesto '. $career->getName() .' publicada por ' . $enterprise->getName(). ' acaba de expirar';
    $de = 'From: ' . $enterprise->getName() ;
 
