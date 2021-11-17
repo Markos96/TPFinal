@@ -37,14 +37,19 @@
                                         <td><?php echo $job->getJobPosition()->getDescription() ?></td>
                                         <td><?php echo $job->getDate() ?></td>
                                         <td>
-                                            <?php if($user->getRol() == ENTERPRISE || $user->getRol() == ADMIN) {?>
-                                            <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>job/update/"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-danger" href="#"><i class="fas fa-trash-alt"></i></a>
+                                            <?php if ($user->getRol() == ENTERPRISE || $user->getRol() == ADMIN) { ?>
+                                                <a class="btn btn-warning text-light" href="<?php echo FRONT_ROOT ?>job/update/<?php echo $job->getId() ?>"><i class="fas fa-edit"></i></a>
+
+                                                <?php if ($job->getActive()) { ?>
+                                                    <a class="btn btn-danger" href="<?php echo FRONT_ROOT ?>job/delete/<?php echo $job->getId() ?>"><i class="fas fa-trash-alt"></i></a>
+                                                <?php } else { ?>
+                                                    <a class="btn btn-success" href="<?php echo FRONT_ROOT ?>job/delete/<?php echo $job->getId() ?>"><i class="fas fa-undo-alt"></i></a>
+                                                <?php } ?>
                                             <?php } ?>
                                             <a class="btn btn-info" href="<?php echo FRONT_ROOT ?>job/more_info/<?php echo $job->getId() ?>"><i class="far fa-eye"></i></a>
 
                                         </td>
-                                        
+
                                         <!-- Si es admin mostrar editar y eliminar -->
                                         <!-- Si es un estudiante y todavia no se postulo a ningun trabajo postular -->
                                     </tr>
