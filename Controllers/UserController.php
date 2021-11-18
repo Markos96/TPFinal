@@ -30,37 +30,6 @@ class UserController
         ViewController::showView(null, 'principalPage');
     }
 
-/*     public function add($id, $email, $password, $active = true, $rol = STUDENT)
-    {
-        $alert = new Alert();
-        try {
-            $user = new User($email, $password);
-
-            if (!$this->userDao->getInfo($user))
-                throw new Exception("El usuario ya existe");
-
-            $user->setId($id);
-            $user->setActive($active);
-            $user->setRol($rol);
-            $alert->setType("success");
-
-            if ($id != "") {
-                $user->setId($id);
-                $alert->setMessage("Carrera modificada");
-                ViewController::showView($alert, 'user-form', $this->userDao->update($user));
-            } else {
-                $alert->setMessage("Usuario agregado");
-                $user->setPassword(password_hash($user->getPassword(), PASSWORD_DEFAULT));
-                $this->userDao->save($user);
-                ViewController::showView($alert, 'user-form', $this->userDao->getAll() /*$this->careerDAO->save($career));
-            }
-        } catch (Exception $ex) {
-            $alert->setType("danger");
-            $alert->setMessage($ex->getMessage());
-            ViewController::showView($alert, 'user-form');
-        }
-    } */
-
     public function add($id = null, $email, $password, $active, $rol = STUDENT)
     {
         $alert = new Alert();
@@ -102,11 +71,12 @@ class UserController
             $user = new User($email, $password);
             $user = $this->userDao->getByEmail($email);
 
+            if (!$user || !(password_verify($password, $user->getPassword()))) {
+                throw new Exception("Usuario y/o password incorrecto");
+            }
+
             if (!$user->getActive()) {
                 throw new Exception("El usuario esta dado de baja contacte con un administrador");
-            }
-            if (!password_verify($password, $user->getPassword())) {
-                throw new Exception("Usuario y/o password incorrecto");
             }
 
             Session::setCurrentUser($user);

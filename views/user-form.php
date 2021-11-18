@@ -20,7 +20,7 @@
             </select>
             <div>
               <button type="submit" class="btn btn-primary">Enviar</button>
-              <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>enterprise">Volver</a>
+              <a class="btn btn-secondary" href="<?php echo FRONT_ROOT ?>user/all">Volver</a>
             </div>
           </form>
         </div>
